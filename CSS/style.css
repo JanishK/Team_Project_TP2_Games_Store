@@ -1,0 +1,79 @@
+:root {
+  --color-primary: #A0D2EB;   /* Light Blue */
+  --color-secondary: #E5EAF5; /* Soft Lavender */
+  --color-accent: #D0BDF4;    /* Pastel Purple */
+  --color-highlight: #8458B3; /* Rich Purple */
+  --color-dark: #494D5F;      /* Deep Slate */
+}
+* {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-secondary);
+  color: var(--color-dark);
+  margin: 0;
+  padding: 0;
+}
+
+
+.nav-bar {
+    background-color: var(--color-highlight);
+    padding: 15px 25px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.nav-bar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-bar li {
+    display: inline-block;
+    margin: 0 15px;
+    background-color: transparent;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: var(--color-dark);
+    font-weight: 600;
+    font-size: 20px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    transition: 
+        background-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.2s ease;
+}
+
+/* Hover Styling */
+.nav-bar a:hover {
+    background-color: var(--color-accent);    /* lighter purple hover */
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Optional Active State */
+.nav-bar a.active {
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+}
+
+/* Mobile-Friendly */
+@media (max-width: 600px) {
+    .nav-bar li {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+.register-container {
+
+    background-color: var(--color-primary);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
