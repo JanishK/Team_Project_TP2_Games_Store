@@ -37,6 +37,12 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
+.page_logo {
+  width: 24px;
+  height: auto;
+  object-fit: contain;
+}
+
 .nav-left,
 .nav-right {
   display: flex;
@@ -108,11 +114,7 @@ body {
   animation: fadeIn 0.6s ease-out;
 }
 
-/* Fade In Animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+
 
 /* TITLE */
 .register-container h1 {
@@ -214,4 +216,10 @@ body {
 @media (max-width: 480px) {
   .register-container { width: 92%; }
   .register-container h1 { font-size: 22px; }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
