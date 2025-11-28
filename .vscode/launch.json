@@ -1,0 +1,14 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Open contactUs_Page.html",
+            "file": "c:\\Users\\rahee\\OneDrive - Aston University\\Team Project\\Team_Project_TP2_Games_Store\\Pages\\contactUs_Page.html"
+        }
+    ]
+}

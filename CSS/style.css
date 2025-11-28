@@ -97,9 +97,10 @@ body {
 }
 
 /* ---------------------------------------------------
-    REGISTER CONTAINER
+    REGISTER and Login CONTAINER
 --------------------------------------------------- */
-.register-container {
+.register-container,
+.login-container {
   width: 500px;
   margin: 5% auto;
   padding: 25px;
@@ -117,7 +118,8 @@ body {
 
 
 /* TITLE */
-.register-container h1 {
+.register-container h1,
+.login-container h1 {
   font-size: 26px;
   font-weight: 600;
   margin-bottom: 18px;
@@ -127,19 +129,22 @@ body {
 }
 
 /* SUBTEXT */
-.register-container p {
+.register-container p,
+.login-container p {
   font-size: 18px;
   margin-bottom: 10px;
   opacity: 0.9;
 }
 
 /* LINK */
-.register-container a {
+.register-container a,
+.login-container a {
   font-size: 17px;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.register-container a:hover {
+.register-container a:hover,
+.login-container a:hover {
   color: var(--color-accent);
   transform: translateY(-2px);
 }
@@ -147,7 +152,8 @@ body {
 /* ---------------------------------------------------
     FORM
 --------------------------------------------------- */
-.registration-form form {
+.registration-form form,
+.login-form form {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -158,7 +164,9 @@ body {
 /* INPUT FIELDS */
 .registration-form input[type="email"],
 .registration-form input[type="text"],
-.registration-form input[type="password"] {
+.registration-form input[type="password"],
+.login-form input[type="text"],
+.login-form input[type="password"] {
   width: 90%;
   padding: 12px;
 
@@ -174,14 +182,16 @@ body {
   transition: 0.25s ease;
 }
 
-.registration-form input:focus {
+.registration-form input:focus,
+.login-form input:focus {
   border-color: var(--color-highlight);
   outline: none;
   background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* SUBMIT BUTTON */
-.registration-form input[type="submit"] {
+.registration-form input[type="submit"],
+.login-form input[type="submit"] {
     width: 50%;
     padding: 12px 12px;
 
@@ -201,7 +211,8 @@ body {
 }
 
 
-.registration-form input[type="submit"]:hover {
+.registration-form input[type="submit"]:hover,
+.login-form input[type="submit"]:hover {
   transform: translateY(-2px);
   opacity: 0.9;
 }
@@ -211,11 +222,14 @@ body {
 --------------------------------------------------- */
 @media (max-width: 768px) {
   .register-container { width: 80%; }
+  .login-container { width: 80%; }
 }
 
 @media (max-width: 480px) {
   .register-container { width: 92%; }
   .register-container h1 { font-size: 22px; }
+  .login-container { width: 92%; }
+  .login-container h1 { font-size: 22px; }
 }
 
 /* Fade In Animation */

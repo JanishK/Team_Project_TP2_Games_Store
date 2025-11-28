@@ -1,9 +1,9 @@
 <?php
 
 $db_host = 'localhost';
-$db_name = 'game_store';
-$username = 'root';
-$password = '';
+$db_name = 'cs2team62_game_store';
+$username = 'cs2team62';
+$password = 'GY0GxDiTfefavKmkkCh894dlb';
 
 try {
 	$db = new PDO("mysql:dbname=$db_name;host=$db_host", $username, $password); 
