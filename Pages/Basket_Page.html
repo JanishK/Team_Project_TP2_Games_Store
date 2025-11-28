@@ -39,8 +39,38 @@
     </div>
 >>>>>>> origin/main
     <div>
-        <h1>Basket</h1>
-        <p>Your selected games will appear here.</p>
+        <section>
+            <h1>BASKET</h1>
+            <button><h5>Remove all</h5></button>
+            <div id="shopping_list">
+                <p> Currently, your basket has zero items</p> <!--currently says zero but needs to be able to adjust to how many items have been added.-->
+            </div>
+            <section>
+                <h3>Order summary</h3>
+                <p>Total items: 0</p> <!--currently says zero but needs to adjust to when an item is added -->
+                <p>Total cost: £0.00</p> <!-- currently says zero but needs to adjust to when an item is added -->
+                <button>Proceed to checkout</button>
+            </section>
+
+            <div class="game_template"style="display:flex; align-items:stretch; justify-content:space-between; width: 80%; border: 1px solid #ccc; border-radius: 12px; padding: 15px; margin: 15px 0; margin-left: 8%;">
+                <div class="basket_left" style="flex:0 0 auto;">
+                    <img id="game_img" src="placement_image.jpg" alt="game cover" style="width: 170px; height: 160px; margin-left: 15px;">
+                </div>
+                <div class="basket_middle" style="display:flex; flex-direction: column; justify-content: center; align-items: center; flex:1;">
+                    <label id="game_name" for="">(name)</label>
+                    <label id="game_price"for="">(£0.00)</label>
+                </div>
+                <div class="basket_right" style="display:flex; flex-direction: column; justify-content: space-between; align-items: flex-end; flex:0 0 auto;">
+                    <button id="remove_item" style="margin-bottom: 10px">remove</button>
+                
+                    <div class="basket_bottom_right">
+                        <button id="decrement">-</button>
+                        <label id="num" for="">0</label>
+                        <button id="increment">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </body>
 </html>
