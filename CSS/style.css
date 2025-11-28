@@ -1,79 +1,248 @@
+/* ---------------------------------------------------
+    GLOBAL THEME COLORS
+--------------------------------------------------- */
 :root {
-  --color-primary: #A0D2EB;   /* Light Blue */
-  --color-secondary: #E5EAF5; /* Soft Lavender */
-  --color-accent: #D0BDF4;    /* Pastel Purple */
-  --color-highlight: #8458B3; /* Rich Purple */
-  --color-dark: #494D5F;      /* Deep Slate */
+  --color-primary: #7EA6F4;      /* Soft modern blue */
+  --color-secondary: #E9ECF5;    /* Clean light text */
+  --color-accent: #C49BFF;       /* Soft purple accents */
+  --color-highlight: #8C5BFF;    /* Strong purple highlight */
+  --color-dark: #2C2F3A;         /* Card backgrounds */
+  --color-background: #21232B;   /* Page background */
 }
+
+/* ---------------------------------------------------
+    GLOBAL RESET + BASE STYLES
+--------------------------------------------------- */
 * {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--color-secondary);
-  color: var(--color-dark);
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-secondary);
 }
 
+body {
+  background-color: var(--color-background);
+}
 
+/* ---------------------------------------------------
+    NAV BAR
+--------------------------------------------------- */
 .nav-bar {
-    background-color: var(--color-highlight);
-    padding: 15px 25px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 25px;
+  background-color: var(--color-dark);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
-.nav-bar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.page_logo {
+  width: 24px;
+  height: auto;
+  object-fit: contain;
 }
 
-.nav-bar li {
-    display: inline-block;
-    margin: 0 15px;
-    background-color: transparent;
+.nav-left,
+.nav-right {
+  display: flex;
+  gap: 22px;
+  list-style: none;
 }
 
+/* NAV LINKS */
 .nav-bar a {
-    text-decoration: none;
-    color: var(--color-dark);
-    font-weight: 600;
-    font-size: 20px;
-    padding: 12px 18px;
-    border-radius: 8px;
-    transition: 
-        background-color 0.25s ease,
-        color 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.2s ease;
+  text-decoration: none;
+  color: var(--color-secondary);
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 8px;
+
+  transition: all 0.25s ease;
 }
 
-/* Hover Styling */
+/* NAV LINK HOVER */
 .nav-bar a:hover {
-    background-color: var(--color-accent);    /* lighter purple hover */
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--color-highlight);
+
+  color: var(--color-highlight);
+  transform: translateY(-2px);
+  text-shadow: 0 0 10px var(--color-highlight);
 }
 
-/* Optional Active State */
+/* ACTIVE PAGE */
 .nav-bar a.active {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+/* ICONS IN NAV */
+.basket-icon,
+.profile-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* Makes icons white */
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+/* ICON HOVER */
+.basket-icon:hover,
+.profile-icon:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.8) invert(1);
+}
+
+/* ---------------------------------------------------
+    REGISTER CONTAINER
+--------------------------------------------------- */
+.register-container {
+  width: 500px;
+  margin: 5% auto;
+  padding: 25px;
+
+  background-color: var(--color-dark);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.6s ease-out;
+}
+
+
+
+/* TITLE */
+.register-container h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 18px;
+
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* SUBTEXT */
+.register-container p {
+  font-size: 18px;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+
+/* LINK */
+.register-container a {
+  font-size: 17px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.register-container a:hover {
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+/* ---------------------------------------------------
+    FORM
+--------------------------------------------------- */
+.registration-form form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* ← This centers the inputs & button */
+}
+
+
+/* INPUT FIELDS */
+.registration-form input[type="email"],
+.registration-form input[type="text"],
+.registration-form input[type="password"] {
+  width: 90%;
+  padding: 12px;
+
+  margin: 8px 0;
+
+  background-color: transparent;
+  border: 2px solid var(--color-accent);
+  border-radius: 6px;
+
+  color: var(--color-secondary);
+  font-size: 16px;
+
+  transition: 0.25s ease;
+}
+
+.registration-form input:focus {
+  border-color: var(--color-highlight);
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* SUBMIT BUTTON */
+.registration-form input[type="submit"] {
+    width: 50%;
+    padding: 12px 12px;
+
     background-color: var(--color-primary);
     color: var(--color-dark);
+
+    font-size: 18px;
+    font-weight: 600;
+
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    margin-top: 10px;
+    transition: all 0.25s ease;
+    margin-bottom: 10px;
 }
 
-/* Mobile-Friendly */
-@media (max-width: 600px) {
-    .nav-bar li {
-        display: block;
-        margin: 10px 0;
-    }
+
+.registration-form input[type="submit"]:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
-.register-container {
-
-    background-color: var(--color-primary);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* ---------------------------------------------------
+    RESPONSIVE FIXES
+--------------------------------------------------- */
+@media (max-width: 768px) {
+  .register-container { width: 80%; }
 }
 
+@media (max-width: 480px) {
+  .register-container { width: 92%; }
+  .register-container h1 { font-size: 22px; }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* ---------------------------------------------------
+    ERROR AND SUCCESS MESSAGES
+--------------------------------------------------- */
+.error-message {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: #ff4d4d; /* Bright red */
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+}
+.success-message {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: #4BB543; /* Bright green */
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+}

@@ -1,7 +1,7 @@
 <?php
 
 $db_host = 'localhost';
-$db_name = 'gaming';
+$db_name = 'game_store';
 $username = 'root';
 $password = '';
 
