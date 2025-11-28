@@ -80,8 +80,7 @@ if (isset($_POST['submitted'])){
         <?php
         if (!empty($error_message)){
             echo '<div class="error-message">' . $error_message . '</div>';
-    }?>
-        <?php
+    }
         if (!empty($success_message)){
             echo '<div class="success-message">' . $success_message . '</div>';
         }
