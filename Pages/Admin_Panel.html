@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="icon" type="image/png" href="/Assets/Logo.png">
 
+    <style>
+        .table{ 
+            width: 95%; 
+            margin: auto; 
+        }
+
+        #add-button{
+            margin: 0 0 20px 2.5%;
+        }
+        
+        .section{ margin-top: 50px; }
+        h2      { margin: 20px 20px 20px 1%; }
+        th,td   { padding: 10px; }
+        button  { padding: 5px; }
+    </style>
 </head>
 <body>
     <div class="nav-bar">
@@ -26,17 +41,17 @@
         </ul>
     </div>
 
-    <div id="Users-table">
+    <div id="Users-table" class="section">
         <h2>Users</h2>
-        <table border="1">
-            <thead><tr>
-                <th>UID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Admin?</th>
+        <table border="1" class="table">
+            <thead><tr class="row">
+                <th style="width:5%;">UID</th>
+                <th style="width:45%;">Username</th>
+                <th style="width:45%;">Email</th>
+                <th style="width:5%;">Admin?</th>
             </tr></thead>
 
-            <tbody><tr id="user-template">
+            <tbody><tr id="user-template" class="row">
                 <td>1</td>
                 <td>[Username]</td>
                 <td>[Email]</td>
@@ -45,28 +60,28 @@
         </table>
     </div>
 
-    <div id="Games-table">
+    <div id="Games-table" class="section">
         <h2>Games</h2>
-        <button>Add New Game</button>
-        <table border="1">
-            <thead><tr>
-                <th>GID</th>
-                <th>Name</th>
-                <th>Platform</th>
-                <th>Price(£)</th>
-                <th>Age Rating</th>
-                <th>Actions</th>
+        <button id="add-button">Add New Game</button>
+        <table border="1" class="table">
+            <thead><tr class="row">
+                <th style="width:5%;">GID</th>
+                <th style="width:55%;">Name</th>
+                <th style="width:10%;">Platform</th>
+                <th style="width:10%;">Price(£)</th>
+                <th style="width:10%;">Age Rating</th>
+                <th style="width:10%;">Actions</th>
             </tr></thead>
 
-            <tbody><tr id="user-template">
+            <tbody><tr id="user-template" class="row">
                 <td>1</td>
                 <td>[Game Name]</td>
                 <td>[Platform]</td>
                 <td>£0.00</td>
                 <td>12+</td>
                 <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button id="edit-button">Edit</button>
+                    <button id="delete-button">Delete</button>
                 </td>
             </tr></tbody>
         </table>
