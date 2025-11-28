@@ -265,27 +265,8 @@ body {
   box-shadow: 0 2px 5px rgba(126, 166, 244, 0.3);
 }
 
-/* ---------------------------------------------------
-    RESPONSIVE FIXES (RETAINED/ADJUSTED)
---------------------------------------------------- */
-@media (max-width: 768px) {
-  .register-container { width: 90%; }
-  .login-container { width: 90%; }
-}
 
-@media (max-width: 480px) {
-  /* Containers are already limited by max-width: 90% */
-  .register-container h1 { font-size: 26px; }
-  .login-container h1 { font-size: 26px; }
-  .registration-form input[type="submit"],
-  .login-form input[type="submit"] { width: 75%; }
-}
 
-/* Fade In Animation (ENHANCED) */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to  { opacity: 1; transform: translateY(0); }
-}
 
 /* ---------------------------------------------------
     ERROR AND SUCCESS MESSAGES (ENHANCED)
@@ -355,4 +336,111 @@ body {
   color: var(--color-primary);
   margin-top: 25px;
   margin-bottom: 15px;
+}
+
+.mission-section p, .commitment-section p {
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* working on the image in the about us page */
+.responsive-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: var(--shadow-subtle);
+  transition: transform 0.3s ease;
+}
+
+.responsive-image:hover {
+  transform: scale(1.03);
+}
+
+.commitment-section {
+  list-style: none;
+  padding: 0;
+}
+
+.commitment-section li {
+  font-size: 16px;
+  padding-left: 0;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-check {
+  color: var(--color-accent);
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.icon-check::before {
+  content: '✔'; /* Checkmark symbol */
+  font-weight: 1200;
+}
+
+
+.cta-section {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-primary);
+}
+
+.cta-button {
+  margin-top: 10PX;
+  display: inline-block;
+  padding: 14px 28px;
+  background-color: var(--color-accent);
+  color: var(--color-dark);
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: var(--color-highlight);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(140, 91, 255, 0.4);
+}
+
+/* ---------------------------------------------------
+    RESPONSIVE FIXES (RETAINED/ADJUSTED)
+--------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .register-container { width: 90%; }
+  .login-container { width: 90%; }
+}
+
+@media (max-width: 480px) {
+  /* Containers are already limited by max-width: 90% */
+  .register-container h1 { font-size: 26px; }
+  .login-container h1 { font-size: 26px; }
+  .registration-form input[type="submit"],
+  .login-form input[type="submit"] { width: 75%; }
+}
+
+/* Fade In Animation (ENHANCED) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to  { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Fixes for Mobile */
+@media (max-width: 900px) {
+    .about-main-grid {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        gap: 30px;
+    }
+    .grid-image-column {
+        /* Move image above the CTA on mobile */
+        order: -1; 
+    }
+    .page-title {
+        font-size: 40px;
+    }
 }
