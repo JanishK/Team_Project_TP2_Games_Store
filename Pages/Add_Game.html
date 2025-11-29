@@ -9,7 +9,9 @@
 
     <!-- internal css for webpage layout -->
     <style>
-
+        .element{
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -26,8 +28,27 @@
         </ul>
     </div>
 
-    <div>
-        this is the add game page
+    <div id="create-game">
+        <form action="" id="create-form">
+            <input type="text" name="gameName" class="element" required>
+
+            <select name="platform" id="platform" class="element" required>
+                <option value="" hidden>Select Platform</option>
+                <option value="PlayStation">PlayStation</option>
+                <option value="XBOX">XBOX</option>
+                <option value="Nintendo">Nintendo Switch</option>
+                <option value="Steam">Steam Deck</option>
+                <option value="PC">PC</option>
+                <option value="Android">Android</option>
+                <option value="IOS">IOS</option>
+            </select>
+            
+            <input type="number" name="Price" id="price" class="element" required>
+            
+            <input type="file" name="Choose File" id="img" class="element" required>
+            
+            <textarea name="Description" id="description" placeholder="Description" class="element" required></textarea>
+        </form>
     </div>
 
 </body>
