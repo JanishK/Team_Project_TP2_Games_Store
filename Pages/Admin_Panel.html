@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="icon" type="image/png" href="/Assets/Logo.png">
 
+    <!-- internal css for webpage layout -->
     <style>
         .table{ 
             width: 95%; 
             margin: auto; 
         }
 
-        button  { 
+        button { 
             padding: 5px;
             background-color: purple;
         }
@@ -26,8 +27,9 @@
     </style>
 </head>
 <body>
+    <!-- navigation bar to link to other webpages -->
     <div class="nav-bar">
-        <ul class="nav-left">
+        <ul class="nav-left"> 
             <img class="page_logo" src="/Assets/Logo.png" alt="">
             <li><a href="./home_Page.html">Home</a></li>
             <li><a href="./Products_Page.html">Products</a></li>
@@ -43,8 +45,11 @@
         </ul>
     </div>
 
+    <!-- div section displaying all the registered users -->
     <div id="Users-table" class="section">
         <h2>Users</h2>
+
+        <!-- users viewed in a table format -->
         <table border="1" class="table">
             <thead><tr class="row">
                 <th style="width:5%;">UID</th>
@@ -53,6 +58,7 @@
                 <th style="width:5%;">Admin?</th>
             </tr></thead>
 
+            <!-- template row to be modified when displaying users from the DB -->
             <tbody><tr id="user-template" class="row">
                 <td>1</td>
                 <td>[Username]</td>
@@ -62,9 +68,14 @@
         </table>
     </div>
 
+    <!-- div section displaying all the published games -->
     <div id="Games-table" class="section">
         <h2>Games</h2>
+
+        <!-- button to publish a game -->
         <button id="add-button">Add New Game</button>
+
+        <!-- games viewed in a table format -->
         <table border="1" class="table">
             <thead><tr class="row">
                 <th style="width:5%;">GID</th>
@@ -75,6 +86,7 @@
                 <th style="width:10%;">Actions</th>
             </tr></thead>
 
+            <!-- template row to be modified when displaying games from the DB -->
             <tbody><tr id="user-template" class="row">
                 <td>1</td>
                 <td>[Game Name]</td>
