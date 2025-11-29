@@ -12,6 +12,10 @@
         .element{
             color: black;
         }
+
+        select:has(option[value=""]:checked){
+            color: #757575;
+        }
     </style>
 </head>
 <body>
@@ -33,14 +37,14 @@
             <input type="text" name="gameName" class="element" required>
 
             <select name="platform" id="platform" class="element" required>
-                <option value="" hidden>Select Platform</option>
-                <option value="PlayStation">PlayStation</option>
-                <option value="XBOX">XBOX</option>
-                <option value="Nintendo">Nintendo Switch</option>
-                <option value="Steam">Steam Deck</option>
-                <option value="PC">PC</option>
-                <option value="Android">Android</option>
-                <option value="IOS">IOS</option>
+                <option class="element" value="" disabled selected hidden>Select Platform</option>
+                <option class="element" value="PlayStation">PlayStation</option>
+                <option class="element" value="XBOX">XBOX</option>
+                <option class="element" value="Nintendo">Nintendo Switch</option>
+                <option class="element" value="Steam">Steam Deck</option>
+                <option class="element" value="PC">PC</option>
+                <option class="element" value="Android">Android</option>
+                <option class="element" value="IOS">IOS</option>
             </select>
             
             <input type="number" name="Price" id="price" class="element" required>
