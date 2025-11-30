@@ -1,23 +1,64 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Check Out</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="icon" type="image/png" href="/Assets/Logo.png">
+
 </head>
 <body>
-    <nav>
-        <li>
-            <a href="./home_Page.html">Home</a>
-            <a href="./Products_Page.html">Product</a>
-            <a href="./About_Us_Page.html">About Us</a>
-            <a href="./registration_page.html">Register</a>
-            <a href="./Basket_Page.html">Basket</a>
-        </li>
-    </nav>
+    <div class="nav-bar">
+        <ul class="nav-left">
+            <img class="page_logo" src="/Assets/Logo.png" alt="">
+            <li><a href="./home_Page.html">Home</a></li>
+            <li><a href="./Products_Page.html">Products</a></li>
+            <li><a href="./aboutUs_Page.html">About</a></li>
+        </ul>
+
+        <ul class="nav-right">
+            <li><a href="./contact_us.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./registration_page.html"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./basket_Page.html">
+                <img src="/Assets/Basket.svg" class="basket-icon" />
+            </a></li>
+        </ul>
+    </div>
     <div>
-        <h1>Basket</h1>
-        <p>Your selected games will appear here.</p>
+        <section class="basket-page-section">
+            <h1>BASKET</h1>
+            <button><h5>Remove all</h5></button>
+            <div id="shopping_list">
+                <p> Currently, your basket has zero items</p> <!--currently says zero but needs to be able to adjust to how many items have been added.-->
+            </div>
+            <section>
+                <h3>Order summary</h3>
+                <p>Total items: 0</p> <!--currently says zero but needs to adjust to when an item is added -->
+                <p>Total cost: £0.00</p> <!-- currently says zero but needs to adjust to when an item is added -->
+                <button>Proceed to checkout!</button>
+            </section>
+
+            <div class="game_template">
+                <div class="basket_left" >
+                    <img id="game_img" src="/Assets/PlacerHolder.jpeg" alt="game cover" >
+                </div>
+                <div class="basket_middle" >
+                    <label id="game_name" for="">ZERO ECHO</label>
+                    <label id="game_price"for="">£99.99</label>
+                </div>
+                <div class="basket_right">
+                    <button id="remove_item" >Remove</button>
+                
+                    <div class="basket_bottom_right">
+                        <button id="decrement">-</button>
+                        <label id="num" for="">0</label>
+                        <button id="increment">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </body>
 </html>

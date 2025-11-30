@@ -1,24 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>About</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="icon" type="image/png" href="/Assets/Logo.png">
+
 </head>
 <body>
-    <nav>
-        <li>
-            <a href="./home_Page.html">Home</a>
-            <a href="./Products_Page.html">Product</a>
-            <a href="./aboutUs_Page.html">About Us</a>
-            <a href="./registration_page.html">Register</a>
-            <a href="./Basket_Page.html">Basket</a>
-        </li>
-    </nav>
+    <div class="nav-bar">
+        <ul class="nav-left">
+            <img class="page_logo" src="/Assets/Logo.png" alt="CoreByte">
+            <li><a href="./home_Page.html">Home</a></li>
+            <li><a href="./Products_Page.html">Products</a></li>
+            <li><a href="./aboutUs_Page.html">About</a></li>
+        </ul>
 
-    <div>
-        <h1>About Us</h1>
-        <p>Welcome to our game store! We offer a wide variety of games for all platforms.</p>
+        <ul class="nav-right">
+            <li><a href="./contact_us.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./registration_page.html"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./basket_Page.html">
+                <img src="/Assets/Basket.svg" class="basket-icon" />
+            </a></li>
+        </ul>
     </div>
+
+<body>
+    <main>
+        <section class="about-page-content">
+    
+    <header class="about-header">
+        <h1 class="page-title">About Us</h1>
+    </header>
+
+    <div class="about-main-grid">
+        
+        <div class="grid-text-column">
+
+            <article class="mission-section">
+                <h2 class="section-heading">Our Mission: Elevating Your Game</h2>
+                <p>
+                    We're passionate about bringing the **best gaming experience** to players of all ages. Our core purpose is to provide reliable platforms where gamers can explore and purchase the latest and greatest games across all platforms.
+                </p>
+                <p>
+                    Corebyte is committed to offering a selection of only **quality, unique, and trustworthy** games. We continuously expand our catalogue and improve our services, making us your trusted gaming marketplace.
+                </p>
+            </article>
+
+            <article class="commitment-section">
+                <h2 class="section-heading">Our Commitment to Gamers</h2>
+                <ul class="commitment-list">
+                    <li><i class="icon-check"></i> Vetted titles and reliable platforms.</li>
+                    <li><i class="icon-check"></i> Secure transactions and protected data.</li>
+                    <li><i class="icon-check"></i> Always expanding our catalogue with the latest releases.</li>
+                </ul>
+            </article>
+
+            <div class="cta-section">
+                <p>
+                    If you have any questions or queries, don't hesitate to reach out!
+                </p>
+                <a href="/contact" class="cta-button">
+                    Get in Touch with Corebyte
+                </a>
+            </div>
+
+        </div>
+
+        <div class="grid-image-column">
+            <img 
+                src="/CoreByte Website Images/Gamer Picture.jpg" 
+                alt="Gamer wearing headphones and playing a PC game." 
+                class="responsive-image styled-shadow"
+            >
+        </div>
+
+    </div>
+
+</section>
+    </main>
+
 </body>
+
 </html>
