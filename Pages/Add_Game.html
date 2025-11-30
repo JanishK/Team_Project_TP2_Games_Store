@@ -9,13 +9,57 @@
 
     <!-- internal css for webpage layout -->
     <style>
+        #create-game{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75vh;
+            padding: 20px;
+        }
+
+        #create-form{
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            max-height: fit-content;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .nav-button{
+            background: #2C2F3A;
+        }
+
+        .nav-bar.bottom{
+            height: 20px;
+            bottom: 0;
+        }
+
         .element{
             color: black;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        #description{
+            min-height: 50px;
         }
 
         select:has(option[value=""]:checked){
             color: #757575;
         }
+
+        form #add{
+            justify-self: left;
+            max-width: fit-content;
+        }
+
+        form #file{
+            background: white;
+        }
+
     </style>
 </head>
 <body>
@@ -27,14 +71,14 @@
         </ul>
 
         <ul class="nav-right">
-            <li><button>Back to Admin Panel</button></li>
-            <li><button>Logout</button></li>
+            <li><label class="nav-button">Back to Admin Panel</label></li>
+            <li><label class="nav-button">Logout</label></li>
         </ul>
     </div>
 
     <div id="create-game">
         <form action="" id="create-form">
-            <input type="text" name="gameName" class="element" required>
+            <input type="text" name="gameName" placeholder="Game Name" class="element" required>
 
             <select name="platform" id="platform" class="element" required>
                 <option class="element" value="" disabled selected hidden>Select Platform</option>
@@ -47,13 +91,20 @@
                 <option class="element" value="IOS">IOS</option>
             </select>
             
-            <input type="number" name="Price" id="price" class="element" required>
+            <input type="number" name="Price" id="price" placeholder="Price (£)" class="element" required>
+
+            <input type="number" name="Age" id="age" placeholder="Set Age Rating" class="element" required>
             
-            <input type="file" name="Choose File" id="img" class="element" required>
+            <input type="file" name="Choose File" id="file" class="element" required>
             
             <textarea name="Description" id="description" placeholder="Description" class="element" required></textarea>
+
+            <button type="submit" name="add" id="add" class="element">Add Game</button>
         </form>
     </div>
+
+      <!-- Bottom bar -->
+  <div class="nav-bar bottom"></div>
 
 </body>
 
