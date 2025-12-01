@@ -85,6 +85,7 @@ try{
 	$success_message = "Game $name has been added successfully. ";  	
 	
  }
+ // catch any database errors
  catch (PDOException $ex){
 	$error_message = "Sorry, a database error occurred! <br>";
 	$error_message = "Error details: <em>". $ex->getMessage()."</em>";
@@ -166,7 +167,7 @@ try{
         </ul>
 
         <ul class="nav-right">
-            <li><a href="Admin_Panel.html"><label class="nav-button">Back to Admin Panel</label></a></li>
+            <li><a href="Admin_Panel.php"><label class="nav-button">Back to Admin Panel</label></a></li>
             <li><a href="logout.php"><label class="nav-button">Logout</label></a></li>
         </ul>
     </div>

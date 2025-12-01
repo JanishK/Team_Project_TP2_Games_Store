@@ -1,3 +1,42 @@
+<?php
+$error_message = '';
+$success_message = '';
+// Start the session
+session_start();
+// Get is_admin from session
+$is_admin = $_SESSION['is_admin'] ?? false;
+// Check if user is admin
+if($is_admin !== 1){
+    // Redirect to home page if not admin
+    header("Location: Home_Page.html");
+    exit();
+}
+ // if not logged in, redirect to login page
+if(!isset($_SESSION['username'])){
+    // Redirect to login page
+    header("Location: Login_Page.php");
+    exit();
+}
+// connect to the database
+require_once('connectdb.php');
+// Fetch all users from the database
+try {
+    $users = $db->prepare("SELECT uid, username, email, is_admin FROM users");
+    // Execute the query
+    $users ->execute();
+    // Fetch all users
+    $users_list = $users->fetchAll();
+    // Fetch all games from the database
+    $games = $db->prepare("SELECT gid, name, platform, price, age_restriction FROM games");
+    // Execute the query
+    $games ->execute();
+    // Fetch all games
+    $games_list = $games->fetchAll();
+}catch (PDOException $ex){
+	$error_message = "Sorry, a database error occurred! <br>";
+	$error_message = "Error details: <em>". $ex->getMessage()."</em>";
+ }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +66,7 @@
     </style>
 </head>
 <body>
+    <!-- navigation bar to link to other webpages -->
     <div class="nav-bar">
         <ul class="nav-left"> 
             <img class="page_logo" src="/Assets/Logo.png" alt="">
@@ -37,15 +77,12 @@
 
         <ul class="nav-right">
             <li><a href="./contact_us.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./registration_page.html"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./registration_page.php"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
             <li><a href="./basket_Page.html">
                 <img src="/Assets/Basket.svg" class="basket-icon" />
             </a></li>
         </ul>
     </div>
-    <div>
-        <h1>ADMIN Panel</h1>
-        <p>Manage the game store settings and inventory from this panel.</p>
 
     <!-- div section displaying all the registered users -->
     <div id="Users-table" class="section">
@@ -61,12 +98,17 @@
             </tr></thead>
 
             <!-- template row to be modified when displaying users from the DB -->
-            <tbody><tr id="user-template" class="row">
-                <td>1</td>
-                <td>[Username]</td>
-                <td>[Email]</td>
-                <td>Yes</td>
-            </tr></tbody>
+            <tbody>
+                <?php foreach($users_list as $user): ?>
+                <tr id="user-template" class="row">
+                    <td><?php echo htmlspecialchars($user['uid']); ?></td>
+                    <td><?php echo htmlspecialchars($user['username']); ?></td>
+                    <td><?php echo htmlspecialchars($user['email']); ?></td>
+                    <td><?php echo $user['is_admin'] ? 'Yes' : 'No'; ?></td>
+                    
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
         </table>
     </div>
 
@@ -89,20 +131,23 @@
             </tr></thead>
 
             <!-- template row to be modified when displaying games from the DB -->
-            <tbody><tr id="user-template" class="row">
-                <td>1</td>
-                <td>[Game Name]</td>
-                <td>[Platform]</td>
-                <td>£0.00</td>
-                <td>12+</td>
+            <tbody>
+                <?php foreach($games_list as $game): ?>
+                <tr class="row">
+                    <td><?php echo htmlspecialchars($game['gid']); ?></td>
+                    <td><?php echo htmlspecialchars($game['name']); ?></td>
+                    <td><?php echo htmlspecialchars($game['platform']); ?></td>
+                    <td><?php echo htmlspecialchars($game['price']); ?></td>
+                    <td><?php echo htmlspecialchars($game['age_restriction']); ?></td>
                 <td>
-                    <button id="edit-button">Edit</button>
+                    <a href= "edit_game.php?gid=<?= $game['gid']?>">
+                        <button id="edit-button">Edit</button></a>
                     <button id="delete-button">Delete</button>
                 </td>
-            </tr></tbody>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
         </table>
     </div>
 </body>
-
-
 </html>
