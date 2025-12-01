@@ -28,7 +28,7 @@
             </a></li>
         </ul>
     </div>
-    <div>
+    <div class="page-name">
         <h1>Products</h1>
         <p>Explore our extensive collection of games available for purchase.</p>
     </section>
@@ -36,10 +36,10 @@
     <div>
 
         <!-- FILTER SIDEBAR -->
-        <aside>
+        <aside class="filter-bar">
             <h2>Filter</h2>
 
-            <label for="searchInput">Search</label><br>
+            <label for="searchInput">Search for your favorite games</label><br>
             <input type="text" id="searchInput" placeholder="Search..."><br><br>
 
             <label for="platformSelect">Platform</label><br>
@@ -65,183 +65,175 @@
         </aside>
 
         <!-- PRODUCT GRID -->
-        <section>
-
+        <section class="main-content-wrapper">
             <!-- PRODUCT 1: GTA VI -->
             <div class="product"
                 data-name="Grand Theft Auto VI: Standard Edition PS5"
                 data-platform="PlayStation"
-                data-genre="Action, Adventure"
-                onclick="openProduct(
+                data-genre="Action, Adventure">
+                <p>STANDARD EDITION</p>
+                <img src="/Assets/Game_Images/GTA VI.png" alt="GTA VI">
+                <h3>GRAND THEFT AUTO VI: STANDARD EDITION PS5</h3>
+                <p>£69.99</p>
+                <button onclick="openProduct(
                     'Grand Theft Auto VI: Standard Edition PS5',
-                    'images/GTA VI.jpg',
+                    '/Assets/Game_Images/GTA VI.png',
                     'Grand Theft Auto VI delivers a next-generation open world with dynamic AI, missions, and immersive gameplay.',
                     '£69.99',
                     'PlayStation',
                     '18+'
-                )">
-                <p>STANDARD EDITION</p>
-                <img src="images/GTA VI.jpg" alt="GTA VI">
-                <h3>GRAND THEFT AUTO VI: STANDARD EDITION PS5</h3>
-                <p>£69.99</p>
+                )">Add to Cart</button>
             </div>
 
             <!-- PRODUCT 2: ELDEN RING -->
             <div class="product"
                 data-name="Elden Ring: Standard Edition PS5"
                 data-platform="PlayStation"
-                data-genre="Action, RPG"
-                onclick="openProduct(
+                data-genre="Action, RPG">
+                <p>STANDARD EDITION</p>
+                <img src="/Assets/Game_Images/Elden_Ring.jpg" alt="Elden Ring">
+                <h3>ELDEN RING: STANDARD EDITION PS5</h3>
+                <p>£54.99</p>
+                <button onclick="openProduct(
                     'Elden Ring: Standard Edition PS5',
-                    'images/elden-ring.webp',
+                    '/Assets/Game_Images/Elden_Ring.jpg',
                     'Elden Ring is an award-winning open-world RPG set in the Lands Between with deep combat and exploration.',
                     '£54.99',
                     'PlayStation',
                     '16+'
-                )">
-                <p>STANDARD EDITION</p>
-                <img src="images/elden-ring.webp" alt="Elden Ring">
-                <h3>ELDEN RING: STANDARD EDITION PS5</h3>
-                <p>£54.99</p>
+                )">Add to Cart</button>
             </div>
 
             <!-- PRODUCT 3: GTA V -->
             <div class="product"
                 data-name="Grand Theft Auto V: Standard Edition PS5"
                 data-platform="PlayStation"
-                data-genre="Action, Adventure"
-                onclick="openProduct(
+                data-genre="Action, Adventure">
+                <p>ADULT EDITION</p>
+                <img src="/Assets/Game_Images/GTA_V.jpg" alt="GTA V">
+                <h3>GRAND THEFT AUTO V: STANDARD EDITION PS5</h3>
+                <p>£39.99</p>
+                <button onclick="openProduct(
                     'Grand Theft Auto V: Standard Edition PS5',
-                    'images/grand-theft-auto-v-.webp',
+                    '/Assets/Game_Images/GTA_V.jpg',
                     'Grand Theft Auto V includes enhanced graphics, new features, and GTA Online support.',
                     '£39.99',
                     'PlayStation',
                     '18+'
-                )">
-                <p>ADULT EDITION</p>
-                <img src="images/grand-theft-auto-v-.webp" alt="GTA V">
-                <h3>GRAND THEFT AUTO V: STANDARD EDITION PS5</h3>
-                <p>£39.99</p>
+                )">Add to Cart</button>
             </div>
 
             <!-- PRODUCT 4: FORZA HORIZON 5 -->
             <div class="product"
                 data-name="Forza Horizon 5"
                 data-platform="Xbox"
-                data-genre="Racing"
-                onclick="openProduct(
+                data-genre="Racing">
+                <p>STANDARD EDITION</p>
+                <img src="/Assets/Game_Images/Forza_Horizon_5.jpg" alt="Forza Horizon 5">
+                <h3>FORZA HORIZON 5</h3>
+                <p>£49.99</p>
+                <button onclick="openProduct(
                     'Forza Horizon 5',
-                    'images/forza-horizon-5.webp',
+                    '/Assets/Game_Images/Forza_Horizon_5.jpg',
                     'Forza Horizon 5 is an open-world racing game set in Mexico with hundreds of customizable cars.',
                     '£49.99',
                     'Xbox',
                     '3+'
-                )">
-                <p>STANDARD EDITION</p>
-                <img src="images/forza-horizon-5.webp" alt="Forza Horizon 5">
-                <h3>FORZA HORIZON 5</h3>
-                <p>£49.99</p>
+                )">Add to Cart</button>
             </div>
 
             <!-- PRODUCT 5: HALO INFINITE -->
             <div class="product"
                 data-name="Halo Infinite"
                 data-platform="Xbox"
-                data-genre="Shooter"
-                onclick="openProduct(
+                data-genre="Shooter">
+                <p>STANDARD EDITION</p>
+                <img src="/Assets/Game_Images/Halo_Infinite.jpg" alt="Halo Infinite">
+                <h3>HALO INFINITE</h3>
+                <p>£59.99</p>
+                <button onclick="openProduct(
                     'Halo Infinite',
-                    'images/halo-infinite.webp',
+                    '/Assets/Game_Images/Halo_Infinite.jpg',
                     'Halo Infinite brings Master Chief back in a massive semi-open world with intense sci-fi combat.',
                     '£59.99',
                     'Xbox',
                     '16+'
-                )">
-                <p>STANDARD EDITION</p>
-                <img src="images/halo-infinite.webp" alt="Halo Infinite">
-                <h3>HALO INFINITE</h3>
-                <p>£59.99</p>
+                )">Add to Cart</button>
             </div>
 
             <!-- PRODUCT 6: CYBERPUNK 2077 -->
             <div class="product"
                 data-name="Cyberpunk 2077"
                 data-platform="PC"
-                data-genre="RPG"
-                onclick="openProduct(
+                data-genre="RPG">
+                <p>STANDARD EDITION</p>
+                <img src="/Assets/Game_Images/Cyberpunk_2077.jpg" alt="Cyberpunk">
+                <h3>CYBERPUNK 2077</h3>
+                <p>£44.99</p>
+                <button onclick="openProduct(
                     'Cyberpunk 2077',
-                    'images/cyberpunk-2077.webp',
+                    '/Assets/Game_Images/Cyberpunk_2077.jpg',
                     'Cyberpunk 2077 is a futuristic RPG set in Night City, full of open-world exploration and deep story choices.',
                     '£44.99',
                     'PC',
                     '18+'
-                )">
-                <p>STANDARD EDITION</p>
-                <img src="images/cyberpunk-2077.webp" alt="Cyberpunk">
-                <h3>CYBERPUNK 2077</h3>
-                <p>£44.99</p>
+                )">Add to Cart</button>
             </div>
 
             <!-- PRODUCT 7: ZELDA TWILIGHT PRINCESS -->
             <div class="product"
                 data-name="The Legend of Zelda: Twilight Princess"
                 data-platform="Nintendo"
-                data-genre="Adventure"
-                onclick="openProduct(
+                data-genre="Adventure">
+                <p>STANDARD EDITION</p>
+                <img src="/Assets/Game_Images/LEGEND_OF_ZELDA.jpg" alt="Zelda Twilight Princess">
+                <h3>ZELDA: TWILIGHT PRINCESS</h3>
+                <p>£49.99</p>
+                <button onclick="openProduct(
                     'The Legend of Zelda: Twilight Princess',
-                    'images/LEGEND OF ZELDA.webp',
+                    '/Assets/Game_Images/LEGEND_OF_ZELDA.jpg',
                     'A dark fantasy Zelda adventure with dungeon exploration, puzzles, and deep storytelling.',
                     '£49.99',
                     'Nintendo',
                     '12+'
-                )">
-                <p>STANDARD EDITION</p>
-                <img src="images/LEGEND OF ZELDA.webp" alt="Zelda Twilight Princess">
-                <h3>ZELDA: TWILIGHT PRINCESS</h3>
-                <p>£49.99</p>
+                )">Add to Cart</button>
             </div>
 
             <!-- PRODUCT 8: MARIO KART 8 -->
             <div class="product"
                 data-name="Mario Kart 8 Deluxe"
                 data-platform="Nintendo"
-                data-genre="Racing"
-                onclick="openProduct(
+                data-genre="Racing">
+                <p>STANDARD EDITION</p>
+                <img src="/Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
+                <h3>MARIO KART 8 DELUXE</h3>
+                <p>£39.99</p>
+                <button onclick="openProduct(
                     'Mario Kart 8 Deluxe',
-                    'images/MARIO-KART.jpg',
+                    '/Assets/Game_Images/Mario_Cart_Deluxe_8.jpg',
                     'Mario Kart 8 Deluxe brings high-speed racing fun with iconic Nintendo characters and tracks.',
                     '£39.99',
                     'Nintendo',
                     '3+'
-                )">
-                <p>STANDARD EDITION</p>
-                <img src="images/MARIO-KART.jpg" alt="Mario Kart 8 Deluxe">
-                <h3>MARIO KART 8 DELUXE</h3>
-                <p>£39.99</p>
+                )">Add to Cart</button>
             </div>
 
         </section>
     </div>
 
-    <!-- PRODUCT POPUP -->
-    <div id="productModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
 
-           <div id="modalContent" 
-                style="
-                    background:white; 
-                    color:black; 
-                    width:60%; 
-                    margin:60px auto; 
-                    padding:20px; 
-                    border-radius:10px;
-                    max-height: 80vh;
-                    overflow-y: auto;
-            ">
-            <button onclick="closeProduct()" style="float:right;">Close</button>
+    
+
+    <!-- PRODUCT POPUP -->
+    <div id="productModal" style="display: none;">
+        <div id="modalContent" >
+            <button id="product-close-btn" onclick="closeProduct()">Close</button>
             <br><br>
 
-            <img id="modalImage" src="" alt="" width="250">
 
             <h1 id="modalTitle"></h1>
+
+            <img id="modalImage" src="" alt="" width="250">
 
             <p id="modalDescription"></p>
 
@@ -265,7 +257,6 @@
             <textarea rows="4" cols="40"></textarea><br><br>
 
             <button>Submit Review</button>
-
         </div>
     </div>
 
@@ -279,12 +270,15 @@
             document.getElementById("modalPlatform").innerText = platform;
             document.getElementById("modalRating").innerText = ageRating;
 
-            document.getElementById("productModal").style.display = "block";
+            document.getElementById("productModal").style.display = "flex";
+            document.getElementById("modalContent").style.display = "flex";
+
         }
 
         // Close modal
         function closeProduct() {
             document.getElementById("productModal").style.display = "none";
+            document.getElementById("modalContent").style.display = "none";
         }
 
         // Apply filters
