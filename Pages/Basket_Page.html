@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,8 +27,38 @@
         </ul>
     </div>
     <div>
-        <h1>Basket</h1>
-        <p>Your selected games will appear here.</p>
+        <section class="basket-page-section">
+            <h1>BASKET</h1>
+            <button><h5>Remove all</h5></button>
+            <div id="shopping_list">
+                <p> Currently, your basket has zero items</p> <!--currently says zero but needs to be able to adjust to how many items have been added.-->
+            </div>
+            <section>
+                <h3>Order summary</h3>
+                <p>Total items: 0</p> <!--currently says zero but needs to adjust to when an item is added -->
+                <p>Total cost: £0.00</p> <!-- currently says zero but needs to adjust to when an item is added -->
+                <button>Proceed to checkout!</button>
+            </section>
+
+            <div class="game_template">
+                <div class="basket_left" >
+                    <img id="game_img" src="/Assets/PlacerHolder.jpeg" alt="game cover" >
+                </div>
+                <div class="basket_middle" >
+                    <label id="game_name" for="">ZERO ECHO</label>
+                    <label id="game_price"for="">£99.99</label>
+                </div>
+                <div class="basket_right">
+                    <button id="remove_item" >Remove</button>
+                
+                    <div class="basket_bottom_right">
+                        <button id="decrement">-</button>
+                        <label id="num" for="">0</label>
+                        <button id="increment">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </body>
 </html>

@@ -80,24 +80,23 @@ if (isset($_POST['submitted'])){
         <?php
         if (!empty($error_message)){
             echo '<div class="error-message">' . $error_message . '</div>';
-    }?>
-        <?php
+    }
         if (!empty($success_message)){
             echo '<div class="success-message">' . $success_message . '</div>';
         }
         ?>
         <div class="registration-form">
             <form method = "post" action="registration_page.php">
-	            Email:<input type="email" name="email" required /><br>
-	            Username: <input type="text" name="username" required /><br>
-	            Password: <input type="password" name="password" required /><br>
-                Confirm Password: <input type="password" name="Confirm_password" required /><br>
+	            Email:<input type="email" name="email" placeholder = "Enter Email" required /><br>
+	            Username: <input type="text" name="username" placeholder="Enter username" required /><br>
+	            Password: <input type="password" name="password" placeholder = "Enter password" required /><br>
+                Confirm Password: <input type="password" name="Confirm_password" placeholder="Confirm password" required /><br>
 	        <input type="submit" value="Register" /> 
 	        <input type="hidden" name="submitted" value="true"/> 
         </div>
 
   </form>  
-  <p> Already a user? <a href="login_Page.html">Log in</a>  </p>
+  <p> Already a user? <a href="login_Page.php">Log in</a>  </p>
     </div>
 </body>
 </html>
