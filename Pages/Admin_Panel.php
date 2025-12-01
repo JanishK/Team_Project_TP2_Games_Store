@@ -1,6 +1,5 @@
 <?php
 $error_message = '';
-$success_message = '';
 // Start the session
 session_start();
 // Get is_admin from session
@@ -83,7 +82,11 @@ try {
             </a></li>
         </ul>
     </div>
-
+     <?php
+		if (!empty($error_message)){
+			echo '<div class="error-message">' . $error_message . '</div>';
+		}
+		?>
     <!-- div section displaying all the registered users -->
     <div id="Users-table" class="section">
         <h2>Users</h2>

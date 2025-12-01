@@ -25,6 +25,11 @@
   box-sizing: border-box; 
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   background-color: var(--color-background);
   /* New: Subtle radial gradient for depth and focus */
@@ -32,7 +37,15 @@ body {
   /* New: Smoother text rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
 }
+
+
+
+
+
+
 
 /* New: Subtle text shadow for better contrast and 'pop' */
 .nav-bar a,
@@ -632,6 +645,342 @@ body {
 }
 
 /* ---------------------------------------------------
+    Products page Styles (NEW)
+--------------------------------------------------- */
+
+.filter-bar {
+  width: auto;
+  padding: 20px;
+  background-color: var(--color-dark);
+  border-radius: 16px;
+  box-shadow: var(--shadow-subtle);
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.filter-bar h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.filter-bar label {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
+}
+
+.filter-bar input[type="text"],
+.filter-bar select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  color: var(--color-secondary);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+
+
+
+.filter-bar input[type="text"]:focus,
+.filter-bar select:focus {
+  border-color: var(--color-highlight);
+  box-shadow: 0 0 10px rgba(140, 91, 255, 0.5);
+  outline: none;
+  background-color: var(--color-dark);
+}
+
+
+.filter-bar button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.filter-bar button:hover {
+  background-color: var(--color-highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(140, 91, 255, 0.4);
+}
+
+.main-content-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.product {
+  background-color: var(--color-dark);
+  border: 2px solid var(--color-accent);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow-subtle);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 10px;
+
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--color-primary);
+  margin-top: 10px;
+  
+}
+
+
+.product h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--color-secondary);
+}
+
+.product p {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin-bottom: 15px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--color-primary);
+  color: var(--color-accent);
+}
+.product button {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+  width: 90%;
+  color: white;
+}
+
+.product button:hover {
+  background-color: var(--color-highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(140, 91, 255, 0.4);
+}
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--color-accent) 0 8px 20px;
+}
+
+/* ---------------------------------------------------
+    PRODUCT MODAL STYLES (NEW)
+--------------------------------------------------- */
+
+/* === Fullscreen overlay === */
+#productModal {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity .3s ease;
+}
+
+/* === Center modal box === */
+#modalContent {
+  width: 60%;
+  max-width: 700px;
+  background: var(--color-dark);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(140, 91, 255, .35);
+  padding: 25px;
+  box-sizing: border-box;
+
+  height: 60%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  /* No scrollbars */
+  overflow: visible;
+}
+
+/* === Title === */
+#modalContent h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+/* === Text === */
+#modalContent p {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-secondary);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* === Image === */
+#modalContent img {
+  width: 20%;
+  border-radius: 12px;
+  border: 2px solid var(--color-primary);
+  margin: 10px 0 15px;
+  object-fit: cover;
+}
+
+/* === Buttons === */
+#modalContent button,
+#product-close-btn {
+  background: var(--color-primary);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+/* Close button specific */
+#product-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 60px;
+  height: 36px;
+}
+
+/* Hover */
+#modalContent button:hover,
+#product-close-btn:hover {
+  background: var(--color-highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(140, 91, 255, 0.4);
+}
+
+/* === Inputs & selects === */
+#productModal input,
+#productModal textarea,
+#modalContent select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0 15px;
+  border-radius: 8px;
+  border: 1px solid var(--color-accent);
+  background: rgba(0,0,0,.2);
+  color: var(--color-secondary);
+  font-size: 16px;
+  transition: .3s ease;
+}
+
+#modalContent label {
+  font-size: 18px;
+  font-weight: 600;
+  display: block;
+  margin-top: 5px;
+}
+
+
+#modalContent select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  color: var(--color-secondary);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+
+#product-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  width: 60px;
+  height: 36px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#product-close-btn:hover {
+  background-color: var(--color-highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(140, 91, 255, 0.4);
+}
+
+
+#productModal input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  color: var(--color-secondary);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+
+#productModal textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  color: var(--color-secondary);
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+
+
+/* ---------------------------------------------------
     RESPONSIVE FIXES (RETAINED/ADJUSTED)
 --------------------------------------------------- */
 
@@ -696,3 +1045,40 @@ body {
         margin-bottom: 0 !important;
     }
 }
+
+
+footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 15px;
+  background-color: var(--color-dark);
+  color: var(--color-secondary);
+  font-size: 14px;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+footer a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+footer a:hover {
+  color: var(--color-highlight);
+  text-decoration: underline;
+}
+
