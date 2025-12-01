@@ -1,6 +1,7 @@
 <?php
 	$error_message = '';
 	if (isset($_POST['submitted'])){
+		// validate that both username and password fields are filled
 	if ( !isset($_POST['username'], $_POST['password']) ) {
 		// Could not get the data that should have been sent.
 		 exit('Please fill both username and password fields!');
@@ -79,12 +80,17 @@
 		?>
         <h1>Login</h1>
         <p>Please enter your credentials to log in.</p>
+		<!-- Login form -->
         <div class="login-form">
         <form action="Login_Page.php" method="post">
+		<!-- username input -->
         username: <input type="text" name="username" placeholder="Enter username" required>
+		<!-- password input -->
         Password: <input type="password" name="password" placeholder="Enter password" required>
+		<!-- submit button -->
         <input type="submit" value="Login">
         <input type="hidden" name="submitted" value="true">
+        <!-- register link -->
         <p>Do not have an account? <a href="./registration_page.php">Register</a></p>
          </div>
         </form>

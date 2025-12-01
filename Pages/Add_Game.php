@@ -85,6 +85,7 @@ try{
 	$success_message = "Game $name has been added successfully. ";  	
 	
  }
+ // catch any database errors
  catch (PDOException $ex){
 	$error_message = "Sorry, a database error occurred! <br>";
 	$error_message = "Error details: <em>". $ex->getMessage()."</em>";
