@@ -29,7 +29,7 @@ if (isset($_POST['submitted'])){
     $description = $_POST['description'] ?? false;
     $platform = $_POST['platform'] ?? false;
     $age_rating = $_POST['age_rating'] ?? false;
-    $platforms = ['PC', 'PS5', 'Xbox', 'Nintendo Switch'];
+    $platforms = ['PC', 'Playstation', 'Xbox', 'Nintendo Switch'];
     $age_ratings = ['8', '13', '16', '18+'];
     //validate platform
     if(!in_array($platform, $platforms)){ $platform = false; }
@@ -187,7 +187,7 @@ try{
             <select name="platform" id="platform" class="element" required>
                 <option class="element" value="" disabled selected hidden>Select Platform</option>
                 <option class="element" value='PC'>PC</option>
-                <option class="element" value='PS5'>PS5</option>
+                <option class="element" value='Playstation'>Playstation</option>
                 <option class="element" value='Xbox'>Xbox</option>
                 <option class="element" value="Nintendo Switch">Nintendo Switch</option>
             </select>
