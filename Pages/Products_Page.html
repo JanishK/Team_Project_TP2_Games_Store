@@ -249,14 +249,14 @@
             <hr>
 
             <h3>Reviews</h3>
-
+            <form action="Products_Page.html" method="post">
             <label>Rating (0–5):</label><br>
             <input type="number" min="0" max="5"><br><br>
-
             <label>Comment:</label><br>
             <textarea rows="4" cols="40"></textarea><br><br>
-
-            <button>Submit Review</button>
+            <input type="submit" value="Submit_Review">
+            <input type="hidden" name="submitted" value="true">
+        </form>
         </div>
     </div>
 
