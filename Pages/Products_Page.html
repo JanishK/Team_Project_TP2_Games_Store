@@ -22,7 +22,7 @@
 
         <ul class="nav-right">
             <li><a href="./contact_us.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./registration_page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./Login_Page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
             <li><a href="./basket_Page.html">
                 <img src="../Assets/Basket.svg" class="basket-icon" />
             </a></li>
@@ -249,14 +249,14 @@
             <hr>
 
             <h3>Reviews</h3>
-
+            <form action="Products_Page.html" method="post">
             <label>Rating (0–5):</label><br>
             <input type="number" min="0" max="5"><br><br>
-
             <label>Comment:</label><br>
             <textarea rows="4" cols="40"></textarea><br><br>
-
-            <button>Submit Review</button>
+            <input type="submit" value="Submit_Review">
+            <input type="hidden" name="submitted" value="true">
+        </form>
         </div>
     </div>
 
