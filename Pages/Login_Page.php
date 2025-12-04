@@ -32,7 +32,7 @@
 					$_SESSION["is_admin"]=$row['is_admin'];
 					//is admin redirection
 					if ($row['is_admin']==1){
-					header("Location:admin_panel.html");
+					header("Location:admin_panel.php");
 					exit();
 					}else{
 					header("Location:home_Page.html");
@@ -73,7 +73,7 @@
 
         <ul class="nav-right">
             <li><a href="./contact_us.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./registration_page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./Login_Page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
             <li><a href="./basket_Page.html">
                 <img src="../Assets/Basket.svg" class="basket-icon" />
             </a></li>

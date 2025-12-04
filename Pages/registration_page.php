@@ -67,7 +67,7 @@ if (isset($_POST['submitted'])){
 
         <ul class="nav-right">
             <li><a href="./contact_us.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./registration_page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./Login_Page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
             <li><a href="./basket_Page.html">
                 <img src="../Assets/Basket.svg" class="basket-icon" />
             </a></li>
