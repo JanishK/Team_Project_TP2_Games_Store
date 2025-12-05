@@ -70,7 +70,7 @@ try {
         <ul class="nav-left">
             <img class="page_logo" src="../Assets/Logo.png" alt="">
             <li><a href="./home_Page.html">Home</a></li>
-            <li><a href="./Products_Page.html">Products</a></li>
+            <li><a href="./Products_Page.php">Products</a></li>
             <li><a href="./aboutUs_Page.html">About</a></li>
         </ul>
 
