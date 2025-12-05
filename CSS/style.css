@@ -997,7 +997,6 @@ body {
 .hero-content {
   text-align: center;
   color: var(--color-secondary);
-  background-color: rgba(0, 0, 0, 0.4);
   padding: 20px 40px;
   border-radius: 12px;
 }
@@ -1012,6 +1011,7 @@ body {
   font-weight: 700;
   border-radius: 8px;
   text-decoration: none;
+  color: white;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -1056,6 +1056,7 @@ body {
   box-shadow: var(--shadow-subtle);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  font-weight: bold;
 }
 .category-card:hover {
   transform: translateY(1px);
@@ -1194,6 +1195,7 @@ body {
 }
 
 .newsletter-box {
+  margin-top: 30px;
   display: inline-block;
   padding: 25px 30px;
   background-color: var(--color-dark);
@@ -1235,6 +1237,110 @@ body {
 }
 
 .newsletter-box button:hover {
+  background-color: var(--color-highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(140, 91, 255, 0.4);
+}
+
+
+/* ---------------------------------------------------
+    About Us Page Styles (NEW)
+--------------------------------------------------- */
+
+.contact-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.upper-section {
+  font-size: 18px;
+  color: var(--color-secondary);
+  margin-bottom: 25px;
+  font-weight: bold;
+  border-bottom: 4px solid var(--color-primary);
+  padding-bottom: 10px;
+}
+
+.downer-section {
+  margin-top: 20px; 
+  font-weight: bold;
+  
+  border-bottom: 4px solid var(--color-primary);
+  padding-bottom: 10px;
+}
+
+.contact-us-section {
+  margin: 40px auto;   /* <-- THIS centers the container */
+  text-align: center;
+  width: 900px;
+  box-shadow: var(--shadow-subtle);
+  border: 2px solid var(--color-primary);
+  border-radius: 10px;
+  padding: 30px;
+}
+
+
+.contact-us-section form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.contact-us-section h2 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 20px;
+}
+
+.contact-us-section label {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.contact-us-section input[type="text"],
+.contact-us-section input[type="email"],
+.contact-us-section textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--color-secondary);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  align-items: center;
+}
+.contact-us-section input[type="text"]:focus,
+.contact-us-section input[type="email"]:focus,
+.contact-us-section textarea:focus {
+  border-color: var(--color-highlight);
+  box-shadow: 0 0 10px rgba(140, 91, 255, 0.5);
+  outline: none;
+  background-color: var(--color-dark);
+}
+
+.contact-us-section button {
+  padding: 14px 28px;
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.contact-us-section button:hover {
   background-color: var(--color-highlight);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(140, 91, 255, 0.4);
@@ -1307,9 +1413,8 @@ body {
 
 footer {
   width: 100%;
-  height: 20%;
+  height: 15%;
   background-color: var(--color-dark);
-  padding: 30px 0;
   display: flex;
   justify-content: center;
 }
@@ -1318,7 +1423,7 @@ footer {
   padding: 30px;
   border-radius: 12px;
   max-width: 900px;                    /* keeps it compact */
-  width: 90%;
+  width: 100%;
   text-align: center;
 }
 
