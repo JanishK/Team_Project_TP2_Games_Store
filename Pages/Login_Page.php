@@ -1,5 +1,12 @@
 <?php
 	$error_message = '';
+	// Start the session
+	session_start();
+	if(isset($_SESSION['username'])){
+		$signedin = false;
+	}else{
+		$signedin = true;
+		}
 	if (isset($_POST['submitted'])){
 		// validate that both username and password fields are filled
 	if ( !isset($_POST['username'], $_POST['password']) ) {
@@ -25,7 +32,7 @@
 					$_SESSION["is_admin"]=$row['is_admin'];
 					//is admin redirection
 					if ($row['is_admin']==1){
-					header("Location:admin_panel.html");
+					header("Location:admin_panel.php");
 					exit();
 					}else{
 					header("Location:home_Page.html");
@@ -57,21 +64,21 @@
 </head>
 <body>
     <div class="nav-bar">
-    <ul class="nav-left">
-        <img class="page_logo" src="/Assets/Logo.png" alt="">
-        <li><a href="./home_Page.html">Home</a></li>
-        <li><a href="./Products_Page.html">Products</a></li>
-        <li><a href="./aboutUs_Page.html">About</a></li>
-    </ul>
+        <ul class="nav-left">
+            <img class="page_logo" src="../Assets/Logo.png" alt="">
+            <li><a href="./home_Page.html">Home</a></li>
+            <li><a href="./Products_Page.php">Products</a></li>
+            <li><a href="./aboutUs_Page.html">About</a></li>
+        </ul>
 
-    <ul class="nav-right">
-        <li><a href="./contact_us.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
-        <li><a href="./registration_page.php"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
-        <li><a href="./basket_Page.html">
-            <img src="/Assets/Basket.svg" class="basket-icon" />
-        </a></li>
-    </ul>
-</div>
+        <ul class="nav-right">
+            <li><a href="./contactUs_Page.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./Login_Page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./basket_Page.php">
+                <img src="../Assets/Basket.svg" class="basket-icon" />
+            </a></li>
+        </ul>
+    </div>
     <div class="login-container">
         <?php
 		if (!empty($error_message)){
@@ -79,10 +86,12 @@
 		}
 		?>
         <h1>Login</h1>
-        <p>Please enter your credentials to log in.</p>
+        
 		<!-- Login form -->
         <div class="login-form">
+		<?php if ($signedin): ?>
         <form action="Login_Page.php" method="post">
+		<p>Please enter your credentials to log in.</p>
 		<!-- username input -->
         username: <input type="text" name="username" placeholder="Enter username" required>
 		<!-- password input -->
@@ -94,6 +103,10 @@
         <p>Do not have an account? <a href="./registration_page.php">Register</a></p>
          </div>
         </form>
+		<?php else: ?>
+		<p>You are already logged in as <?php echo htmlspecialchars($_SESSION['username']); ?>.</p>
+		<p><a href="logout.php">Log out</a></p>
+		<?php endif; ?>
     </div>
 </body>
 </html>

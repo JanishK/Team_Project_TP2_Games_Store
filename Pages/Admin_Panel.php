@@ -1,6 +1,5 @@
 <?php
 $error_message = '';
-$success_message = '';
 // Start the session
 session_start();
 // Get is_admin from session
@@ -68,22 +67,26 @@ try {
 <body>
     <!-- navigation bar to link to other webpages -->
     <div class="nav-bar">
-        <ul class="nav-left"> 
-            <img class="page_logo" src="/Assets/Logo.png" alt="">
+        <ul class="nav-left">
+            <img class="page_logo" src="../Assets/Logo.png" alt="">
             <li><a href="./home_Page.html">Home</a></li>
             <li><a href="./Products_Page.html">Products</a></li>
             <li><a href="./aboutUs_Page.html">About</a></li>
         </ul>
 
         <ul class="nav-right">
-            <li><a href="./contact_us.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./registration_page.php"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./basket_Page.html">
-                <img src="/Assets/Basket.svg" class="basket-icon" />
+            <li><a href="./contactUs_Page.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./Login_Page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./basket_Page.php">
+                <img src="../Assets/Basket.svg" class="basket-icon" />
             </a></li>
         </ul>
     </div>
-
+     <?php
+		if (!empty($error_message)){
+			echo '<div class="error-message">' . $error_message . '</div>';
+		}
+		?>
     <!-- div section displaying all the registered users -->
     <div id="Users-table" class="section">
         <h2>Users</h2>
