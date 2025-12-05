@@ -67,14 +67,14 @@
         <ul class="nav-left">
             <img class="page_logo" src="../Assets/Logo.png" alt="">
             <li><a href="./home_Page.html">Home</a></li>
-            <li><a href="./Products_Page.html">Products</a></li>
+            <li><a href="./Products_Page.php">Products</a></li>
             <li><a href="./aboutUs_Page.html">About</a></li>
         </ul>
 
         <ul class="nav-right">
-            <li><a href="./contact_us.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./contactUs_Page.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
             <li><a href="./Login_Page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./basket_Page.html">
+            <li><a href="./basket_Page.php">
                 <img src="../Assets/Basket.svg" class="basket-icon" />
             </a></li>
         </ul>
