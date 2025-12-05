@@ -4,37 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/style.css">
     <title>Contact Us</title>
 </head>
 
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li> <a href="./home_Page.html">Home</a></li>
-                <li> <a href="./Products_Page.html">Product</a></li>
-                <li> <a href="./aboutUs_Page.html">About Us</a></li>
-                <li> <a href="./contactUs_Page.html">Contact Us</a></li>
-                <li> <a href="./registration_page.php">Register</a></li>
-                <li> <a href="./Basket_Page.html">Basket</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="nav-bar">
+        <ul class="nav-left">
+            <img class="page_logo" src="/Assets/Logo.png" alt="">
+            <li><a href="./home_Page.html">Home</a></li>
+            <li><a href="./Products_Page.html">Products</a></li>
+            <li><a href="./aboutUs_Page.html">About</a></li>
+        </ul>
+
+        <ul class="nav-right">
+            <li><a href="./contactUs_Page.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./registration_page.php"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./basket_Page.html">
+                <img src="/Assets/Basket.svg" class="basket-icon" />
+            </a></li>
+        </ul>
+    </div>
     <main>
-        <section>
-            <h1>Contact Us</h1>
-            <p>
+        <section class="contact-container">
+            <h1 class="page-title">Contact Us</h1>
+            <p class="upper-section">
                 We're always here to help! Whether you have questions about our products, need support with an order, or
                 require any other sort of feedback, feel free to get in touch by filling in the form below.
             </p>
-            <P>
+            <p class="downer-section">
                 You can also contact us on our email or through our phone number to get to one of our agents. <br>
                 Email: CoreByte@gmail.com <br>
                 Phone Number: 0121 742 9781
-            </P>
+            </p>
             </section>
 
-        <section>
+        <section class="contact-us-section">
             <form action="#" method="post">
                 <label for="name">Full Name:</label><br>
                 <input type="text" id="name" name="name" placeholder="Enter your full name" required><br><br>

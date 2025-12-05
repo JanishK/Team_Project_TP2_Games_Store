@@ -12,6 +12,23 @@
   --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-strong: 0 15px 30px rgba(0, 0, 0, 0.6);
 }
+/* ---------------------------------------------------
+    LIGHT MODE THEME
+--------------------------------------------------- */
+.light-mode {
+  --color-primary: #4A79E0;     
+  --color-secondary: #1A1A1A;   
+  --color-accent: #8C5BFF;      
+  --color-highlight: #7A3EF0;   
+
+  --color-dark: #f4f4f4;        
+  --color-background: #ffffff;  
+
+  --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-strong: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+
 
 /* ---------------------------------------------------
     GLOBAL RESET + BASE STYLES (ENHANCED)
@@ -33,7 +50,7 @@ html, body {
 body {
   background-color: var(--color-background);
   /* New: Subtle radial gradient for depth and focus */
-  background-image: radial-gradient(circle at 50% 50%, rgba(126, 166, 244, 0.05) 0%, rgba(33, 35, 43, 1) 70%);
+;
   /* New: Smoother text rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -118,6 +135,8 @@ body {
   filter: brightness(0) invert(1); /* Makes icons white */
   transition: transform 0.2s ease, filter 0.2s ease;
   cursor: pointer;
+  background-color: transparent;
+  background: transparent;
 }
 
 /* ICON HOVER */
@@ -1517,6 +1536,29 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .contact-us-section button:hover {
+  background-color: var(--color-highlight);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(140, 91, 255, 0.4);
+}
+
+
+
+
+/*dark mode footer styles*/
+
+.theme-btn {
+  background-color: transparent;
+  color: var(--color-dark);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.theme-btn:hover {
   background-color: var(--color-highlight);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(140, 91, 255, 0.4);

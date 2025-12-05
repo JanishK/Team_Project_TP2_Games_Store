@@ -10,7 +10,7 @@
 
 </head>
 
-<body>
+<body id="theme">
     <div class="nav-bar">
         <ul class="nav-left">
             <img class="page_logo" src="/Assets/Logo.png" alt="">
@@ -20,6 +20,7 @@
         </ul>
 
         <ul class="nav-right">
+            <button id="themeToggle" class="basket-icon">☀️</button>
             <li><a href="./contactUs_Page.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
             <li><a href="./registration_page.php"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
             <li><a href="./basket_Page.html">
@@ -192,7 +193,29 @@
             </div>
         </footer>
 
-        
+        <script>
+            const toggle = document.getElementById("themeToggle");
+            const body = document.getElementById("theme");
+
+            // Load saved theme
+            if (localStorage.getItem("theme") === "light") {
+            body.classList.add("light-mode");
+            toggle.textContent = "🌙";
+            }
+
+            toggle.addEventListener("click", () => {
+            body.classList.toggle("light-mode");
+
+            if (body.classList.contains("light-mode")) {
+            localStorage.setItem("theme", "light");
+            toggle.textContent = "🌙"; // show moon when in light mode
+            } else {
+            localStorage.setItem("theme", "dark");
+            toggle.textContent = "☀️"; // show sun when in dark mode
+            }
+            });
+        </script>
+
 
 
     </div>
