@@ -2,11 +2,7 @@
 	$error_message = '';
 	// Start the session
 	session_start();
-	if(isset($_SESSION['username'])){
-		$signedin = false;
-	}else{
-		$signedin = true;
-		}
+	$loggedin = isset($_SESSION['username']);
 	if (isset($_POST['submitted'])){
 		// validate that both username and password fields are filled
 	if ( !isset($_POST['username'], $_POST['password']) ) {
@@ -89,7 +85,7 @@
         
 		<!-- Login form -->
         <div class="login-form">
-		<?php if ($signedin): ?>
+		<?php if ($loggedin == false): ?>
         <form action="Login_Page.php" method="post">
 		<p>Please enter your credentials to log in.</p>
 		<!-- username input -->

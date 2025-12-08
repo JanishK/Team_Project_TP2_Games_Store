@@ -4,29 +4,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoreByte | Home</title>
+    <title>Home</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="icon" type="image/png" href="/Assets/Logo.png">
+
 </head>
 
 <body>
     <div class="nav-bar">
         <ul class="nav-left">
-            <img class="page_logo" src="/Assets/Logo.png" alt="">
+            <img class="page_logo" src="../Assets/Logo.png" alt="">
             <li><a href="./home_Page.html">Home</a></li>
-            <li><a href="./Products_Page.html">Products</a></li>
+            <li><a href="./Products_Page.php">Products</a></li>
             <li><a href="./aboutUs_Page.html">About</a></li>
         </ul>
 
         <ul class="nav-right">
-            <li><a href="./contact_us.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./registration_page.php"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./basket_Page.html">
-                <img src="/Assets/Basket.svg" class="basket-icon" />
+            <li><a href="./contactUs_Page.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./registration_page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
+            <li><a href="./basket_Page.php">
+                <img src="../Assets/Basket.svg" class="basket-icon" />
             </a></li>
         </ul>
     </div>
     <div>
-        <h1>Home Page</h1>
-        <p>Welcome to our game store! We offer a wide variety of games for all platforms.</p>
+        <section class="hero-banner">
+            <div class="hero-content">
+                <h1>Welcome to CoreByte</h1>
+                <p>Your one-stop store for digital games, deals & instant downloads.</p>
+                <button class="hero-btn">Shop Now</button>
+            </div>
+        </section>
+
+        <!-- GAME CATEGORIES -->
+        <section class="categories-section">
+            <h2 class="section-title">Browse by Category</h2>
+            <div class="categories-container">
+                <div class="category-card">Action</div>
+                <div class="category-card">Adventure</div>
+                <div class="category-card">RPG</div>
+                <div class="category-card">Racing</div>
+                <div class="category-card">Sports</div>
+                <div class="category-card">Horror</div>
+            </div>
+        </section>
+
+        <!-- TRENDING GAMES -->
+        <section class="trending-section">
+            <h2 class="section-title">Games Trending</h2>
+
+            <div class="trendingcontainer">
+
+                <div class="product2"
+                    data-name="Mario Kart 8 Deluxe"
+                    data-platform="Nintendo"
+                    data-genre="Racing">
+                    <p>STANDARD EDITION</p>
+                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
+                    <h3>MARIO KART 8 DELUXE</h3>
+                    <p>£39.99</p>
+                </div>
+
+                <div class="product2"
+                    data-name="Mario Kart 8 Deluxe"
+                    data-platform="Nintendo"
+                    data-genre="Racing">
+                    <p>STANDARD EDITION</p>
+                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
+                    <h3>MARIO KART 8 DELUXE</h3>
+                    <p>£39.99</p>
+                </div>
+
+                <div class="product2"
+                    data-name="Mario Kart 8 Deluxe"
+                    data-platform="Nintendo"
+                    data-genre="Racing">
+                    <p>STANDARD EDITION</p>
+                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
+                    <h3>MARIO KART 8 DELUXE</h3>
+                    <p>£39.99</p>
+                </div>
+
+                <div class="product2"
+                    data-name="Mario Kart 8 Deluxe"
+                    data-platform="Nintendo"
+                    data-genre="Racing">
+                    <p>STANDARD EDITION</p>
+                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
+                    <h3>MARIO KART 8 DELUXE</h3>
+                    <p>£39.99</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- DEALS -->
+        <section class="deals-section">
+            <h2 class="section-title">Deals of the Week</h2>
+
+            <div class="deals-container">
+
+                <div class="deal-card">
+                    <img src="YOUR_IMAGE_HERE" alt="">
+                    <h3>Game Title Here</h3>
+                    <p class="old-price">£59.99</p>
+                    <p class="new-price">£29.99</p>
+                </div>
+
+                <div class="deal-card">
+                    <img src="YOUR_IMAGE_HERE" alt="">
+                    <h3>Game Title Here</h3>
+                    <p class="old-price">£49.99</p>
+                    <p class="new-price">£19.99</p>
+                </div>
+
+                <div class="deal-card">
+                    <img src="YOUR_IMAGE_HERE" alt="">
+                    <h3>Game Title Here</h3>
+                    <p class="old-price">£39.99</p>
+                    <p class="new-price">£14.99</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PLATFORM LOGOS -->
+        <section class="platform-logos">
+            <h2 class="section-title">Available On</h2>
+
+            <div class="logo-row">
+                <img src="/Assets/ICONS/PlayStation_logo.png" alt="PlayStation">
+                <img src="/Assets/ICONS/Xbox_one_logo.png" alt="Xbox">
+                <img src="/Assets/ICONS/Nintendo_logo.png" alt="Nintendo">
+                <img src="/Assets/ICONS/PC_LOGO_2.png" alt="PC">
+            </div>
+        </section>
+
+        <!-- NEWSLETTER -->
+        <section class="newsletter-section">
+            <h2>Join the CoreByte Community</h2>
+            <p>Get exclusive offers, updates and early access to discounts.</p>
+
+            <div class="newsletter-box">
+                <input type="email" placeholder="Enter your email">
+                <button>Subscribe</button>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-box">
+
+                <div class="footer-header">
+                    <h3>CoreByte</h3>
+                    <p>Your go-to store for digital games and instant downloads.</p>
+                </div>
+
+                <div class="footer-columns">
+
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Products</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Customer Service</a></li>
+                            <li><a href="#">Refund Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Follow Us</h3>
+                        <p>Instagram / TikTok / YouTube</p>
+                    </div>
+
+                </div>
+
+                <p class="copyright">© 2025 CoreByte. All rights reserved.</p>
+            </div>
+        </footer>
+
+        
+
+
     </div>
 </body>
 </html>
