@@ -35,11 +35,11 @@
 					exit();
 					}
 				} else {
-					//error message for invalid password
+					//error message for invalid password entered 
 					$error_message = 'Error logging in, password does not match.' ;
 				}
 				}else {
-			 //error message for invalid username
+			 //error message for invalid username entered
 			  $error_message = 'logging in, Username not found.';
 			}
 		} catch(PDOException $ex) {
