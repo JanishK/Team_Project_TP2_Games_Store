@@ -9,22 +9,29 @@
 </head>
 
 <body>
-    <div class="nav-bar">
-        <ul class="nav-left">
-            <img class="page_logo" src="/Assets/Logo.png" alt="">
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <img class="page_logo" src="/Assets/Logo.png" alt="Logo">
+
+            <!-- Hamburger Menu (only shows on mobile) -->
+        </div>
+
+        <!-- Main Navigation Links -->
+        <ul class="nav-links" id="navMenu">
             <li><a href="./home_Page.html">Home</a></li>
             <li><a href="./Products_Page.html">Products</a></li>
             <li><a href="./aboutUs_Page.html">About</a></li>
+            <li><a href="./contactUs_Page.html">Support</a></li>
+            <li><a href="./registration_page.php">Account</a></li>
+            <li><a href="./basket_Page.html">Basket</a></li>
         </ul>
 
-        <ul class="nav-right">
-            <li><a href="./contactUs_Page.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./registration_page.php"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./basket_Page.html">
-                <img src="/Assets/Basket.svg" class="basket-icon" />
-            </a></li>
-        </ul>
-    </div>
+        <div class="nav-right">
+            <button id="themeToggle" class="basket-icon">☀️</button>
+            <span class="hamburger" onclick="toggleMenu()">☰</span>
+
+        </div>
+    </nav>
     <main>
         <section class="contact-container">
             <h1 class="page-title">Contact Us</h1>
@@ -59,6 +66,52 @@
             </form>
         </section>
     </main>
+
+
+            <footer>
+            <div class="footer-box">
+
+                <div class="footer-header">
+                    <h3>CoreByte</h3>
+                    <p>Your go-to store for digital games and instant downloads.</p>
+                </div>
+
+                <div class="footer-columns">
+
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Products</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Support</h3>
+                        <ul>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Customer Service</a></li>
+                            <li><a href="#">Refund Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Follow Us</h3>
+                        <p>Instagram / TikTok / YouTube</p>
+                    </div>
+
+                </div>
+
+                <p class="copyright">© 2025 CoreByte. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script src="app.js"></script>
+        <script>
+            toggleTheme();
+        </script>
 </body>
 
 </html>

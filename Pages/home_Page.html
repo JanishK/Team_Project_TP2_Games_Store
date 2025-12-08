@@ -7,27 +7,35 @@
     <title>Home</title>
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="icon" type="image/png" href="/Assets/Logo.png">
+    <script src="app.js"></script>
 
 </head>
 
 <body id="theme">
-    <div class="nav-bar">
-        <ul class="nav-left">
-            <img class="page_logo" src="/Assets/Logo.png" alt="">
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <img class="page_logo" src="/Assets/Logo.png" alt="Logo">
+
+            <!-- Hamburger Menu (only shows on mobile) -->
+        </div>
+
+        <!-- Main Navigation Links -->
+        <ul class="nav-links" id="navMenu">
             <li><a href="./home_Page.html">Home</a></li>
             <li><a href="./Products_Page.html">Products</a></li>
             <li><a href="./aboutUs_Page.html">About</a></li>
+            <li><a href="./contactUs_Page.html">Support</a></li>
+            <li><a href="./registration_page.php">Account</a></li>
+            <li><a href="./basket_Page.html">Basket</a></li>
         </ul>
 
-        <ul class="nav-right">
+        <div class="nav-right">
             <button id="themeToggle" class="basket-icon">☀️</button>
-            <li><a href="./contactUs_Page.html"><img src="/Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./registration_page.php"><img src="/Assets/Account.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./basket_Page.html">
-                <img src="/Assets/Basket.svg" class="basket-icon" />
-            </a></li>
-        </ul>
-    </div>
+            <span class="hamburger" onclick="toggleMenu()">☰</span>
+
+        </div>
+    </nav>
+
     <div>
         <section class="hero-banner">
             <div class="hero-content">
@@ -193,27 +201,9 @@
             </div>
         </footer>
 
+        <script src="app.js"></script>
         <script>
-            const toggle = document.getElementById("themeToggle");
-            const body = document.getElementById("theme");
-
-            // Load saved theme
-            if (localStorage.getItem("theme") === "light") {
-            body.classList.add("light-mode");
-            toggle.textContent = "🌙";
-            }
-
-            toggle.addEventListener("click", () => {
-            body.classList.toggle("light-mode");
-
-            if (body.classList.contains("light-mode")) {
-            localStorage.setItem("theme", "light");
-            toggle.textContent = "🌙"; // show moon when in light mode
-            } else {
-            localStorage.setItem("theme", "dark");
-            toggle.textContent = "☀️"; // show sun when in dark mode
-            }
-            });
+            toggleTheme();
         </script>
 
 
