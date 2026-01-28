@@ -2,378 +2,318 @@
 session_start();
 require_once('connectdb.php');
 
-// Is the user logged in?
 $logged_in = isset($_SESSION['username']);
 
-// Helper: get gid for a game by its DB name
-function getGameIdByName(PDO $db, string $name): int {
-    $stmt = $db->prepare("SELECT gid FROM games WHERE name = ?");
-    $stmt->execute([$name]);
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $row ? (int)$row['gid'] : 0;
+/* Fetch all games */
+$stmt = $db->prepare("
+  SELECT gid, name, description, platform, price, image, age_restriction
+  FROM games
+  ORDER BY gid DESC
+");
+$stmt->execute();
+$games = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+/* Map DB platform -> dropdown label */
+$platformMap = [
+  'Playstation'      => 'PlayStation',
+  'Nintendo Switch'  => 'Nintendo',
+  'Xbox'             => 'Xbox',
+  'PC'               => 'PC'
+];
+
+/* Optional: simple “edition” label from age rating (just a display tag) */
+function editionTag($age) {
+  return ($age === '18+') ? 'ADULT EDITION' : 'STANDARD EDITION';
 }
 
-/*
-    IMPORTANT: These names MUST match exactly the `name` column
-    in my `games` table (from my SQL dump):
-
-    3  - The Legend of Zelda: Breath of the Wild (Nintendo Switch)
-    4  - Mario Kart 8 Deluxe (Nintendo Switch)
-    6  - Grand Theft Auto V (PS5)
-    15 - Grand Theft Auto VI: Standard Edition PS5
-    16 - Elden Ring: Standard Edition PS5
-
-    For Forza, Halo, Cyberpunk: gid will be 0 unless you add those rows.
-    (Add them via Admin and make sure the names match below.)
-*/
-
-// Map each card to its DB game name (for gid lookup)
-$gta6Id      = getGameIdByName($db, 'Grand Theft Auto VI: Standard Edition PS5');
-$eldenPs5Id  = getGameIdByName($db, 'Elden Ring: Standard Edition PS5');
-$gta5Ps5Id   = getGameIdByName($db, 'Grand Theft Auto V (PS5)');
-$forzaId     = getGameIdByName($db, 'Forza Horizon 5'); 
-$haloId      = getGameIdByName($db, 'Halo Infinite');    
-$cyberpunkId = getGameIdByName($db, 'Cyberpunk 2077');   
-$zeldaId     = getGameIdByName($db, 'The Legend of Zelda: Breath of the Wild (Nintendo Switch)');
-$marioId     = getGameIdByName($db, 'Mario Kart 8 Deluxe (Nintendo Switch)');
+/* Make a safe JS string */
+function js($value) {
+  return json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoreByte | Products</title>
-    <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="icon" type="image/png" href="../Assets/Logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoreByte | Products</title>
+  <link rel="stylesheet" href="../CSS/style.css" />
+  <link rel="icon" type="image/png" href="../Assets/Logo.png" />
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<div class="nav-bar">
-    <ul class="nav-left">
-        <img class="page_logo" src="../Assets/Logo.png" alt="">
-        <li><a href="./home_Page.html">Home</a></li>
-        <li><a href="./Products_Page.php">Products</a></li>
-        <li><a href="./aboutUs_Page.html">About</a></li>
-    </ul>
-    <ul class="nav-right">
-        <li><a href="./contactUs_Page.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
-        <li><a href="./Login_Page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
-        <li><a href="./basket_Page.php">
-            <img src="../Assets/Basket.svg" class="basket-icon" />
-        </a></li>
-    </ul>
-</div>
+  <!-- NAVIGATION BAR (your cb-nav) -->
+  <nav class="cb-nav">
+    <div class="cb-nav__container">
 
-<div class="page-name">
+      <a class="cb-brand" href="./home_Page.php">
+        <img class="cb-brand__logo" src="/Assets/Logo.png" alt="CoreByte Logo" />
+        <span class="cb-brand__text">CoreByte</span>
+      </a>
+
+      <ul class="cb-links" id="cbNavLinks">
+        <li><a href="./home_Page.php" class="cb-link">Home</a></li>
+        <li><a href="./Products_Page.php" class="cb-link is-active">Products</a></li>
+        <li><a href="./aboutUs_Page.php" class="cb-link">About</a></li>
+      </ul>
+
+      <div class="cb-user">
+        <button class="cb-user__btn" type="button" id="cbUserBtn" aria-expanded="false" aria-controls="cbUserMenu">
+          <span class="sr-only">Open user menu</span>
+          <img class="cb-user__avatar" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="User photo" />
+        </button>
+
+        <div class="cb-user__menu hidden" id="cbUserMenu" role="menu">
+          <div class="cb-user__header">
+            <span class="cb-user__name">Janish Kandel</span>
+            <span class="cb-user__email">JanishK@corebyte.com</span>
+          </div>
+
+          <a href="./basket_Page.php" role="menuitem">Basket</a>
+          <a href="./registration_page.php" role="menuitem">Account</a>
+          <a href="#" role="menuitem">Settings</a>
+          <a href="./contactUs_Page.php" role="menuitem">Support</a>
+          <a href="#" role="menuitem">Sign out</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-name" style="padding-top: 90px;">
     <h1>Products</h1>
     <p>Explore our extensive collection of games available for purchase.</p>
-</div>
+  </div>
 
-<div class="products-page-wrapper">
+  <div class="products-page-wrapper">
 
     <!-- FILTER SIDEBAR -->
     <aside class="filter-bar">
-        <h2>Filter</h2>
+      <h2>Filter</h2>
 
-        <label for="searchInput">Search for your favorite games</label><br>
-        <input type="text" id="searchInput" placeholder="Search..."><br><br>
+      <label for="searchInput">Search for your favorite games</label>
+      <input type="text" id="searchInput" placeholder="Search..." />
 
-        <label for="platformSelect">Platform</label><br>
-        <select id="platformSelect">
-            <option>All Platforms</option>
-            <option>PlayStation</option>
-            <option>Xbox</option>
-            <option>PC</option>
-            <option>Nintendo</option>
-        </select><br><br>
+      <label for="platformSelect">Platform</label>
+      <select id="platformSelect">
+        <option>All Platforms</option>
+        <option>PlayStation</option>
+        <option>Xbox</option>
+        <option>PC</option>
+        <option>Nintendo</option>
+      </select>
 
-        <label for="genreSelect">Genre</label><br>
-        <select id="genreSelect">
-            <option>All Genres</option>
-            <option>Action</option>
-            <option>Adventure</option>
-            <option>RPG</option>
-            <option>Shooter</option>
-            <option>Racing</option>
-        </select><br><br>
+      <label for="ageSelect">Age Rating</label>
+      <select id="ageSelect">
+        <option>All Ratings</option>
+        <option>8</option>
+        <option>13</option>
+        <option>16</option>
+        <option>18+</option>
+      </select>
 
-        <button onclick="applyFilters()">Apply Filters</button>
+      <button type="button" onclick="applyFilters()">Apply Filters</button>
+      <button type="button" onclick="resetFilters()" style="margin-top:10px;">Reset</button>
     </aside>
 
     <!-- PRODUCT GRID -->
     <section class="main-content-wrapper">
+      <?php foreach ($games as $g): ?>
+        <?php
+          $platformForFilter = $platformMap[$g['platform']] ?? $g['platform'];
 
-        <!-- PRODUCT 1: GTA VI -->
+          // image path (adjust folder if needed)
+          $imgPath = "../Assets/Game_Images/" . $g['image'];
+
+          $priceLabel = "£" . number_format((float)$g['price'], 2);
+
+          // data attributes for filtering
+          $dataName = htmlspecialchars($g['name'], ENT_QUOTES);
+          $dataPlatform = htmlspecialchars($platformForFilter, ENT_QUOTES);
+          $dataAge = htmlspecialchars($g['age_restriction'], ENT_QUOTES);
+
+          // JS-safe values
+          $jsTitle = js($g['name']);
+          $jsDesc  = js($g['description']);
+          $jsPlat  = js($platformForFilter);
+          $jsRate  = js($g['age_restriction']);
+          $jsImg   = js($imgPath);
+          $jsPrice = js($priceLabel);
+        ?>
+
         <div class="product"
-             data-name="Grand Theft Auto VI: Standard Edition PS5"
-             data-platform="PlayStation"
-             data-genre="Action, Adventure">
-            <p>STANDARD EDITION</p>
-            <img src="../Assets/Game_Images/GTA VI.png" alt="GTA VI">
-            <h3>GRAND THEFT AUTO VI: STANDARD EDITION PS5</h3>
-            <p>£69.99</p>
-            <button onclick="openProduct(
-                'Grand Theft Auto VI: Standard Edition PS5',
-                '../Assets/Game_Images/GTA VI.png',
-                'Grand Theft Auto VI delivers a next-generation open world with dynamic AI, missions, and immersive gameplay.',
-                '£69.99',
-                'PlayStation',
-                '18+',
-                <?php echo $gta6Id; ?>
-            )">View Details</button>
-        </div>
+             data-name="<?php echo $dataName; ?>"
+             data-platform="<?php echo $dataPlatform; ?>"
+             data-age="<?php echo $dataAge; ?>">
 
-        <!-- PRODUCT 2: ELDEN RING PS5 -->
-        <div class="product"
-             data-name="Elden Ring: Standard Edition PS5"
-             data-platform="PlayStation"
-             data-genre="Action, RPG">
-            <p>STANDARD EDITION</p>
-            <img src="../Assets/Game_Images/Elden_Ring.jpg" alt="Elden Ring">
-            <h3>ELDEN RING: STANDARD EDITION PS5</h3>
-            <p>£54.99</p>
-            <button onclick="openProduct(
-                'Elden Ring: Standard Edition PS5',
-                '../Assets/Game_Images/Elden_Ring.jpg',
-                'Elden Ring is an award-winning open-world RPG set in the Lands Between with deep combat and exploration.',
-                '£54.99',
-                'PlayStation',
-                '16+',
-                <?php echo $eldenPs5Id; ?>
-            )">View Details</button>
-        </div>
+          <p><?php echo editionTag($g['age_restriction']); ?></p>
 
-        <!-- PRODUCT 3: GTA V PS5 -->
-        <div class="product"
-             data-name="Grand Theft Auto V: Standard Edition PS5"
-             data-platform="PlayStation"
-             data-genre="Action, Adventure">
-            <p>ADULT EDITION</p>
-            <img src="../Assets/Game_Images/GTA_V.jpg" alt="GTA V">
-            <h3>GRAND THEFT AUTO V: STANDARD EDITION PS5</h3>
-            <p>£39.99</p>
-            <button onclick="openProduct(
-                'Grand Theft Auto V: Standard Edition PS5',
-                '../Assets/Game_Images/GTA_V.jpg',
-                'Grand Theft Auto V includes enhanced graphics, new features, and GTA Online support.',
-                '£39.99',
-                'PlayStation',
-                '18+',
-                <?php echo $gta5Ps5Id; ?>
-            )">View Details</button>
-        </div>
+          <img
+            src="<?php echo htmlspecialchars($imgPath, ENT_QUOTES); ?>"
+            alt="<?php echo htmlspecialchars($g['name']); ?>"
+            onerror="this.src='../Assets/Game_Images/placeholder.jpg';"
+          />
 
-        <!-- PRODUCT 4: FORZA HORIZON 5 (requires DB row to work fully) -->
-        <div class="product"
-             data-name="Forza Horizon 5"
-             data-platform="Xbox"
-             data-genre="Racing">
-            <p>STANDARD EDITION</p>
-            <img src="../Assets/Game_Images/Forza_Horizon_5.jpg" alt="Forza Horizon 5">
-            <h3>FORZA HORIZON 5</h3>
-            <p>£49.99</p>
-            <button onclick="openProduct(
-                'Forza Horizon 5',
-                '../Assets/Game_Images/Forza_Horizon_5.jpg',
-                'Forza Horizon 5 is an open-world racing game set in Mexico with hundreds of customizable cars.',
-                '£49.99',
-                'Xbox',
-                '3+',
-                <?php echo $forzaId; ?>
-            )">View Details</button>
-        </div>
+          <h3><?php echo htmlspecialchars(strtoupper($g['name'])); ?></h3>
 
-        <!-- PRODUCT 5: HALO INFINITE (requires DB row) -->
-        <div class="product"
-             data-name="Halo Infinite"
-             data-platform="Xbox"
-             data-genre="Shooter">
-            <p>STANDARD EDITION</p>
-            <img src="../Assets/Game_Images/Halo_Infinite.jpg" alt="Halo Infinite">
-            <h3>HALO INFINITE</h3>
-            <p>£59.99</p>
-            <button onclick="openProduct(
-                'Halo Infinite',
-                '../Assets/Game_Images/Halo_Infinite.jpg',
-                'Halo Infinite brings Master Chief back in a massive semi-open world with intense sci-fi combat.',
-                '£59.99',
-                'Xbox',
-                '16+',
-                <?php echo $haloId; ?>
-            )">View Details</button>
-        </div>
+          <p><?php echo htmlspecialchars($priceLabel); ?></p>
 
-        <!-- PRODUCT 6: CYBERPUNK 2077 (requires DB row) -->
-        <div class="product"
-             data-name="Cyberpunk 2077"
-             data-platform="PC"
-             data-genre="RPG">
-            <p>STANDARD EDITION</p>
-            <img src="../Assets/Game_Images/Cyberpunk_2077.jpg" alt="Cyberpunk 2077">
-            <h3>CYBERPUNK 2077</h3>
-            <p>£44.99</p>
-            <button onclick="openProduct(
-                'Cyberpunk 2077',
-                '../Assets/Game_Images/Cyberpunk_2077.jpg',
-                'Cyberpunk 2077 is a futuristic RPG set in Night City, full of open-world exploration and deep story choices.',
-                '£44.99',
-                'PC',
-                '18+',
-                <?php echo $cyberpunkId; ?>
-            )">View Details</button>
-        </div>
+          <button type="button"
+            onclick="openProduct(
+              <?php echo $jsTitle; ?>,
+              <?php echo $jsImg; ?>,
+              <?php echo $jsDesc; ?>,
+              <?php echo $jsPrice; ?>,
+              <?php echo $jsPlat; ?>,
+              <?php echo $jsRate; ?>,
+              <?php echo (int)$g['gid']; ?>
+            )">
+            View Details
+          </button>
 
-        <!-- PRODUCT 7: ZELDA (uses BotW DB row) -->
-        <div class="product"
-             data-name="The Legend of Zelda: Breath of the Wild"
-             data-platform="Nintendo"
-             data-genre="Adventure">
-            <p>STANDARD EDITION</p>
-            <img src="../Assets/Game_Images/LEGEND_OF_ZELDA.jpg" alt="Zelda">
-            <h3>ZELDA: BREATH OF THE WILD</h3>
-            <p>£49.99</p>
-            <button onclick="openProduct(
-                'The Legend of Zelda: Breath of the Wild (Nintendo Switch)',
-                '../Assets/Game_Images/LEGEND_OF_ZELDA.jpg',
-                'Explore the vast and breathtaking world of Hyrule in this open-world adventure.',
-                '£49.99',
-                'Nintendo',
-                '12+',
-                <?php echo $zeldaId; ?>
-            )">View Details</button>
         </div>
-
-        <!-- PRODUCT 8: MARIO KART 8 -->
-        <div class="product"
-             data-name="Mario Kart 8 Deluxe"
-             data-platform="Nintendo"
-             data-genre="Racing">
-            <p>STANDARD EDITION</p>
-            <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
-            <h3>MARIO KART 8 DELUXE</h3>
-            <p>£39.99</p>
-            <button onclick="openProduct(
-                'Mario Kart 8 Deluxe (Nintendo Switch)',
-                '../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg',
-                'Mario Kart 8 Deluxe brings high-speed racing fun with iconic Nintendo characters and tracks.',
-                '£39.99',
-                'Nintendo',
-                '3+',
-                <?php echo $marioId; ?>
-            )">View Details</button>
-        </div>
-
+      <?php endforeach; ?>
     </section>
-</div>
 
-<!-- PRODUCT POPUP -->
-<div id="productModal" class="product-modal" style="display:none;">
+  </div>
+
+  <!-- PRODUCT MODAL -->
+  <div id="productModal" class="product-modal" style="display:none;">
     <div id="modalContent" class="product-modal-content">
 
-        <button id="product-close-btn" type="button" onclick="closeProduct()">Close</button>
+      <button id="product-close-btn" type="button" onclick="closeProduct()">Close</button>
 
-        <h1 id="modalTitle"></h1>
-        <img id="modalImage" src="" alt="Game cover" width="250">
-        <p id="modalDescription"></p>
-        <h2 id="modalPrice"></h2>
-        <p><strong>Platform:</strong> <span id="modalPlatform"></span></p>
-        <p><strong>Age Rating:</strong> <span id="modalRating"></span></p>
+      <h1 id="modalTitle"></h1>
+      <img id="modalImage" src="" alt="Game cover" width="250" />
+      <p id="modalDescription"></p>
+      <h2 id="modalPrice"></h2>
 
-        <?php if ($logged_in): ?>
-            <!-- ADD TO CART -->
-            <form method="post" action="add_to_cart.php">
-                <input type="hidden" name="game_id" id="modalGameIdAdd">
-                <input type="hidden" name="redirect" value="stay">
-                <button type="submit">Add to Cart</button>
-            </form>
+      <p><strong>Platform:</strong> <span id="modalPlatform"></span></p>
+      <p><strong>Age Rating:</strong> <span id="modalRating"></span></p>
 
-            <!-- BUY NOW -->
-            <form method="post" action="add_to_cart.php">
-                <input type="hidden" name="game_id" id="modalGameIdBuy">
-                <input type="hidden" name="redirect" value="basket">
-                <button type="submit">Buy Now</button>
-            </form>
-        <?php else: ?>
-            <p>Please <a href="Login_Page.php">log in</a> to add items to your basket.</p>
-        <?php endif; ?>
+      <?php if ($logged_in): ?>
+        <!-- ADD TO CART -->
+        <form method="post" action="add_to_cart.php">
+          <input type="hidden" name="game_id" id="modalGameIdAdd" />
+          <input type="hidden" name="redirect" value="stay" />
+          <button type="submit">Add to Cart</button>
+        </form>
 
-        <hr>
+        <!-- BUY NOW -->
+        <form method="post" action="add_to_cart.php">
+          <input type="hidden" name="game_id" id="modalGameIdBuy" />
+          <input type="hidden" name="redirect" value="basket" />
+          <button type="submit">Buy Now</button>
+        </form>
+      <?php else: ?>
+        <p>Please <a href="Login_Page.php">log in</a> to add items to your basket.</p>
+      <?php endif; ?>
 
-        <h3>Reviews</h3>
+      <hr />
 
-        <?php if ($logged_in): ?>
-            <form action="submit_review.php" method="post">
-                <input type="hidden" name="game_id" id="modalGameIdReview">
-                <label>Rating (0–5):</label><br>
-                <input type="number" name="rating" min="0" max="5" required><br><br>
+      <h3>Reviews</h3>
 
-                <label>Comment:</label><br>
-                <textarea name="comment" rows="4" cols="40" required></textarea><br><br>
+      <?php if ($logged_in): ?>
+        <form action="submit_review.php" method="post">
+          <input type="hidden" name="game_id" id="modalGameIdReview" />
 
-                <input type="submit" value="Submit Review">
-                <input type="hidden" name="submitted" value="true">
-            </form>
-        <?php else: ?>
-            <p>Please <a href="Login_Page.php">log in</a> to leave a review.</p>
-        <?php endif; ?>
+          <label>Rating (0–5):</label><br />
+          <input type="number" name="rating" min="0" max="5" required /><br /><br />
+
+          <label>Comment:</label><br />
+          <textarea name="comment" rows="4" cols="40" required></textarea><br /><br />
+
+          <input type="submit" value="Submit Review" />
+          <input type="hidden" name="submitted" value="true" />
+        </form>
+      <?php else: ?>
+        <p>Please <a href="Login_Page.php">log in</a> to leave a review.</p>
+      <?php endif; ?>
 
     </div>
-</div>
+  </div>
 
-<script>
-// Open product modal
-function openProduct(title, image, description, price, platform, ageRating, gameId) {
-    document.getElementById("modalTitle").innerText = title;
-    document.getElementById("modalImage").src = image;
-    document.getElementById("modalDescription").innerText = description;
-    document.getElementById("modalPrice").innerText = price;
-    document.getElementById("modalPlatform").innerText = platform;
-    document.getElementById("modalRating").innerText = ageRating;
+  <script>
+    // --- user dropdown ---
+    const userBtn = document.getElementById("cbUserBtn");
+    const userMenu = document.getElementById("cbUserMenu");
 
-    // Hidden inputs for Add / Buy / Review
-    const addId    = document.getElementById("modalGameIdAdd");
-    const buyId    = document.getElementById("modalGameIdBuy");
-    const reviewId = document.getElementById("modalGameIdReview");
+    if (userBtn && userMenu) {
+      userBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        userMenu.classList.toggle("hidden");
+        userBtn.setAttribute("aria-expanded", String(!userMenu.classList.contains("hidden")));
+      });
 
-    if (addId)    addId.value    = gameId;
-    if (buyId)    buyId.value    = gameId;
-    if (reviewId) reviewId.value = gameId;
+      document.addEventListener("click", () => {
+        userMenu.classList.add("hidden");
+        userBtn.setAttribute("aria-expanded", "false");
+      });
+    }
 
-    // If gameId is 0, those features will safely do nothing (no FK error)
-    document.getElementById("productModal").style.display = "flex";
-    document.getElementById("modalContent").style.display = "flex";
-}
+    // --- modal ---
+    function openProduct(title, image, description, price, platform, ageRating, gameId) {
+      document.getElementById("modalTitle").innerText = title;
+      document.getElementById("modalImage").src = image;
+      document.getElementById("modalDescription").innerText = description;
+      document.getElementById("modalPrice").innerText = price;
+      document.getElementById("modalPlatform").innerText = platform;
+      document.getElementById("modalRating").innerText = ageRating;
 
-// Close modal
-function closeProduct() {
-    document.getElementById("productModal").style.display = "none";
-    document.getElementById("modalContent").style.display = "none";
-}
+      const addId = document.getElementById("modalGameIdAdd");
+      const buyId = document.getElementById("modalGameIdBuy");
+      const reviewId = document.getElementById("modalGameIdReview");
 
-// Apply filters (front-end only)
-function applyFilters() {
-    var searchValue   = document.getElementById("searchInput").value.toLowerCase();
-    var platformValue = document.getElementById("platformSelect").value;
-    var genreValue    = document.getElementById("genreSelect").value;
+      if (addId) addId.value = gameId;
+      if (buyId) buyId.value = gameId;
+      if (reviewId) reviewId.value = gameId;
 
-    var products = document.querySelectorAll(".product");
+      document.getElementById("productModal").style.display = "flex";
+      document.getElementById("modalContent").style.display = "flex";
+    }
 
-    products.forEach(function (product) {
-        var name     = product.getAttribute("data-name").toLowerCase();
-        var platform = product.getAttribute("data-platform");
-        var genre    = product.getAttribute("data-genre");
+    function closeProduct() {
+      document.getElementById("productModal").style.display = "none";
+      document.getElementById("modalContent").style.display = "none";
+    }
 
-        var visible = true;
+    // close modal if you click background
+    document.getElementById("productModal").addEventListener("click", (e) => {
+      if (e.target.id === "productModal") closeProduct();
+    });
+
+    // --- filters ---
+    function applyFilters() {
+      const searchValue = document.getElementById("searchInput").value.toLowerCase().trim();
+      const platformValue = document.getElementById("platformSelect").value;
+      const ageValue = document.getElementById("ageSelect").value;
+
+      const products = document.querySelectorAll(".product");
+
+      products.forEach((product) => {
+        const name = (product.getAttribute("data-name") || "").toLowerCase();
+        const platform = product.getAttribute("data-platform") || "";
+        const age = product.getAttribute("data-age") || "";
+
+        let visible = true;
 
         if (searchValue && !name.includes(searchValue)) visible = false;
         if (platformValue !== "All Platforms" && platform !== platformValue) visible = false;
-        if (genreValue !== "All Genres" && !genre.toLowerCase().includes(genreValue.toLowerCase())) visible = false;
+        if (ageValue !== "All Ratings" && age !== ageValue) visible = false;
 
         product.style.display = visible ? "block" : "none";
-    });
-}
-</script>
+      });
+    }
+
+    function resetFilters() {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("platformSelect").value = "All Platforms";
+      document.getElementById("ageSelect").value = "All Ratings";
+      applyFilters();
+    }
+  </script>
 
 </body>
 </html>

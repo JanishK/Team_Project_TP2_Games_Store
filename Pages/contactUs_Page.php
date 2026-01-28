@@ -9,26 +9,49 @@
 </head>
 
 <body>
-    <nav class="nav-bar">
-        <div class="nav-left">
-            <img class="page_logo" src="/Assets/Logo.png" alt="Logo">
+            <!-- NAVIGATION BAR -->
+    <nav class="cb-nav">
+        <div class="cb-nav__container">
+            
+            <!-- Brand -->
+            <a class="cb-brand" href="./home_Page.html">
+            <img class="cb-brand__logo" src="/Assets/Logo.png" alt="CoreByte Logo" />
+            <span class="cb-brand__text">CoreByte</span>
+            </a>
 
-            <!-- Hamburger Menu (only shows on mobile) -->
-        </div>
+            <!-- Main links -->
+            <ul class="cb-links" id="cbNavLinks">
+                <li><a href="./home_Page.php" class="cb-link is-active">Home</a></li>
+                <li><a href="./Products_Page.php" class="cb-link">Products</a></li>
+                <li><a href="./aboutUs_Page.php" class="cb-link">About</a></li>
+            </ul>
 
-        <!-- Main Navigation Links -->
-        <ul class="nav-links" id="navMenu">
-            <li><a href="./home_Page.html">Home</a></li>
-            <li><a href="./Products_Page.html">Products</a></li>
-            <li><a href="./aboutUs_Page.html">About</a></li>
-            <li><a href="./contactUs_Page.html">Support</a></li>
-            <li><a href="./registration_page.php">Account</a></li>
-            <li><a href="./basket_Page.html">Basket</a></li>
-        </ul>
+            <!-- User avatar dropdown -->
+            <div class="cb-user">
+            <button class="cb-user__btn" type="button" id="cbUserBtn" aria-expanded="false" aria-controls="cbUserMenu">
+                <span class="sr-only">Open user menu</span>
+                <img
+                class="cb-user__avatar"
+                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                alt="User photo"
+                />
+            </button>
 
-        <div class="nav-right">
-            <button id="themeToggle" class="basket-icon">☀️</button>
-            <span class="hamburger" onclick="toggleMenu()">☰</span>
+
+
+            <div class="cb-user__menu hidden" id="cbUserMenu" role="menu">
+                <div class="cb-user__header">
+                <span class="cb-user__name">Janish Kandel</span>
+                <span class="cb-user__email">JanishK@corebyte.com</span>
+                </div>
+
+                <a href="./basket_Page.html" role="menuitem">Basket <span class="notification">1</span></a>
+                <a href="./registration_page.php" role="menuitem">Account</a>
+                <a href="#" role="menuitem">Settings</a>
+                <a href="./contactUs_Page.html" role="menuitem">Support</a>
+                <a href="#" role="menuitem">Sign out</a>
+            </div>
+            </div>
 
         </div>
     </nav>

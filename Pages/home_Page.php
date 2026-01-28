@@ -24,9 +24,9 @@
 
             <!-- Main links -->
             <ul class="cb-links" id="cbNavLinks">
-                <li><a href="./home_Page.html" class="cb-link is-active">Home</a></li>
-                <li><a href="./Products_Page.html" class="cb-link">Products</a></li>
-                <li><a href="./aboutUs_Page.html" class="cb-link">About</a></li>
+                <li><a href="./home_Page.php" class="cb-link is-active">Home</a></li>
+                <li><a href="./Products_Page.php" class="cb-link">Products</a></li>
+                <li><a href="./aboutUs_Page.php" class="cb-link">About</a></li>
             </ul>
 
             <!-- User avatar dropdown -->
