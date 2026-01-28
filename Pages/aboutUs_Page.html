@@ -1,135 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
-    <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="icon" type="image/png" href="/Assets/Logo.png">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About</title>
+  <link rel="stylesheet" href="../CSS/style.css" />
+  <link rel="icon" type="image/png" href="/Assets/Logo.png" />
 </head>
+
 <body>
-    <nav class="nav-bar">
-        <div class="nav-left">
-            <img class="page_logo" src="/Assets/Logo.png" alt="Logo">
+  <!-- NAV -->
+    <nav class="cb-nav">
+        <div class="cb-nav__container">
+            
+            <!-- Brand -->
+            <a class="cb-brand" href="./home_Page.html">
+            <img class="cb-brand__logo" src="/Assets/Logo.png" alt="CoreByte Logo" />
+            <span class="cb-brand__text">CoreByte</span>
+            </a>
 
-            <!-- Hamburger Menu (only shows on mobile) -->
-        </div>
+            <!-- Main links -->
+            <ul class="cb-links" id="cbNavLinks">
+                <li><a href="./home_Page.html" class="cb-link is-active">Home</a></li>
+                <li><a href="./Products_Page.html" class="cb-link">Products</a></li>
+                <li><a href="./aboutUs_Page.html" class="cb-link">About</a></li>
+            </ul>
 
-        <!-- Main Navigation Links -->
-        <ul class="nav-links" id="navMenu">
-            <li><a href="./home_Page.html">Home</a></li>
-            <li><a href="./Products_Page.html">Products</a></li>
-            <li><a href="./aboutUs_Page.html">About</a></li>
-            <li><a href="./contactUs_Page.html">Support</a></li>
-            <li><a href="./registration_page.php">Account</a></li>
-            <li><a href="./basket_Page.html">Basket</a></li>
-        </ul>
+            <!-- User avatar dropdown -->
+            <div class="cb-user">
+            <button class="cb-user__btn" type="button" id="cbUserBtn" aria-expanded="false" aria-controls="cbUserMenu">
+                <span class="sr-only">Open user menu</span>
+                <img
+                class="cb-user__avatar"
+                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                alt="User photo"
+                />
+            </button>
 
-        <div class="nav-right">
-            <button id="themeToggle" class="basket-icon">☀️</button>
-            <span class="hamburger" onclick="toggleMenu()">☰</span>
+
+
+            <div class="cb-user__menu hidden" id="cbUserMenu" role="menu">
+                <div class="cb-user__header">
+                <span class="cb-user__name">Janish Kandel</span>
+                <span class="cb-user__email">JanishK@corebyte.com</span>
+                </div>
+
+                <a href="./basket_Page.html" role="menuitem">Basket <span class="notification">1</span></a>
+                <a href="./registration_page.php" role="menuitem">Account</a>
+                <a href="#" role="menuitem">Settings</a>
+                <a href="./contactUs_Page.html" role="menuitem">Support</a>
+                <a href="#" role="menuitem">Sign out</a>
+            </div>
+            </div>
 
         </div>
     </nav>
+   
 
-<body>
+    <script>
+        const userBtn = document.getElementById("cbUserBtn");
+        const userMenu = document.getElementById("cbUserMenu");
+
+        userBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            userMenu.classList.toggle("hidden");
+            userBtn.setAttribute("aria-expanded", String(!userMenu.classList.contains("hidden")));
+        });
+
+        document.addEventListener("click", () => {
+            userMenu.classList.add("hidden");
+            userBtn.setAttribute("aria-expanded", "false");
+        });
+    </script>
+
+
+
+
+  <!-- MOBILE MENU (slides in) -->
+  <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="./home_Page.html">Home</a>
+    <a href="./Products_Page.html">Products</a>
+    <a href="./aboutUs_Page.html">About</a>
+    <a href="./contactUs_Page.html">Support</a>
+    <a href="./registration_page.php">Account</a>
+    <a href="./basket_Page.html">Basket</a>
+  </aside>
+
+  <!-- PAGE -->
     <main>
         <section class="about-page-content">
-    
-    <header class="about-header">
-        <h1 class="page-title">About Us</h1>
-    </header>
+            <header class="about-header">
+            <h1 class="page-title">About CoreByte</h1>
+            <p class="about-subtitle">
+                Instant digital game downloads, trusted sellers, and a smoother way to shop across platforms.
+            </p>
+            </header>
 
-    <div class="about-main-grid">
-        
-        <div class="grid-text-column">
-
-            <article class="mission-section">
-                <h2 class="section-heading">Our Mission: Elevating Your Game</h2>
+            <div class="about-main-grid">
+            <div class="grid-text-column">
+                <article class="mission-section">
+                <h2 class="section-heading">What we do</h2>
                 <p>
-                    We're passionate about bringing the **best gaming experience** to players of all ages. Our core purpose is to provide reliable platforms where gamers can explore and purchase the latest and greatest games across all platforms.
+                    CoreByte is a digital marketplace built for gamers who want fast access to great titles—without
+                    the hassle. Browse by platform, discover new releases and deals, and get your games delivered
+                    instantly.
                 </p>
-                <p>
-                    Corebyte is committed to offering a selection of only **quality, unique, and trustworthy** games. We continuously expand our catalogue and improve our services, making us your trusted gaming marketplace.
-                </p>
-            </article>
+                </article>
 
-            <article class="commitment-section">
-                <h2 class="section-heading">Our Commitment to Gamers</h2>
+                <article class="commitment-section">
+                <h2 class="section-heading">Why gamers choose CoreByte</h2>
                 <ul class="commitment-list">
-                    <li><i class="icon-check"></i> Vetted titles and reliable platforms.</li>
-                    <li><i class="icon-check"></i> Secure transactions and protected data.</li>
-                    <li><i class="icon-check"></i> Always expanding our catalogue with the latest releases.</li>
+                    <li><i class="icon-check"></i> Curated catalogue across major platforms.</li>
+                    <li><i class="icon-check"></i> Secure checkout and protected customer data.</li>
+                    <li><i class="icon-check"></i> Instant delivery for digital purchases.</li>
+                    <li><i class="icon-check"></i> Helpful support when you need it.</li>
                 </ul>
-            </article>
+                </article>
 
-            <div class="cta-section">
-                <p>
-                    If you have any questions or queries, don't hesitate to reach out!
-                </p>
-                <a href="/contact" class="cta-button">
-                    Get in Touch with Corebyte
-                </a>
+                <section class="about-stats">
+                <h2 class="section-heading">Built for speed & trust</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                    <h3>Instant Delivery</h3>
+                    <p>Digital downloads delivered fast after purchase.</p>
+                    </div>
+                    <div class="stat-card">
+                    <h3>Secure Payments</h3>
+                    <p>Trusted payment flow with security-first design.</p>
+                    </div>
+                    <div class="stat-card">
+                    <h3>Curated Deals</h3>
+                    <p>Featured offers to help you save on top titles.</p>
+                    </div>
+                </div>
+                </section>
+
+                <div class="cta-section">
+                <p>Questions, refunds, or account help? We’re here.</p>
+                <div class="cta-row">
+                    <a href="./contactUs_Page.html" class="cta-button">Contact Support</a>
+                    <a href="./Products_Page.html" class="cta-button secondary-cta">Shop Games</a>
+                </div>
+                </div>
             </div>
 
-        </div>
-
-        <div class="grid-image-column">
-            <img 
-                src="../CoreByte Website Images/Gamer Picture.jpg" 
-                alt="Gamer wearing headphones and playing a PC game." 
-                class="responsive-image styled-shadow"
-            >
-        </div>
-
-    </div>
-        <footer>
-            <div class="footer-box">
-
-                <div class="footer-header">
-                    <h3>CoreByte</h3>
-                    <p>Your go-to store for digital games and instant downloads.</p>
+            <div class="grid-image-column">
+                <img
+                src="../CoreByte Website Images/Gamer Picture.jpg"
+                alt="Gamer wearing headphones playing on a PC."
+                class="responsive-image"
+                />
+                <div class="image-caption">
+                <p><strong>CoreByte</strong> — where your next game is one click away.</p>
                 </div>
-
-                <div class="footer-columns">
-
-                    <div class="footer-section">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Products</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-section">
-                        <h3>Support</h3>
-                        <ul>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Customer Service</a></li>
-                            <li><a href="#">Refund Policy</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-section">
-                        <h3>Follow Us</h3>
-                        <p>Instagram / TikTok / YouTube</p>
-                    </div>
-
-                </div>
-
-                <p class="copyright">© 2025 CoreByte. All rights reserved.</p>
             </div>
-        </footer>
+            </div>
+        </section>
+    </main>
 
-        <script src="app.js"></script>
-        <script>
-            toggleTheme();
-        </script>
+    <footer>
+        <div class="footer-box">
+            <div class="footer-header">
+            <h3>CoreByte</h3>
+            <p>Your digital storefront for games, deals, and instant downloads.</p>
+            </div>
 
-</body>
+            <div class="footer-columns">
+            <div class="footer-section">
+                <h3>Shop</h3>
+                <ul>
+                <li><a href="./Products_Page.html">All Products</a></li>
+                <li><a href="./Products_Page.html">Deals</a></li>
+                <li><a href="./Products_Page.html">Trending</a></li>
+                </ul>
+            </div>
+
+
+
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                <li><a href="#">Help Centre</a></li>
+                <li><a href="#">Refund Policy</a></li>
+                <li><a href="#">Terms & Privacy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Follow</h3>
+                <p>Instagram / TikTok / YouTube</p>
+                <p style="opacity:0.8; font-size:14px;">@CoreByteStore</p>
+            </div>
+            </div>
+
+            <p class="copyright">© 2025 CoreByte. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+
+
+   <body>
+
 
 </html>

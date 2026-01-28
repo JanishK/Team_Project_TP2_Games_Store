@@ -12,35 +12,70 @@
 </head>
 
 <body id="theme">
-    <nav class="nav-bar">
-        <div class="nav-bar-left">
-            <img class="page-logo" src="/Assets/Logo.png" alt="Logo">
+        <!-- NAVIGATION BAR -->
+    <nav class="cb-nav">
+        <div class="cb-nav__container">
+            
+            <!-- Brand -->
+            <a class="cb-brand" href="./home_Page.html">
+            <img class="cb-brand__logo" src="/Assets/Logo.png" alt="CoreByte Logo" />
+            <span class="cb-brand__text">CoreByte</span>
+            </a>
 
-            <a href="./home_Page.html">Home</a>
-            <a href="./products_Page.html">Products</a>
-            <a href="./about_Page.html">About</a>
-            <a href="./contact_Page.html">Contact</a>
+            <!-- Main links -->
+            <ul class="cb-links" id="cbNavLinks">
+                <li><a href="./home_Page.html" class="cb-link is-active">Home</a></li>
+                <li><a href="./Products_Page.html" class="cb-link">Products</a></li>
+                <li><a href="./aboutUs_Page.html" class="cb-link">About</a></li>
+            </ul>
+
+            <!-- User avatar dropdown -->
+            <div class="cb-user">
+            <button class="cb-user__btn" type="button" id="cbUserBtn" aria-expanded="false" aria-controls="cbUserMenu">
+                <span class="sr-only">Open user menu</span>
+                <img
+                class="cb-user__avatar"
+                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                alt="User photo"
+                />
+            </button>
+
+
+
+            <div class="cb-user__menu hidden" id="cbUserMenu" role="menu">
+                <div class="cb-user__header">
+                <span class="cb-user__name">Janish Kandel</span>
+                <span class="cb-user__email">JanishK@corebyte.com</span>
+                </div>
+
+                <a href="./basket_Page.html" role="menuitem">Basket <span class="notification">1</span></a>
+                <a href="./registration_page.php" role="menuitem">Account</a>
+                <a href="#" role="menuitem">Settings</a>
+                <a href="./contactUs_Page.html" role="menuitem">Support</a>
+                <a href="#" role="menuitem">Sign out</a>
+            </div>
             </div>
 
-            <div class="nav-bar-right">
-            <a href="./cart_Page.html"><img class="nav-icons" src="/Assets/ICONS/Basket.svg" alt="Basket"></a>
-            <a href="./login_Page.html"><img class="nav-icons" src="/Assets/ICONS/Account.svg" alt="Account"></a>
-            <a href="#"><img class="nav-icons"src="/Assets/ICONS/Settings.svg" alt=""></a>
-            </div>
-                <!-- Mobile side menu -->
-                <div class="mobile-menu" id="mobileMenu">
-                    <img class="mobile-page-logo" src="/Assets/Logo.png" alt="">
-                <a href="./home_Page.html">Home</a>
-                <a href="./products_Page.html">Products</a>
-                <a href="./about_Page.html">About</a>
-                <a href="./contact_Page.html">Contact</a>
-                <a href="./cart_Page.html">Cart</a>
-                <a href="./login_Page.html">Log In</a>
-                <a href="#">Settings</a>
-            </div>
-
-            <img class="menu-toggle" src="/Assets/ICONS/Menu.svg" alt="Menu Icon" onclick="toggleMenu()">
+        </div>
     </nav>
+   
+
+    <script>
+        const userBtn = document.getElementById("cbUserBtn");
+        const userMenu = document.getElementById("cbUserMenu");
+
+        userBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            userMenu.classList.toggle("hidden");
+            userBtn.setAttribute("aria-expanded", String(!userMenu.classList.contains("hidden")));
+        });
+
+        document.addEventListener("click", () => {
+            userMenu.classList.add("hidden");
+            userBtn.setAttribute("aria-expanded", "false");
+        });
+    </script>
+
 
 
     <div>
@@ -56,13 +91,13 @@
         <section class="categories-section">
             <h2 class="section-title">Browse by Category</h2>
             <div class="categories-container">
-                <div class="category-card">Action</div>
-                <div class="category-card">Adventure</div>
-                <div class="category-card">RPG</div>
-                <div class="category-card">Racing</div>
-                <div class="category-card">Sports</div>
-                <div class="category-card">Horror</div>
-            </div>
+                <button class="category-card">Action</button>
+                <button class="category-card">Adventure</button>
+                <button class="category-card">RPG</button>
+                <button class="category-card">Racing</button>
+                <button class="category-card">Sports</button>
+                <button class="category-card">Horror</button>
+            </div>    
         </section>
 
         <!-- TRENDING GAMES -->
