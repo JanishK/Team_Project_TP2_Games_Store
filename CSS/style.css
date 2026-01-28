@@ -47,178 +47,147 @@
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-}
 
 body {
   background-color: var(--color-background);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+
 }
 
 /* ---------------------------------------------------
     NAV BAR
 --------------------------------------------------- */
 
-/* Base nav (desktop-first layout, then overridden on mobile) */
+
 .nav-bar {
+  display: flex;
+  align-items: center;
   width: 100%;
-  background-color: var(--color-dark);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 20px;
+  height: 50px;
   box-shadow: var(--shadow-subtle);
-  position: relative;
-  z-index: 1000;
+  background-color: var(--color-dark);
+  padding: 0 20px;
 }
 
-/* Left side (logo + hamburger on mobile) */
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+.page-logo {
+  height: 40px;
+  width: auto;
+  animation: appear linear;
+  animation-timeline: view() ;
 }
 
-.page_logo {
-  width: 36px;
-  height: auto;
-  object-fit: contain;
-  transition: transform 0.2s ease;
-}
-.page_logo:hover { transform: scale(1.1); }
-.page_logo:active { transform: scale(0.95); }
-
-/* Nav links (desktop) */
-.nav-links {
+.nav-bar-left,
+.nav-bar-right {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.nav-links li {
-  list-style: none;
+.nav-bar-right {
+  margin-left: auto;
 }
 
-.nav-links a {
+.nav-bar a {
+  display: flex;
   text-decoration: none;
   color: var(--color-secondary);
-  background-color: var(--color-background);
-  padding: 6px 12px;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: 600;
-  transition: 0.2s ease;
+  padding: 1em 1em;
+  font-weight: bold;
 }
 
-.nav-links a:hover {
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  background-color: var(--color-background);
-  transform: translateY(-2px);
-  box-shadow: var(--color-highlight) 0 2px 10px;
+.nav-icons {
+  width: fit-content;
+  height: fit-content;
+  
 }
-
-/* Right side (theme button) */
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.basket-icon {
-  width: 30px;
+.nav-bar img {
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* Hamburger (hidden on desktop) */
-.hamburger {
-  font-size: 28px;
-  color: var(--color-secondary);
-  cursor: pointer;
+.nav-bar a:hover {
+  background-color: var(--color-background);
+  border-bottom: var(--color-highlight) 3px solid;
+  border-radius: 4px;
+  transition: all 0.1s ease;
+  filter: drop-shadow( 4px 4px 2px var(--color-highlight) );
+  height: fit-content;
+
+
+}
+
+.menu-toggle {
   display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--color-secondary);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -260px; /* hidden */
+  width: 260px;
+  height: 100vh;
+  background-color: var(--color-dark);
+  box-shadow: 4px 0 15px rgba(0,0,0,0.4);
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: left 0.3s ease;
+  z-index: 9999;
+}
+
+.mobile-menu a {
+  color: var(--color-secondary);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.mobile-menu a:hover {
+  background-color: var(--color-dark);
+  border-left: 4px solid var(--color-highlight);
+}
+
+@media screen and (max-width: 700px) {
+
+  .nav-bar-left, .nav-bar-right {
+    display: none; 
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+  .mobile-page-logo {
+    height: 35px;
+    width: 40px;
+  }
+}
+
+.nav-bar img:hover {
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+    filter: drop-shadow( 4px 4px 2px var(--color-dark) );
+}
+.nav-bar a:active {
+  transform: scale(0.95);
 }
 
 /* ---------------------------------------------------
     NAV BAR — MOBILE
 --------------------------------------------------- */
-@media (max-width: 768px) {
 
-  /* Stack nav content; dropdown appears under top row */
-  .nav-bar {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 12px 16px;
-  }
-
-  /* First row: logo + hamburger */
-  .nav-left {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  .page_logo {
-    width: 40px;
-  }
-
-  .hamburger {
-    display: block;
-    margin-left: auto;
-  }
-
-  /* Theme button sits top-right */
-  .nav-right {
-    position: absolute;
-    right: 60px;
-    top: 14px;
-  }
-
-  /* Dropdown menu (initially hidden) */
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background-color: var(--color-dark);
-    border-radius: 10px;
-    margin-top: 10px;
-    padding: 10px 0;
-
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease-out;
-  }
-
-  .nav-links.show {
-    display: flex;
-    max-height: 500px;
-  }
-
-  .nav-links a {
-    width: 100%;
-    padding: 14px 20px;
-    font-size: 18px;
-    border: none;
-    background: transparent;
-    text-align: left;
-    border-radius: 0;
-  }
-
-  .nav-links a:hover {
-    background-color: var(--color-background);
-    border-radius: 8px;
-    transform: none;
-    border: none;
-    box-shadow: none;
-  }
-}
 
 /* ---------------------------------------------------
     REGISTER & LOGIN CONTAINERS
+
+
+
 --------------------------------------------------- */
 .register-container,
 .login-container {
@@ -823,6 +792,9 @@ body {
 .trending-section,
 .deals-section {
   margin-top: 60px;
+  padding: 20px;
+  animation: appear linear;
+  animation-timeline: view() ;
 }
 
 .section-title {
@@ -845,10 +817,11 @@ body {
 }
 
 .category-card {
-  min-width: 200px;
+  min-width: 80px;
+  min-height: 50px;
   background-color: var(--color-dark);
   border: 2px solid var(--color-accent);
-  border-radius: 16px;
+  border-radius: 5px;
   padding: 20px;
   text-align: center;
   box-shadow: var(--shadow-subtle);
@@ -1319,4 +1292,9 @@ footer .copyright {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes appear {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

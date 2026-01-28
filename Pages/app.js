@@ -27,6 +27,6 @@ function toggleTheme() {
 }
 
 function toggleMenu() {
-    const menu = document.getElementById("navMenu");
-    menu.classList.toggle("show");
+    const menu = document.getElementById("mobileMenu");
+    menu.style.left = menu.style.left === "0px" ? "-260px" : "0px";
 }

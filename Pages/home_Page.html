@@ -13,28 +13,35 @@
 
 <body id="theme">
     <nav class="nav-bar">
-        <div class="nav-left">
-            <img class="page_logo" src="/Assets/Logo.png" alt="Logo">
+        <div class="nav-bar-left">
+            <img class="page-logo" src="/Assets/Logo.png" alt="Logo">
 
-            <!-- Hamburger Menu (only shows on mobile) -->
-        </div>
+            <a href="./home_Page.html">Home</a>
+            <a href="./products_Page.html">Products</a>
+            <a href="./about_Page.html">About</a>
+            <a href="./contact_Page.html">Contact</a>
+            </div>
 
-        <!-- Main Navigation Links -->
-        <ul class="nav-links" id="navMenu">
-            <li><a href="./home_Page.html">Home</a></li>
-            <li><a href="./Products_Page.html">Products</a></li>
-            <li><a href="./aboutUs_Page.html">About</a></li>
-            <li><a href="./contactUs_Page.html">Support</a></li>
-            <li><a href="./registration_page.php">Account</a></li>
-            <li><a href="./basket_Page.html">Basket</a></li>
-        </ul>
+            <div class="nav-bar-right">
+            <a href="./cart_Page.html"><img class="nav-icons" src="/Assets/ICONS/Basket.svg" alt="Basket"></a>
+            <a href="./login_Page.html"><img class="nav-icons" src="/Assets/ICONS/Account.svg" alt="Account"></a>
+            <a href="#"><img class="nav-icons"src="/Assets/ICONS/Settings.svg" alt=""></a>
+            </div>
+                <!-- Mobile side menu -->
+                <div class="mobile-menu" id="mobileMenu">
+                    <img class="mobile-page-logo" src="/Assets/Logo.png" alt="">
+                <a href="./home_Page.html">Home</a>
+                <a href="./products_Page.html">Products</a>
+                <a href="./about_Page.html">About</a>
+                <a href="./contact_Page.html">Contact</a>
+                <a href="./cart_Page.html">Cart</a>
+                <a href="./login_Page.html">Log In</a>
+                <a href="#">Settings</a>
+            </div>
 
-        <div class="nav-right">
-            <button id="themeToggle" class="basket-icon">☀️</button>
-            <span class="hamburger" onclick="toggleMenu()">☰</span>
-
-        </div>
+            <img class="menu-toggle" src="/Assets/ICONS/Menu.svg" alt="Menu Icon" onclick="toggleMenu()">
     </nav>
+
 
     <div>
         <section class="hero-banner">
