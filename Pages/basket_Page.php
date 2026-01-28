@@ -15,6 +15,7 @@ $user_id = (int)$_SESSION['uid'];
 // =======================================
 // HANDLE CART ACTIONS (increment, decrement, remove, clear)
 // =======================================
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
     $action  = $_POST['action'];
@@ -25,7 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $stmt->execute([$user_id]);
 
     } else {
-        // Validate row belongs to logged-in user
+
+        // Validate row belongs for logged-in user
         $check = $db->prepare("SELECT quantity FROM cart WHERE cart_id = ? AND user_id = ?");
         $check->execute([$cart_id, $user_id]);
         $row = $check->fetch(PDO::FETCH_ASSOC);
@@ -62,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 // =======================================
 // FETCH CART ITEMS
 // =======================================
+
 $sql = "
     SELECT c.cart_id, c.quantity,
            g.gid, g.name, g.platform, g.price, g.image
