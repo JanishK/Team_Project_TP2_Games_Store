@@ -150,11 +150,11 @@ function js($value) {
 
           <p><?php echo editionTag($g['age_restriction']); ?></p>
 
-          <img
-            src="<?php echo htmlspecialchars($imgPath, ENT_QUOTES); ?>"
-            alt="<?php echo htmlspecialchars($g['name']); ?>"
-            onerror="this.src='../Assets/Game_Images/placeholder.jpg';"
-          />
+            <img
+              src="<?= htmlspecialchars($imgPath, ENT_QUOTES); ?>"
+              alt="<?= htmlspecialchars($g['name'], ENT_QUOTES); ?>"
+              onerror="this.onerror=null; this.src='<?= htmlspecialchars($placeholder, ENT_QUOTES); ?>';"
+            />
 
           <h3><?php echo htmlspecialchars(strtoupper($g['name'])); ?></h3>
 
