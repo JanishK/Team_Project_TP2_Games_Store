@@ -4,7 +4,7 @@
 	// Destroy all session data
 	session_destroy();
     // Redirect to home page
-    header("Location: home_Page.html");
+    header("Location: home_Page.php");
     // exit the script
     exit();
 ?>

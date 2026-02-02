@@ -5,17 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/style.css">
+    <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
     <title>Contact Us</title>
 </head>
 
-<body>
+<body class="<?php echo $themeClass; ?>">
+    
             <!-- NAVIGATION BAR -->
     <nav class="cb-nav">
         <div class="cb-nav__container">
             
             <!-- Brand -->
             <a class="cb-brand" href="./home_Page.html">
-            <img class="cb-brand__logo" src="/Assets/Logo.png" alt="CoreByte Logo" />
+            <img class="cb-brand__logo" src="/Team_Project_TP2_Games_Store/Assets/Logo.png" alt="CoreByte Logo" />
             <span class="cb-brand__text">CoreByte</span>
             </a>
 
@@ -45,10 +47,10 @@
                 <span class="cb-user__email">JanishK@corebyte.com</span>
                 </div>
 
-                <a href="./basket_Page.html" role="menuitem">Basket <span class="notification">1</span></a>
+                <a href="./basket_Page.php" role="menuitem">Basket <span class="notification">1</span></a>
                 <a href="./registration_page.php" role="menuitem">Account</a>
-                <a href="#" role="menuitem">Settings</a>
-                <a href="./contactUs_Page.html" role="menuitem">Support</a>
+                <a href="./settingsPage.php" role="menuitem">Settings</a>
+                <a href="./contactUs_Page.php" role="menuitem">Support</a>
                 <a href="#" role="menuitem">Sign out</a>
             </div>
             </div>

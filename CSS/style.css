@@ -1,6 +1,8 @@
 /* ---------------------------------------------------
     GLOBAL THEME COLORS (ENHANCED)
 --------------------------------------------------- */
+/* VERSION: 2026-02-02 13:37 */
+
 /* =========================
    COREBYTE THEME (Minimal Colors palette)
    Use across all pages
@@ -77,16 +79,15 @@
   padding: 0;
   font-family: 'Poppins', sans-serif;
   color: var(--color-secondary);
-  box-sizing: border-box;
 }
-
-
 body {
-  background: radial-gradient(1100px 650px at 15% 0%, rgba(132, 88, 179, 0.20), transparent 60%),
-              radial-gradient(900px 500px at 85% 10%, rgba(160, 210, 235, 0.14), transparent 55%),
-              var(--color-background);
-  color: var(--text);
+  background:
+    radial-gradient(1100px 650px at 18% 0%, rgba(132, 88, 179, 0.22), transparent 60%),
+    radial-gradient(900px 520px at 88% 12%, rgba(160, 210, 235, 0.16), transparent 55%),
+    var(--color-background);
+
 }
+
 
 /* ---------------------------------------------------
     NAV BAR
@@ -108,7 +109,7 @@ body {
 
 /* Navbar wrapper */
 .cb-nav {
-  position: fixed;
+  position: static;
   top: 0;
   left: 0;
   width: 100%;
@@ -341,12 +342,7 @@ body {
 ============================== */
 
 /* Background gets a soft brand glow */
-body {
-  background:
-    radial-gradient(1100px 650px at 18% 0%, rgba(132, 88, 179, 0.22), transparent 60%),
-    radial-gradient(900px 520px at 88% 12%, rgba(160, 210, 235, 0.16), transparent 55%),
-    var(--color-background);
-}
+
 
 /* ---------- NAV (better with minimal palette) ---------- */
 .cb-nav {
@@ -1361,4 +1357,721 @@ a:focus {
   border-color: var(--color-accent);
   color: var(--color-primary);
 }
+
+
+/* ==============================
+   PRODUCTS PAGE — CoreByte
+   (Drop this at the END of style.css)
+============================== */
+
+/* Prevent fixed nav overlap */
+.page-name {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 28px 18px 14px;
+}
+
+.page-name h1 {
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  color: var(--color-primary);
+  text-shadow: 0 0 18px rgba(160, 210, 235, 0.16);
+  margin-bottom: 6px;
+}
+
+.page-name p {
+  color: var(--text-muted);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* Layout */
+.products-page-wrapper {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 18px 18px 34px;
+
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+/* Sidebar filter card */
+.filter-bar {
+  position: sticky;
+  top: 92px; /* matches your nav height */
+  border-radius: 18px;
+  padding: 16px;
+
+  background: rgba(229, 234, 245, 0.05);
+  border: 1px solid rgba(208, 189, 244, 0.18);
+  box-shadow: var(--shadow-subtle);
+}
+
+.filter-bar h2 {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.filter-bar label {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(229, 234, 245, 0.80);
+  margin: 12px 0 8px;
+}
+
+.filter-bar input,
+.filter-bar select {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(208, 189, 244, 0.20);
+  color: var(--c-ice);
+  outline: none;
+
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.filter-bar input::placeholder {
+  color: rgba(229, 234, 245, 0.55);
+}
+
+.filter-bar input:focus,
+.filter-bar select:focus {
+  border-color: rgba(160, 210, 235, 0.55);
+  box-shadow: 0 0 0 3px rgba(160, 210, 235, 0.16);
+}
+
+/* Buttons in sidebar */
+.filter-bar button {
+  width: 100%;
+  margin-top: 12px;
+
+  border: none;
+  cursor: pointer;
+  border-radius: 14px;
+  padding: 12px 14px;
+
+  font-weight: 900;
+  color: var(--c-ice);
+
+  background: rgba(132, 88, 179, 0.85);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.30);
+
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.filter-bar button:hover {
+  transform: translateY(-2px);
+  background: #9158d6;
+  box-shadow: var(--shadow-strong);
+}
+
+.filter-bar button:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: none;
+}
+
+/* Product grid */
+.main-content-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Product card */
+.product {
+  border-radius: 18px;
+  padding: 16px;
+
+  background: rgba(229, 234, 245, 0.05);
+  border: 1px solid rgba(208, 189, 244, 0.18);
+  box-shadow: var(--shadow-subtle);
+
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.product:hover {
+  transform: translateY(-3px);
+  border-color: rgba(208, 189, 244, 0.28);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Edition tag */
+.product > p:first-child {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: rgba(229, 234, 245, 0.75);
+  margin-bottom: 10px;
+}
+
+/* Product image */
+.product img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+
+  border-radius: 14px;
+  border: 1px solid rgba(160, 210, 235, 0.18);
+  background: rgba(0,0,0,0.18);
+
+  margin-bottom: 12px;
+}
+
+/* Title + price */
+.product h3 {
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.25;
+  margin: 2px 0 10px;
+  color: var(--c-ice);
+}
+
+.product > p:nth-of-type(2) {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+/* View details button */
+.product button {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  font-weight: 900;
+  color: var(--c-ice);
+
+  background: rgba(73, 77, 95, 0.55);
+  border: 1px solid rgba(208, 189, 244, 0.22);
+
+  transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.product button:hover {
+  transform: translateY(-2px);
+  background: rgba(229, 234, 245, 0.08);
+  border-color: rgba(208, 189, 244, 0.32);
+}
+
+.product button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* ==========================
+   MODAL
+========================== */
+.product-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.product-modal-content {
+  width: min(860px, 100%);
+  border-radius: 22px;
+  padding: 18px;
+
+  background: rgba(73, 77, 95, 0.92);
+  border: 1px solid rgba(208, 189, 244, 0.22);
+  box-shadow: var(--shadow-strong);
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#product-close-btn {
+  align-self: flex-end;
+  border: none;
+  cursor: pointer;
+
+  padding: 10px 12px;
+  border-radius: 12px;
+
+  font-weight: 900;
+  background: rgba(229, 234, 245, 0.10);
+  border: 1px solid rgba(208, 189, 244, 0.22);
+  color: var(--c-ice);
+
+  transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+}
+
+#product-close-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(229, 234, 245, 0.14);
+  border-color: rgba(208, 189, 244, 0.32);
+}
+
+.product-modal-content h1 {
+  font-size: clamp(22px, 2.4vw, 34px);
+  font-weight: 900;
+  color: var(--color-primary);
+  margin-top: 2px;
+}
+
+.product-modal-content img {
+  width: min(320px, 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(160, 210, 235, 0.20);
+  background: rgba(0,0,0,0.18);
+}
+
+.product-modal-content p {
+  color: rgba(229, 234, 245, 0.85);
+  line-height: 1.7;
+}
+
+.product-modal-content h2 {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--c-ice);
+}
+
+/* Modal forms/buttons */
+.product-modal-content form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.product-modal-content form button,
+.product-modal-content input[type="submit"] {
+  border: none;
+  cursor: pointer;
+
+  padding: 12px 14px;
+  border-radius: 14px;
+
+  font-weight: 900;
+  color: var(--c-ice);
+
+  background: rgba(132, 88, 179, 0.85);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.30);
+
+  transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.product-modal-content form button:hover,
+.product-modal-content input[type="submit"]:hover {
+  transform: translateY(-2px);
+  background: #9158d6;
+  box-shadow: var(--shadow-strong);
+}
+
+.product-modal-content textarea,
+.product-modal-content input[type="number"] {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(208, 189, 244, 0.20);
+  color: var(--c-ice);
+  outline: none;
+}
+
+.product-modal-content textarea:focus,
+.product-modal-content input[type="number"]:focus {
+  border-color: rgba(160, 210, 235, 0.55);
+  box-shadow: 0 0 0 3px rgba(160, 210, 235, 0.16);
+}
+
+
+/* ---------------------------------------------------
+   LOGIN & REGISTER CONTAINER (MINIMAL E-COMMERCE)
+--------------------------------------------------- */
+/* ---------------------------------------------------
+    REGISTER and Login CONTAINER (ENHANCED)
+--------------------------------------------------- */
+.register-container,
+.login-container {
+  width: 480px; /* Slightly narrower, focusing the user */
+  max-width: 90%; /* Better mobile support */
+  margin: 5vh auto; /* Use viewport height for better vertical centering */
+  padding: 35px 30px; /* Increased padding */
+
+  background-color: var(--color-dark);
+  border-radius: 18px; /* Softer rounded corners */
+  /* Stronger, predefined shadow */
+  box-shadow: var(--shadow-strong);
+  /* NEW: Subtle accented border */
+  border: 1px solid rgba(196, 155, 255, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Reduced animation duration for snappier feel */
+  animation: fadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* TITLE (ENHANCED) */
+.register-container h1,
+.login-container h1 {
+  font-size: 30px; /* Slightly larger title */
+  font-weight: 700;
+  margin-bottom: 25px; /* More space */
+
+  text-decoration: none; 
+  color: var(--color-primary); /* Primary color for title */
+}
+
+/* SUBTEXT (ENHANCED) */
+.register-container p,
+.login-container p {
+  font-size: 16px; 
+  margin-bottom: 12px;
+  opacity: 0.8;
+  text-align: center; /* Center text for cleaner look */
+}
+
+/* LINK (ENHANCED) */
+.register-container a,
+.login-container a {
+  color: var(--color-accent);
+  font-size: 17px;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.register-container a:hover,
+.login-container a:hover {
+  color: var(--color-highlight);
+  transform: translateY(-1px);
+}
+
+/* ---------------------------------------------------
+    FORM (ENHANCED)
+--------------------------------------------------- */
+.registration-form form,
+.login-form form {
+    width: 100%;
+    padding: 0 20px; /* Inner padding for form content */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+
+/* INPUT FIELDS (ENHANCED) */
+.registration-form input[type="email"],
+.registration-form input[type="text"],
+.registration-form input[type="password"],
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%; /* Fill the form's width */
+  padding: 14px 16px; /* Increased vertical padding */
+
+  margin: 10px 0;
+
+  background-color: rgba(0, 0, 0, 0.2); /* Darker background in the input */
+  border: 1px solid var(--color-accent); /* Thinner border */
+  border-radius: 8px; /* Slightly softer corners */
+
+  color: var(--color-secondary);
+  font-size: 17px; /* Slightly larger font */
+
+  transition: all 0.3s ease;
+}
+
+.registration-form input:focus,
+.login-form input:focus {
+  border-color: var(--color-highlight);
+  /* Subtle glow effect on focus */
+  box-shadow: 0 0 10px rgba(140, 91, 255, 0.5); 
+  outline: none;
+  background-color: var(--color-dark); /* Solid dark background on focus */
+}
+
+/* Placeholder Text Color */
+.registration-form input::placeholder,
+.login-form input::placeholder {
+  color: rgba(233, 236, 245, 0.5); /* Semi-transparent secondary color */
+}
+
+
+/* SUBMIT BUTTON (ENHANCED) */
+.registration-form input[type="submit"],
+.login-form input[type="submit"] {
+    width: 60%; /* Wider button */
+    padding: 14px 12px;
+
+    background-color: var(--color-primary);
+    /* NEW: Use a subtle linear gradient for a modern 3D effect */
+    background-image: linear-gradient(145deg, var(--color-primary) 0%, #6892e8 100%);
+    color: var(--color-dark);
+
+    font-size: 18px;
+    font-weight: 700; /* Bolder text */
+
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+    margin-top: 25px; /* More separation from inputs */
+    margin-bottom: 0px;
+    /* NEW: Stronger lift and box shadow */
+    box-shadow: 0 4px 10px rgba(126, 166, 244, 0.3); 
+    /* Spring-like transition */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+
+.registration-form input[type="submit"]:hover,
+.login-form input[type="submit"]:hover {
+  transform: translateY(-4px); /* Stronger lift */
+  /* Enhanced shadow on hover */
+  box-shadow: 0 8px 15px rgba(126, 166, 244, 0.5); 
+  opacity: 1; 
+}
+
+/* New: Pressed state for accessibility and feel */
+.registration-form input[type="submit"]:active,
+.login-form input[type="submit"]:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(126, 166, 244, 0.3);
+}
+
+
+
+
+/* ---------------------------------------------------
+    ERROR AND SUCCESS MESSAGES (ENHANCED)
+--------------------------------------------------- */
+.error-message {
+  width: 100%; /* Fill the container's width */
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: #ff4d4d; /* Bright red */
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  /* NEW: Subtle shadow and border */
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+  border: 1px solid white;
+}
+.success-message {
+  width: 100%; /* Fill the container's width */
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: #4BB543; /* Bright green */
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  /* NEW: Subtle shadow and border */
+  box-shadow: 0 0 10px rgba(75, 181, 67, 0.5);
+  border: 1px solid white;
+}
+   
+/* ==============================
+   SETTINGS PAGE (E-COMMERCE)
+============================== */
+
+/* Page container (reuses login-container pattern) */
+.settings-container {
+  width: 480px;
+  max-width: 92%;
+  margin: 90px auto 60px;
+  padding: 32px;
+
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  flex-direction: column;
+  background: var(--c-slate);
+}
+
+/* Page title */
+.settings-container h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: white;
+  text-align: center;
+}
+
+/* ==============================
+   FORM
+============================== */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Labels */
+.settings-form label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Inputs & selects */
+.settings-form input[type="text"],
+.settings-form select {
+  width: 100%;
+  padding: 13px 14px;
+
+  font-size: 15px;
+  color: white;
+
+  background-color:var(--c-slate);
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.settings-form input::placeholder {
+  color: #9ca3af;
+}
+
+.settings-form input:focus,
+.settings-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background-color: var(--c-slate);
+}
+
+/* ==============================
+   CHECKBOXES
+============================== */
+.settings-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 14px;
+  color: #374151;
+}
+
+.settings-checkbox input {
+  accent-color: #2563eb;
+  width: 16px;
+  height: 16px;
+}
+
+/* ==============================
+   SAVE BUTTON
+============================== */
+.settings-form button {
+  margin-top: 20px;
+  padding: 14px;
+
+  background-color: #111827;
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+
+.settings-form button:hover {
+  background-color: #1f2937;
+}
+
+/* ==============================
+   FEEDBACK MESSAGES
+============================== */
+.settings-container .error-message,
+.settings-container .success-message {
+  margin-bottom: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  justify-content: center;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.settings-container .error-message {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.settings-container .success-message {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+@media (max-width: 480px) {
+  .settings-container {
+    padding: 24px 20px;
+  }
+}
+
+
+/* ==========================
+   RESPONSIVE
+========================== */
+@media (max-width: 1200px) {
+  .main-content-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .products-page-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-bar {
+    position: relative;
+    top: 0;
+  }
+
+  .main-content-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .main-content-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .product img {
+    height: 190px;
+  }
+}
+
 

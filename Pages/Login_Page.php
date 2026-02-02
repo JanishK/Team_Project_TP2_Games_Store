@@ -31,7 +31,7 @@
 					header("Location:admin_panel.php");
 					exit();
 					}else{
-					header("Location:home_Page.html");
+					header("Location:home_Page.php");
 					exit();
 					}
 				} else {
@@ -55,17 +55,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="icon" type="image/png" href="/Assets/Logo.png">
+	<link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/style.css">
+	<link rel="icon" type="image/png" href="/Team_Project_TP2_Games_Store/Assets/Logo.png" />
+	<script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
 </head>
-<body>
+<body class="<?php echo $themeClass; ?>">
             <!-- NAVIGATION BAR -->
     <nav class="cb-nav">
         <div class="cb-nav__container">
             
             <!-- Brand -->
-            <a class="cb-brand" href="./home_Page.html">
-            <img class="cb-brand__logo" src="/Assets/Logo.png" alt="CoreByte Logo" />
+            <a class="cb-brand" href="./home_Page.php">
+            <img class="cb-brand__logo" src="/Team_Project_TP2_Games_Store/Assets/Logo.png" alt="CoreByte Logo" />
             <span class="cb-brand__text">CoreByte</span>
             </a>
 
@@ -95,10 +96,10 @@
                 <span class="cb-user__email">JanishK@corebyte.com</span>
                 </div>
 
-                <a href="./basket_Page.html" role="menuitem">Basket <span class="notification">1</span></a>
+                <a href="./basket_Page.php" role="menuitem">Basket <span class="notification">1</span></a>
                 <a href="./registration_page.php" role="menuitem">Account</a>
-                <a href="#" role="menuitem">Settings</a>
-                <a href="./contactUs_Page.html" role="menuitem">Support</a>
+          		<a href="./settingsPage.php" role="menuitem">Settings</a>
+                <a href="./contactUs_Page.php" role="menuitem">Support</a>
                 <a href="#" role="menuitem">Sign out</a>
             </div>
             </div>
@@ -115,18 +116,18 @@
         
 		<!-- Login form -->
         <div class="login-form">
-		<?php if ($loggedin == false): ?>
-        <form action="Login_Page.php" method="post">
-		<p>Please enter your credentials to log in.</p>
-		<!-- username input -->
-        username: <input type="text" name="username" placeholder="Enter username" required>
-		<!-- password input -->
-        Password: <input type="password" name="password" placeholder="Enter password" required>
-		<!-- submit button -->
-        <input type="submit" value="Login">
-        <input type="hidden" name="submitted" value="true">
-        <!-- register link -->
-        <p>Do not have an account? <a href="./registration_page.php">Register</a></p>
+			<?php if ($loggedin == false): ?>
+			<form action="Login_Page.php" method="post">
+			<p>Please enter your credentials to log in.</p>
+			<!-- username input -->
+			Username: <input type="text" name="username" placeholder="Enter username" required>
+			<!-- password input -->
+			Password: <input type="password" name="password" placeholder="Enter password" required>
+			<!-- submit button -->
+			<input type="submit" value="Login">
+			<input type="hidden" name="submitted" value="true">
+			<!-- register link -->
+			<p>Do not have an account? <a href="./registration_page.php">Register</a></p>
          </div>
         </form>
 		<?php else: ?>

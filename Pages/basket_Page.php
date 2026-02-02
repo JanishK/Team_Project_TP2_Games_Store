@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once("connectdb.php");
+require_once('themes.php');
+
 
 // =======================================
 // USER MUST BE LOGGED IN
@@ -94,9 +96,11 @@ foreach ($items as $item) {
     <title>CoreByte | Basket</title>
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="icon" type="image/png" href="../Assets/Logo.png">
+    <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
 </head>
 
-<body>
+<body class="<?php echo $themeClass; ?>">
+
 
         <!-- NAVIGATION BAR -->
     <nav class="cb-nav">
@@ -134,10 +138,10 @@ foreach ($items as $item) {
                 <span class="cb-user__email">JanishK@corebyte.com</span>
                 </div>
 
-                <a href="./basket_Page.html" role="menuitem">Basket <span class="notification">1</span></a>
+                <a href="./basket_Page.php" role="menuitem">Basket <span class="notification">1</span></a>
                 <a href="./registration_page.php" role="menuitem">Account</a>
-                <a href="#" role="menuitem">Settings</a>
-                <a href="./contactUs_Page.html" role="menuitem">Support</a>
+                <a href="./settingsPage.php" role="menuitem">Settings</a>
+                <a href="./contactUs_Page.php" role="menuitem">Support</a>
                 <a href="#" role="menuitem">Sign out</a>
             </div>
             </div>

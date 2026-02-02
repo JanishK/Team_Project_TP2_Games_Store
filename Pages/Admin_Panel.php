@@ -64,7 +64,11 @@ try {
         th,td         { padding: 10px; }
     </style>
 </head>
-<body>
+<body class="<?php echo $themeClass; ?>">
+<?php
+require_once('connectdb.php');
+require_once('themes.php');
+?>
     <!-- navigation bar to link to other webpages -->
     <div class="nav-bar">
         <ul class="nav-left">

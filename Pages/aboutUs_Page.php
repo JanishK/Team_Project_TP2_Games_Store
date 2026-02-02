@@ -6,9 +6,15 @@
   <title>About</title>
   <link rel="stylesheet" href="../CSS/style.css" />
   <link rel="icon" type="image/png" href="/Assets/Logo.png" />
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/style.css?v=1" />
+    <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
 </head>
+<?php
+require_once('connectdb.php');
+require_once('themes.php');
+?>
 
-<body>
+<body class="<?php echo $themeClass; ?>">
   <!-- NAV -->
             <!-- NAVIGATION BAR -->
     <nav class="cb-nav">
@@ -16,7 +22,7 @@
             
             <!-- Brand -->
             <a class="cb-brand" href="./home_Page.html">
-            <img class="cb-brand__logo" src="/Assets/Logo.png" alt="CoreByte Logo" />
+            <img class="cb-brand__logo" src="/Team_Project_TP2_Games_Store/Assets/Logo.png" alt="CoreByte Logo" />
             <span class="cb-brand__text">CoreByte</span>
             </a>
 
@@ -46,10 +52,10 @@
                 <span class="cb-user__email">JanishK@corebyte.com</span>
                 </div>
 
-                <a href="./basket_Page.html" role="menuitem">Basket <span class="notification">1</span></a>
+                <a href="./basket_Page.php" role="menuitem">Basket <span class="notification">1</span></a>
                 <a href="./registration_page.php" role="menuitem">Account</a>
-                <a href="#" role="menuitem">Settings</a>
-                <a href="./contactUs_Page.html" role="menuitem">Support</a>
+                <a href="./settingsPage.php" role="menuitem">Settings</a>
+                <a href="./contactUs_Page.php" role="menuitem">Support</a>
                 <a href="#" role="menuitem">Sign out</a>
             </div>
             </div>
@@ -57,35 +63,6 @@
         </div>
     </nav>
    
-
-    <script>
-        const userBtn = document.getElementById("cbUserBtn");
-        const userMenu = document.getElementById("cbUserMenu");
-
-        userBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            userMenu.classList.toggle("hidden");
-            userBtn.setAttribute("aria-expanded", String(!userMenu.classList.contains("hidden")));
-        });
-
-        document.addEventListener("click", () => {
-            userMenu.classList.add("hidden");
-            userBtn.setAttribute("aria-expanded", "false");
-        });
-    </script>
-
-
-
-
-  <!-- MOBILE MENU (slides in) -->
-  <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <a href="./home_Page.html">Home</a>
-    <a href="./Products_Page.html">Products</a>
-    <a href="./aboutUs_Page.html">About</a>
-    <a href="./contactUs_Page.html">Support</a>
-    <a href="./registration_page.php">Account</a>
-    <a href="./basket_Page.html">Basket</a>
-  </aside>
 
   <!-- PAGE -->
     <main>

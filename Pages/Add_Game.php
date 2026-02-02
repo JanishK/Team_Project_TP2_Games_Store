@@ -158,11 +158,15 @@ try{
 
     </style>
 </head>
-<body>
+<body class="<?php echo $themeClass; ?>">
+<?php
+require_once('connectdb.php');
+require_once('themes.php');
+?>
     <!-- navigation bar to return to admin panel or logout -->
     <div class="nav-bar">
         <ul class="nav-left"> 
-            <img class="page_logo" src="/Assets/Logo.png" alt="">
+            <img class="page_logo" src="/Team_Project_TP2_Games_Store/Assets/Logo.png" alt="">
             <b>Add Game - Admin</b>
         </ul>
 

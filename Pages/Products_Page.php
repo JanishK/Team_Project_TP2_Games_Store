@@ -37,18 +37,19 @@ function js($value) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CoreByte | Products</title>
-  <link rel="stylesheet" href="../CSS/style.css" />
-  <link rel="icon" type="image/png" href="../Assets/Logo.png" />
+  <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/style.css?v=1" />
+  <link rel="icon" type="image/png" href="/Team_Project_TP2_Games_Store/Assets/Logo.png" />
+  <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
 </head>
 
-<body>
+<body class="<?php echo $themeClass; ?>">
 
   <!-- NAVIGATION BAR (your cb-nav) -->
   <nav class="cb-nav">
     <div class="cb-nav__container">
 
       <a class="cb-brand" href="./home_Page.php">
-        <img class="cb-brand__logo" src="/Assets/Logo.png" alt="CoreByte Logo" />
+        <img class="cb-brand__logo" src="/Team_Project_TP2_Games_Store/Assets/Logo.png" alt="CoreByte Logo" />
         <span class="cb-brand__text">CoreByte</span>
       </a>
 
@@ -72,7 +73,7 @@ function js($value) {
 
           <a href="./basket_Page.php" role="menuitem">Basket</a>
           <a href="./registration_page.php" role="menuitem">Account</a>
-          <a href="#" role="menuitem">Settings</a>
+          <a href="./settingsPage.php" role="menuitem">Settings</a>
           <a href="./contactUs_Page.php" role="menuitem">Support</a>
           <a href="#" role="menuitem">Sign out</a>
         </div>
@@ -119,36 +120,47 @@ function js($value) {
     </aside>
 
     <!-- PRODUCT GRID -->
-    <section class="main-content-wrapper">
-      <?php foreach ($games as $g): ?>
-        <?php
-          $platformForFilter = $platformMap[$g['platform']] ?? $g['platform'];
+      <section class="main-content-wrapper">
+        <?php foreach ($games as $g): ?>
+          <?php
+            $platformForFilter = $platformMap[$g['platform']] ?? $g['platform'];
 
-          // image path (adjust folder if needed)
-          $imgPath = "../Assets/Game_Images/" . $g['image'];
+            // --- Image (exists -> use it, else placeholder) ---
+            $baseUrl = "/Team_Project_TP2_Games_Store/Assets/Game_Images/";
+            $placeholder = $baseUrl . "PlacerHolder.jpeg";
 
-          $priceLabel = "£" . number_format((float)$g['price'], 2);
+            $filename = trim((string)($g['image'] ?? ''));
 
-          // data attributes for filtering
-          $dataName = htmlspecialchars($g['name'], ENT_QUOTES);
-          $dataPlatform = htmlspecialchars($platformForFilter, ENT_QUOTES);
-          $dataAge = htmlspecialchars($g['age_restriction'], ENT_QUOTES);
+            // Products_Page.php is in /Pages, so ../Assets points to /Assets
+            $fsPath = __DIR__ . "/../Assets/Game_Images/" . $filename;
 
-          // JS-safe values
-          $jsTitle = js($g['name']);
-          $jsDesc  = js($g['description']);
-          $jsPlat  = js($platformForFilter);
-          $jsRate  = js($g['age_restriction']);
-          $jsImg   = js($imgPath);
-          $jsPrice = js($priceLabel);
-        ?>
+            $imgPath = (is_file($fsPath) && $filename !== "")
+              ? $baseUrl . rawurlencode($filename)
+              : $placeholder;
 
-        <div class="product"
-             data-name="<?php echo $dataName; ?>"
-             data-platform="<?php echo $dataPlatform; ?>"
-             data-age="<?php echo $dataAge; ?>">
+            // --- Price ---
+            $priceLabel = "£" . number_format((float)$g['price'], 2);
 
-          <p><?php echo editionTag($g['age_restriction']); ?></p>
+            // --- data attributes for filtering ---
+            $dataName = htmlspecialchars($g['name'], ENT_QUOTES);
+            $dataPlatform = htmlspecialchars($platformForFilter, ENT_QUOTES);
+            $dataAge = htmlspecialchars($g['age_restriction'], ENT_QUOTES);
+
+            // --- JS-safe values ---
+            $jsTitle = js($g['name']);
+            $jsDesc  = js($g['description']);
+            $jsPlat  = js($platformForFilter);
+            $jsRate  = js($g['age_restriction']);
+            $jsImg   = js($imgPath);
+            $jsPrice = js($priceLabel);
+          ?>
+
+          <div class="product"
+              data-name="<?= $dataName; ?>"
+              data-platform="<?= $dataPlatform; ?>"
+              data-age="<?= $dataAge; ?>">
+
+            <p><?= htmlspecialchars(editionTag($g['age_restriction']), ENT_QUOTES); ?></p>
 
             <img
               src="<?= htmlspecialchars($imgPath, ENT_QUOTES); ?>"
@@ -156,26 +168,26 @@ function js($value) {
               onerror="this.onerror=null; this.src='<?= htmlspecialchars($placeholder, ENT_QUOTES); ?>';"
             />
 
-          <h3><?php echo htmlspecialchars(strtoupper($g['name'])); ?></h3>
+            <h3><?= htmlspecialchars(strtoupper($g['name']), ENT_QUOTES); ?></h3>
 
-          <p><?php echo htmlspecialchars($priceLabel); ?></p>
+            <p><?= htmlspecialchars($priceLabel, ENT_QUOTES); ?></p>
 
-          <button type="button"
-            onclick="openProduct(
-              <?php echo $jsTitle; ?>,
-              <?php echo $jsImg; ?>,
-              <?php echo $jsDesc; ?>,
-              <?php echo $jsPrice; ?>,
-              <?php echo $jsPlat; ?>,
-              <?php echo $jsRate; ?>,
-              <?php echo (int)$g['gid']; ?>
-            )">
-            View Details
-          </button>
+            <button type="button"
+              onclick="openProduct(
+                <?= $jsTitle; ?>,
+                <?= $jsImg; ?>,
+                <?= $jsDesc; ?>,
+                <?= $jsPrice; ?>,
+                <?= $jsPlat; ?>,
+                <?= $jsRate; ?>,
+                <?= (int)$g['gid']; ?>
+              )">
+              View Details
+            </button>
 
-        </div>
-      <?php endforeach; ?>
-    </section>
+          </div>
+        <?php endforeach; ?>
+      </section>
 
   </div>
 
@@ -235,85 +247,7 @@ function js($value) {
     </div>
   </div>
 
-  <script>
-    // --- user dropdown ---
-    const userBtn = document.getElementById("cbUserBtn");
-    const userMenu = document.getElementById("cbUserMenu");
 
-    if (userBtn && userMenu) {
-      userBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        userMenu.classList.toggle("hidden");
-        userBtn.setAttribute("aria-expanded", String(!userMenu.classList.contains("hidden")));
-      });
-
-      document.addEventListener("click", () => {
-        userMenu.classList.add("hidden");
-        userBtn.setAttribute("aria-expanded", "false");
-      });
-    }
-
-    // --- modal ---
-    function openProduct(title, image, description, price, platform, ageRating, gameId) {
-      document.getElementById("modalTitle").innerText = title;
-      document.getElementById("modalImage").src = image;
-      document.getElementById("modalDescription").innerText = description;
-      document.getElementById("modalPrice").innerText = price;
-      document.getElementById("modalPlatform").innerText = platform;
-      document.getElementById("modalRating").innerText = ageRating;
-
-      const addId = document.getElementById("modalGameIdAdd");
-      const buyId = document.getElementById("modalGameIdBuy");
-      const reviewId = document.getElementById("modalGameIdReview");
-
-      if (addId) addId.value = gameId;
-      if (buyId) buyId.value = gameId;
-      if (reviewId) reviewId.value = gameId;
-
-      document.getElementById("productModal").style.display = "flex";
-      document.getElementById("modalContent").style.display = "flex";
-    }
-
-    function closeProduct() {
-      document.getElementById("productModal").style.display = "none";
-      document.getElementById("modalContent").style.display = "none";
-    }
-
-    // close modal if you click background
-    document.getElementById("productModal").addEventListener("click", (e) => {
-      if (e.target.id === "productModal") closeProduct();
-    });
-
-    // --- filters ---
-    function applyFilters() {
-      const searchValue = document.getElementById("searchInput").value.toLowerCase().trim();
-      const platformValue = document.getElementById("platformSelect").value;
-      const ageValue = document.getElementById("ageSelect").value;
-
-      const products = document.querySelectorAll(".product");
-
-      products.forEach((product) => {
-        const name = (product.getAttribute("data-name") || "").toLowerCase();
-        const platform = product.getAttribute("data-platform") || "";
-        const age = product.getAttribute("data-age") || "";
-
-        let visible = true;
-
-        if (searchValue && !name.includes(searchValue)) visible = false;
-        if (platformValue !== "All Platforms" && platform !== platformValue) visible = false;
-        if (ageValue !== "All Ratings" && age !== ageValue) visible = false;
-
-        product.style.display = visible ? "block" : "none";
-      });
-    }
-
-    function resetFilters() {
-      document.getElementById("searchInput").value = "";
-      document.getElementById("platformSelect").value = "All Platforms";
-      document.getElementById("ageSelect").value = "All Ratings";
-      applyFilters();
-    }
-  </script>
 
 </body>
 </html>
