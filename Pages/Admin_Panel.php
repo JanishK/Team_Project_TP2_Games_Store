@@ -162,9 +162,6 @@ require_once('themes.php');
     <div id="messages-table" class="section">
         <h2>Messages</h2>
 
-        <!-- button to view resolved messages -->
-         <a href=""><button id="previously-resolved-button">View Previously Resolved Messages</button></a>
-
         <!-- user messages viewed in table format -->
         <table border="1" class="table">
             <thead><tr class="row">
@@ -187,6 +184,10 @@ require_once('themes.php');
                     </td>
             </tbody>
         </table>
+        
+        <!-- button to view resolved messages -->
+         <a href=""><button id="previously-resolved-button">View Previously Resolved Messages</button></a>
+
     </div>
 </body>
 </html>
