@@ -57,7 +57,7 @@ try {
             background-color: purple;
         }
 
-        #add-button   { margin: 0 0 20px 2.5%; }
+        #add-button { margin: 0 0 20px 2.5%; }
         #delete-button{ background-color: red; }
         .section      { margin-top: 50px; }
         h2            { margin: 20px 20px 20px 1%; }
@@ -91,6 +91,7 @@ require_once('themes.php');
 			echo '<div class="error-message">' . $error_message . '</div>';
 		}
 		?>
+
     <!-- div section displaying all the registered users -->
     <div id="Users-table" class="section">
         <h2>Users</h2>
@@ -154,6 +155,34 @@ require_once('themes.php');
             </tr>
             <?php endforeach; ?>
         </tbody>
+        </table>
+    </div>
+
+    <!-- div section displaying messages from users -->
+    <div id="messages-table" class="section">
+        <h2>Messages</h2>
+
+        <!-- user messages viewed in table format -->
+        <table border="1" class="table">
+            <thead><tr class="row">
+                <th style="width:10%;">Username</th>
+                <th style="width:10%;">Name</th>
+                <th style="width:20%;">Email</th>
+                <th style="width:50%;">Message</th>
+                <th style="width:10%;">Actions</th>
+            </tr></thead>
+
+            <!-- template row to be modified when displaying messages from the DB -->
+            <tbody>
+                <tr class="row">
+                    <td id="username">[username]</td>
+                    <td id="name">[name]</td>
+                    <td id="email">[email]</td>
+                    <td id="message">[message]</td>
+                    <td id=resolve>
+                        <button id="resolve-button">Resolve</button>
+                    </td>
+            </tbody>
         </table>
     </div>
 </body>
