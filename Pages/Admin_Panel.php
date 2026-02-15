@@ -185,10 +185,10 @@ require_once('themes.php');
             </tbody>
         </table>
 
-        <!-- button to view resolved messages -->
-        <a href=""><button id="previously-resolved-button">View Previously Resolved Messages</button></a>
-
     </div>
+
+    <!-- button to view resolved messages -->
+    <a href=""><button id="previously-resolved-button">View Previously Resolved Messages</button></a>
 
     <!-- div section displaying previously resolved messages -->
     <div id="resolved-messages-table" class="section">
