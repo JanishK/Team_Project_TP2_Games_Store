@@ -57,7 +57,11 @@ try {
             background-color: purple;
         }
 
-        #add-button { margin: 0 0 20px 2.5%; }
+        /* hide the previously resolved messages table by default */
+        #resolved-messages-table { display: none; }
+
+        #status       { background-color: lightgreen; }
+      #add-button   { margin: 0 0 20px 2.5%; }
         #delete-button{ background-color: red; }
         .section      { margin-top: 50px; }
         h2            { margin: 20px 20px 20px 1%; }
