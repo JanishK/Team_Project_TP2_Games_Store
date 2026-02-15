@@ -184,10 +184,42 @@ require_once('themes.php');
                     </td>
             </tbody>
         </table>
-        
+
         <!-- button to view resolved messages -->
-         <a href=""><button id="previously-resolved-button">View Previously Resolved Messages</button></a>
+        <a href=""><button id="previously-resolved-button">View Previously Resolved Messages</button></a>
 
     </div>
+
+    <!-- div section displaying previously resolved messages -->
+    <div id="resolved-messages-table" class="section">
+        <h2>Previously Resolved Messages</h2>
+
+        <!-- previously resolved messages viewed in table format -->
+        <table border="1" class="table">
+            <thead><tr class="row">
+                <th style="width:10%;">Username</th>
+                <th style="width:10%;">Name</th>
+                <th style="width:15%;">Email</th>
+                <th style="width:30%;">Message</th>
+                <th style="width:30%;">Response</th>
+                <th style="width:5%;">Status</th>
+            </tr></thead>
+
+            <!-- template row to be modified when displaying previous messages from the DB -->
+            <tbody>
+                <tr class="row">
+                    <td id="username">[username]</td>
+                    <td id="name">[name]</td>
+                    <td id="email">[email]</td>
+                    <td id="message">[message]</td>
+                    <td id="response">[response]</td>
+
+                    <!-- note! resolved column cell remains unchanged -->
+                    <td id="status">Resolved</td>
+            </tbody>
+        </table>
+        
+    </div>
+
 </body>
 </html>
