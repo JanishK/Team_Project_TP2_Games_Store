@@ -172,18 +172,10 @@ function js($value) {
 
             <p><?= htmlspecialchars($priceLabel, ENT_QUOTES); ?></p>
 
-            <button type="button"
-              onclick="openProduct(
-                <?= $jsTitle; ?>,
-                <?= $jsImg; ?>,
-                <?= $jsDesc; ?>,
-                <?= $jsPrice; ?>,
-                <?= $jsPlat; ?>,
-                <?= $jsRate; ?>,
-                <?= (int)$g['gid']; ?>
-              )">
+          <a href="productDetails.php?id=<?= (int)$g['gid']; ?>" class="view-details-btn">
               View Details
-            </button>
+          </a>
+
 
           </div>
         <?php endforeach; ?>
