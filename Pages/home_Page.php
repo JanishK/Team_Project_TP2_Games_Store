@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,7 +109,7 @@
 
             <div class="trendingcontainer">
 
-                <div class="product2"
+                <div class="product"
                     data-name="Mario Kart 8 Deluxe"
                     data-platform="Nintendo"
                     data-genre="Racing">
@@ -115,67 +117,29 @@
                     <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
                     <h3>MARIO KART 8 DELUXE</h3>
                     <p>£39.99</p>
-                </div>
-
-                <div class="product2"
-                    data-name="Mario Kart 8 Deluxe"
-                    data-platform="Nintendo"
-                    data-genre="Racing">
-                    <p>STANDARD EDITION</p>
-                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
-                    <h3>MARIO KART 8 DELUXE</h3>
-                    <p>£39.99</p>
-                </div>
-
-                <div class="product2"
-                    data-name="Mario Kart 8 Deluxe"
-                    data-platform="Nintendo"
-                    data-genre="Racing">
-                    <p>STANDARD EDITION</p>
-                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
-                    <h3>MARIO KART 8 DELUXE</h3>
-                    <p>£39.99</p>
-                </div>
-
-                <div class="product2"
-                    data-name="Mario Kart 8 Deluxe"
-                    data-platform="Nintendo"
-                    data-genre="Racing">
-                    <p>STANDARD EDITION</p>
-                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
-                    <h3>MARIO KART 8 DELUXE</h3>
-                    <p>£39.99</p>
+                    <button>Add to Basket</button>
                 </div>
 
             </div>
         </section>
 
         <!-- DEALS -->
-        <section class="deals-section">
+        <section class="trending-section">
             <h2 class="section-title">Deals of the Week</h2>
 
-            <div class="deals-container">
-
-                <div class="deal-card">
-                    <img src="YOUR_IMAGE_HERE" alt="">
-                    <h3>Game Title Here</h3>
+            <div class="trendingcontainer">
+                    <div class="product"
+                    data-name="Mario Kart 8 Deluxe"
+                    data-platform="Nintendo"
+                    data-genre="Racing">
+                    <p>STANDARD EDITION</p>
+                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
+                    <h3>MARIO KART 8 DELUXE</h3>
                     <p class="old-price">£59.99</p>
                     <p class="new-price">£29.99</p>
+                    <button>Add to Basket</button>
                 </div>
 
-                <div class="deal-card">
-                    <img src="YOUR_IMAGE_HERE" alt="">
-                    <h3>Game Title Here</h3>
-                    <p class="old-price">£49.99</p>
-                    <p class="new-price">£19.99</p>
-                </div>
-
-                <div class="deal-card">
-                    <img src="YOUR_IMAGE_HERE" alt="">
-                    <h3>Game Title Here</h3>
-                    <p class="old-price">£39.99</p>
-                    <p class="new-price">£14.99</p>
-                </div>
 
             </div>
         </section>
