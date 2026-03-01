@@ -116,8 +116,8 @@ require_once('themes.php');
                 <div class="cta-section">
                     <p>Questions, refunds, or account help? We’re here.</p>
                     <div class="cta-row">
-                        <a href="./contactUs_Page.html" class="cta-button">Contact Support</a>
-                        <a href="./Products_Page.html" class="cta-button secondary-cta">Shop Games</a>
+                        <a href="./contactUs_Page.php" class="cta-button">Contact Support</a>
+                        <a href="./Products_Page.php" class="cta-button secondary-cta">Shop Games</a>
                     </div>
                 </div>
             </div>
