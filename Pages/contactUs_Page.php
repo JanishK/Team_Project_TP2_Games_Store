@@ -1,3 +1,36 @@
+<?php
+$error_message = '';
+$success_message = '';
+// Include database connection
+include 'connectdb.php';
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate and sanitize input
+    $full_name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $subject = trim($_POST['subject']);
+    $message = trim($_POST['message']);
+
+    if (empty($full_name) || empty($email) || empty($subject) || empty($message)) {
+        $error_message = "All fields are required.";
+        exit;
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_message = "Invalid email format.";
+        exit;
+    }
+
+    // Insert data into the database
+    try {
+        $stmt = $db->prepare("INSERT INTO contact_us (full_name, email, subject, message) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$full_name, $email, $subject, $message]);
+        $success_message = "Your message has been sent successfully!";
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,6 +91,13 @@
         </div>
     </nav>
     <main>
+    <?php
+    if (!empty($error_message)) {
+        echo '<div class="error-message">' . $error_message . '</div>';
+    } elseif (!empty($success_message)) {
+        echo '<div class="success-message">' . $success_message . '</div>';
+    }
+    ?>
         <section class="contact-container">
             <h1 class="page-title">Contact Us</h1>
             <p class="upper-section">
@@ -72,7 +112,7 @@
             </section>
 
         <section class="contact-us-section">
-            <form action="#" method="post">
+            <form action="contactUs_Page.php" method="post">
                 <label for="name">Full Name:</label><br>
                 <input type="text" id="name" name="name" placeholder="Enter your full name" required><br><br>
 
