@@ -50,6 +50,8 @@ try {
     <link rel="stylesheet" href="../CSS/admin_panel.css">
 
     <link rel="icon" type="image/png" href="../Assets/Logo.png">
+        <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
+
 </head>
 
 <body class="<?php echo htmlspecialchars($themeClass); ?>">
