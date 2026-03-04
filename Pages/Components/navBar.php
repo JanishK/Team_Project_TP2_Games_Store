@@ -25,6 +25,30 @@ if ($userId > 0) {
   $st->execute([$userId]);
   $cartCount = (int)($st->fetch(PDO::FETCH_ASSOC)['cnt'] ?? 0);
 }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../connectdb.php';
+
+$avatar = "/Team_Project_TP2_Games_Store/Assets/default-avatar.png";
+
+if (isset($_SESSION['username'])) {
+
+    $stmt = $db->prepare("
+        SELECT profile_image
+        FROM user_settings
+        WHERE username = ?
+        LIMIT 1
+    ");
+
+    $stmt->execute([$_SESSION['username']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!empty($user['profile_image'])) {
+        $avatar = $user['profile_image'];
+    }
+}
 ?>
 
 <nav class="cb-nav">

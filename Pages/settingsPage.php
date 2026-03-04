@@ -133,56 +133,63 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
      * ACTION: upload profile image
      */
     if ($action === 'upload_avatar') {
-      if (!isset($_FILES['profile_image']) || $_FILES['profile_image']['error'] !== UPLOAD_ERR_OK) {
-        $error = "Please choose an image to upload.";
+  if (!isset($_FILES['profile_image']) || $_FILES['profile_image']['error'] !== UPLOAD_ERR_OK) {
+    $error = "Please choose an image to upload.";
+  } else {
+    $file = $_FILES['profile_image'];
+
+    // Basic validation
+    $maxBytes = 2 * 1024 * 1024; // 2MB
+    if ($file['size'] > $maxBytes) {
+      $error = "Image is too large (max 2MB).";
+    } else {
+      $finfo = new finfo(FILEINFO_MIME_TYPE);
+      $mime = $finfo->file($file['tmp_name']);
+      $allowed = [
+        'image/jpeg' => 'jpg',
+        'image/png'  => 'png',
+        'image/webp' => 'webp'
+      ];
+
+      if (!isset($allowed[$mime])) {
+        $error = "Only JPG, PNG, or WEBP images are allowed.";
       } else {
-        $file = $_FILES['profile_image'];
+        $ext = $allowed[$mime];
+        $safeUser = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $username);
+        $newName = $safeUser . "_" . bin2hex(random_bytes(8)) . "." . $ext;
 
-        // Basic validation
-        $maxBytes = 2 * 1024 * 1024; // 2MB
-        if ($file['size'] > $maxBytes) {
-          $error = "Image is too large (max 2MB).";
+        // ✅ Your app is served from this folder in the URL:
+        $projectWebRoot = "/Team_Project_TP2_Games_Store";
+
+        // ✅ Save inside: C:\xampp\htdocs\Team_Project_TP2_Games_Store\uploads\avatars
+        $uploadDir = rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . $projectWebRoot . "/uploads/avatars";
+        if (!is_dir($uploadDir)) {
+          mkdir($uploadDir, 0755, true);
+        }
+
+        $dest = $uploadDir . "/" . $newName;
+
+        if (!move_uploaded_file($file['tmp_name'], $dest)) {
+          $error = "Upload failed. Please try again.";
         } else {
-          $finfo = new finfo(FILEINFO_MIME_TYPE);
-          $mime = $finfo->file($file['tmp_name']);
-          $allowed = [
-            'image/jpeg' => 'jpg',
-            'image/png'  => 'png',
-            'image/webp' => 'webp'
-          ];
-          if (!isset($allowed[$mime])) {
-            $error = "Only JPG, PNG, or WEBP images are allowed.";
-          } else {
-            // Save path (make sure this folder exists + is writable)
-            $ext = $allowed[$mime];
-            $safeUser = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $username);
-            $newName = $safeUser . "_" . bin2hex(random_bytes(8)) . "." . $ext;
+          // ✅ URL path that the browser can load
+          $webPath = $projectWebRoot . "/uploads/avatars/" . $newName;
 
-            $uploadDir = __DIR__ . "/uploads/avatars";
-            if (!is_dir($uploadDir)) {
-              @mkdir($uploadDir, 0755, true);
-            }
+          try {
+            $up = $db->prepare("UPDATE user_settings SET profile_image = ? WHERE username = ?");
+            $up->execute([$webPath, $username]);
 
-            $dest = $uploadDir . "/" . $newName;
-            if (!move_uploaded_file($file['tmp_name'], $dest)) {
-              $error = "Upload failed. Please try again.";
-            } else {
-              // Store web path in DB (adjust if your project base differs)
-              $webPath = "/Team_Project_TP2_Games_Store/uploads/avatars/" . $newName;
-
-              try {
-                $up = $db->prepare("UPDATE user_settings SET profile_image = ? WHERE username = ?");
-                $up->execute([$webPath, $username]);
-                $settings["profile_image"] = $webPath;
-                $success = "Profile image updated!";
-              } catch (PDOException $ex) {
-                $error = "Saved image, but failed to update profile. Please try again.";
-              }
-            }
+            $settings["profile_image"] = $webPath;
+            $_SESSION["profile_image"] = $webPath; // optional: navbar can use this immediately
+            $success = "Profile image updated!";
+          } catch (PDOException $ex) {
+            $error = "Saved image, but failed to update profile. Please try again.";
           }
         }
       }
     }
+  }
+}
 
     /**
      * ACTION: change password (example)

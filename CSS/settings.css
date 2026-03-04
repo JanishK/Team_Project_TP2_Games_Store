@@ -95,7 +95,9 @@
   background: var(--surface-1, rgba(255,255,255,0.04));
   border-radius: 18px;
   padding: 16px;
-  margin-bottom: 16px;
+  width: 800px;
+  height: fit-content;
+
 }
 
 .settings-card h2 {
@@ -113,12 +115,13 @@
 .settings-form {
   display: grid;
   gap: 12px;
+  overflow: hidden;
 }
 
 .settings-row {
   display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 12px;
+  grid-template-columns: 100px 1fr;
+  gap: 6px;
   align-items: center;
 }
 
@@ -135,7 +138,7 @@
 .settings-form input[type="password"],
 .settings-form input[type="file"],
 .settings-form select {
-  width: 100%;
+  width: 80%;
   border-radius: 12px;
   padding: 10px 12px;
   border: 1px solid var(--border, rgba(255,255,255,0.15));
