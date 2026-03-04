@@ -36,51 +36,58 @@ if (isset($_POST['submitted'])){
     $image = !empty($_FILES['image']['name']) ? $_FILES['image']['name'] : false;
 
     if($image){
-        $target_dir = "images/";
-        $target_file = $target_dir . basename($_FILES["image"]["name"]);
-
-        $allowed_ext = ['jpg','jpeg','png','gif'];
-        $ext = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-        if (!in_array($ext, $allowed_ext)) {
-            $error_message = "Invalid image type. Allowed: jpg, jpeg, png, gif.";
-        } else {
-            move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-        }
-    }
-
-    if (!$name){
-        $error_message = "Please enter a valid Game Name!";
-    }
-    elseif(!$platform){
-        $error_message = "Please select a valid Platform!";
-    }
-    elseif(!$price){
-        $error_message = "Please enter a valid Price!";
-    }
-    elseif(!$age_rating){
-        $error_message = "Please enter a valid Age Rating!";
-    }
-    elseif(!$description){
-        $error_message = "Please enter a valid Description!";
-    }
-    elseif(!$image){
-        $error_message = "Please upload a valid Image!";
-    }
-    else{
-
-        try{
-            $stat=$db->prepare("INSERT INTO games (name, description, platform, price, image, age_restriction)
-                                VALUES (?, ?, ?, ?, ?, ?)");
-
-            $stat->execute([$name,$description,$platform,$price,$image,$age_rating]);
-
-            $success_message = "Game $name has been added successfully.";
-
-        }catch (PDOException $ex){
-            $error_message = "Database error: ".$ex->getMessage();
-        }
-    }
+    // directory to save uploaded files
+    $target_dir = "Assets/Game_Images/";
+    // target file path
+    $target_file = $target_dir . basename($_FILES["image"]["name"]);
+    // allowed file types
+    $allowed_ext = ['jpg','jpeg','png','gif'];
+    // get file extension
+    $ext = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    // check if file type is allowed
+    if (!in_array($ext, $allowed_ext)) {
+        $error_message = "Invalid image type. Allowed: jpg, jpeg, png, gif.";
+    }else{
+    // move uploaded file to target directory
+    move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+}
+}
+// validate form inputs
+if (!($name)){
+$error_message = "Please enter a valid Game Name!";
+}
+elseif(!($platform)){
+    $error_message = "Please select a valid Platform!";
+}
+elseif(!($price)){
+    $error_message = "Please enter a valid Price!";
+}
+elseif(!($age_rating)){
+    $error_message = "Please enter a valid Age Rating!";
+}
+elseif(!($description)){
+    $error_message = "Please enter a valid Description!";
+}
+elseif(!($image)){
+    $error_message = "Please upload a valid Image!";
+}
+else{
+try{
+    // all is well, proceed to add the game
+	$stat=$db->prepare("insert into games (name , description, platform, price, image,age_restriction) VALUES (?, ?, ?, ?, ?, ?)");
+    // execute the query
+	$stat->execute(array($name,$description,$platform,$price,$image,$age_rating));
+    // get the last inserted id
+	$id=$db->lastInsertId();
+	$success_message = "Game $name has been added successfully. ";  	
+	
+ }
+ // catch any database errors
+ catch (PDOException $ex){
+	$error_message = "Sorry, a database error occurred! <br>";
+	$error_message = "Error details: <em>". $ex->getMessage()."</em>";
+ }
+}
 }
 ?>
 
