@@ -37,7 +37,7 @@ if (isset($_POST['submitted'])){
 
     if($image){
     // directory to save uploaded files
-    $target_dir = "Assets/Game_Images/";
+    $target_dir = __DIR__ . "/../Assets/Game_Images/";
     // target file path
     $target_file = $target_dir . basename($_FILES["image"]["name"]);
     // allowed file types
