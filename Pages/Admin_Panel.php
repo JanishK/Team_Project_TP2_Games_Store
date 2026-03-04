@@ -16,15 +16,38 @@ if(!isset($_SESSION['username'])){
     header("Location: Login_Page.php");
     exit();
 }
+if(isset($_POST['delete_id'])){
+    $delete_id = $_POST['delete_id'];
+    // connect to the database
+    require_once('connectdb.php');
+    // delete the message with the given id
+    try {
+        $stmt = $db->prepare("DELETE FROM contact_us WHERE cid = :cid");
+        $stmt->bindParam(':cid', $delete_id, PDO::PARAM_INT);
+        $stmt->execute();
+        // redirect back to admin panel after deletion
+        header("Location: Admin_Panel.php");
+        exit();
+    } catch (PDOException $e) {
+        $error_message = "Error: " . $e->getMessage();
+    }
+}
 // connect to the database
 require_once('connectdb.php');
 // Fetch all users from the database
 try {
+    $contact_messages = $db->prepare("SELECT cid, full_name, email, subject, message FROM contact_us");
+    // Execute the query
+    $contact_messages ->execute();
+    // Fetch all messages
+    $contact_messages_list = $contact_messages->fetchAll();
+
     $users = $db->prepare("SELECT uid, username, email, is_admin FROM users");
     // Execute the query
     $users ->execute();
     // Fetch all users
     $users_list = $users->fetchAll();
+
     // Fetch all games from the database
     $games = $db->prepare("SELECT gid, name, platform, price, age_restriction FROM games");
     // Execute the query
@@ -73,23 +96,52 @@ try {
 require_once('connectdb.php');
 require_once('themes.php');
 ?>
-    <!-- navigation bar to link to other webpages -->
-    <div class="nav-bar">
-        <ul class="nav-left">
-            <img class="page_logo" src="../Assets/Logo.png" alt="">
-            <li><a href="./home_Page.html">Home</a></li>
-            <li><a href="./Products_Page.php">Products</a></li>
-            <li><a href="./aboutUs_Page.html">About</a></li>
-        </ul>
+     <!-- NAVIGATION BAR -->
+    <nav class="cb-nav">
+        <div class="cb-nav__container">
+            
+            <!-- Brand -->
+            <a class="cb-brand" href="./home_Page.html">
+            <img class="cb-brand__logo" src="/Team_Project_TP2_Games_Store/Assets/Logo.png" alt="CoreByte Logo" />
+            <span class="cb-brand__text">CoreByte</span>
+            </a>
 
-        <ul class="nav-right">
-            <li><a href="./contactUs_Page.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./Login_Page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./basket_Page.php">
-                <img src="../Assets/Basket.svg" class="basket-icon" />
-            </a></li>
-        </ul>
-    </div>
+            <!-- Main links -->
+            <ul class="cb-links" id="cbNavLinks">
+                <li><a href="./home_Page.php" class="cb-link is-active">Home</a></li>
+                <li><a href="./Products_Page.php" class="cb-link">Products</a></li>
+                <li><a href="./aboutUs_Page.php" class="cb-link">About</a></li>
+            </ul>
+
+            <!-- User avatar dropdown -->
+            <div class="cb-user">
+            <button class="cb-user__btn" type="button" id="cbUserBtn" aria-expanded="false" aria-controls="cbUserMenu">
+                <span class="sr-only">Open user menu</span>
+                <img
+                class="cb-user__avatar"
+                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                alt="User photo"
+                />
+            </button>
+
+
+
+            <div class="cb-user__menu hidden" id="cbUserMenu" role="menu">
+                <div class="cb-user__header">
+                <span class="cb-user__name">Janish Kandel</span>
+                <span class="cb-user__email">JanishK@corebyte.com</span>
+                </div>
+
+                <a href="./basket_Page.php" role="menuitem">Basket <span class="notification">1</span></a>
+                <a href="./registration_page.php" role="menuitem">Account</a>
+                <a href="./settingsPage.php" role="menuitem">Settings</a>
+                <a href="./contactUs_Page.php" role="menuitem">Support</a>
+                <a href="#" role="menuitem">Sign out</a>
+            </div>
+            </div>
+
+        </div>
+    </nav>
      <?php
 		if (!empty($error_message)){
 			echo '<div class="error-message">' . $error_message . '</div>';
@@ -178,51 +230,24 @@ require_once('themes.php');
 
             <!-- template row to be modified when displaying messages from the DB -->
             <tbody>
+                <?php foreach($contact_messages_list as $message): ?>
                 <tr class="row">
-                    <td id="username">[username]</td>
-                    <td id="name">[name]</td>
-                    <td id="email">[email]</td>
-                    <td id="message">[message]</td>
+                    <td id="name"><?php echo htmlspecialchars($message['full_name']); ?></td>
+                    <td id="email"><?php echo htmlspecialchars($message['email']); ?></td>
+                    <td id="subject"><?php echo htmlspecialchars($message['subject']); ?></td>
+                    <td id="message"><?php echo htmlspecialchars($message['message']); ?></td>
                     <td id=resolve>
-                        <button id="resolve-button">Resolve</button>
+                        <form method="post">
+                            <input type="hidden" name="delete_id" value="<?php echo $message['cid']; ?>">
+                            <button type="submit" id="resolve-button">Resolve</button>
+                        </form>
                     </td>
+                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
 
     </div>
-
-    <!-- button to view resolved messages -->
-    <a href=""><button id="previously-resolved-button">View Previously Resolved Messages</button></a>
-
-    <!-- div section displaying previously resolved messages -->
-    <div id="resolved-messages-table" class="section">
-        <h2>Previously Resolved Messages</h2>
-
-        <!-- previously resolved messages viewed in table format -->
-        <table border="1" class="table">
-            <thead><tr class="row">
-                <th style="width:10%;">Username</th>
-                <th style="width:10%;">Name</th>
-                <th style="width:15%;">Email</th>
-                <th style="width:30%;">Message</th>
-                <th style="width:30%;">Response</th>
-                <th style="width:5%;">Status</th>
-            </tr></thead>
-
-            <!-- template row to be modified when displaying previous messages from the DB -->
-            <tbody>
-                <tr class="row">
-                    <td id="username">[username]</td>
-                    <td id="name">[name]</td>
-                    <td id="email">[email]</td>
-                    <td id="message">[message]</td>
-                    <td id="response">[response]</td>
-
-                    <!-- note! resolved column cell remains unchanged -->
-                    <td id="status">Resolved</td>
-            </tbody>
-        </table>
-        
     </div>
 
 </body>
