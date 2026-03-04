@@ -195,6 +195,8 @@ CREATE TABLE `user_settings` (
 --
 -- Dumping data for table `user_settings`
 --
+ALTER TABLE user_settings
+  ADD COLUMN profile_image VARCHAR(255) NULL;
 
 INSERT INTO `user_settings` (`username`, `display_name`, `theme`, `email_notifications`, `marketing_emails`, `currency`, `language`, `updated_at`) VALUES
 ('JanishK', NULL, 'light', 1, 0, 'GBP', 'en', '2026-02-02 16:11:36');
@@ -323,3 +325,5 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
