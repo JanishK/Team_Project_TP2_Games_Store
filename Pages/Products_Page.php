@@ -37,7 +37,7 @@ function js($value) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CoreByte | Products</title>
-  <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/style.css?v=1" />
+  <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/productPage.css">
   <link rel="icon" type="image/png" href="/Team_Project_TP2_Games_Store/Assets/Logo.png" />
   <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
 </head>
@@ -83,7 +83,7 @@ function js($value) {
   </nav>
 
   <!-- PAGE HEADER -->
-  <div class="page-name" style="padding-top: 90px;">
+  <div class="page-name">
     <h1>Products</h1>
     <p>Explore our extensive collection of games available for purchase.</p>
   </div>
@@ -172,18 +172,10 @@ function js($value) {
 
             <p><?= htmlspecialchars($priceLabel, ENT_QUOTES); ?></p>
 
-            <button type="button"
-              onclick="openProduct(
-                <?= $jsTitle; ?>,
-                <?= $jsImg; ?>,
-                <?= $jsDesc; ?>,
-                <?= $jsPrice; ?>,
-                <?= $jsPlat; ?>,
-                <?= $jsRate; ?>,
-                <?= (int)$g['gid']; ?>
-              )">
+          <a href="productDetails.php?id=<?= (int)$g['gid']; ?>" class="view-details-btn">
               View Details
-            </button>
+          </a>
+
 
           </div>
         <?php endforeach; ?>
