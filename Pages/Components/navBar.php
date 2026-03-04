@@ -5,19 +5,30 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-$isLoggedIn = isset($_SESSION['username']);
-$isAdmin    = (int)($_SESSION['is_admin'] ?? 0) === 1;
-
-// Optional user fields (set these at login if you have them)
-$displayName = $_SESSION['display_name'] ?? ($_SESSION['username'] ?? 'Guest');
-$email       = $_SESSION['email'] ?? '';
-$avatar      = $_SESSION['avatar_url'] ?? 'https://flowbite.com/docs/images/people/profile-picture-5.jpg';
-
-// Project base path (fixes asset paths when in subfolder)
 $BASE = '/Team_Project_TP2_Games_Store';
+
+// Logged in checks (support either uid or username)
+$isLoggedIn = isset($_SESSION['uid']) || isset($_SESSION['username']);
+
+$userId = isset($_SESSION['uid']) ? (int)$_SESSION['uid'] : 0;
+$isAdmin = (int)($_SESSION['is_admin'] ?? 0) === 1;
+
+$displayName = $_SESSION['display_name'] ?? ($_SESSION['username'] ?? 'Guest');
+$email = $_SESSION['email'] ?? '';
+$avatar = $_SESSION['avatar_url'] ?? 'https://flowbite.com/docs/images/people/profile-picture-5.jpg';
+
+// Basket count (only if we actually have a user id)
+$cartCount = 0;
+if ($userId > 0) {
+  require_once __DIR__ . '/../connectdb.php';
+  $st = $db->prepare("SELECT COALESCE(SUM(quantity),0) AS cnt FROM cart WHERE user_id = ?");
+  $st->execute([$userId]);
+  $cartCount = (int)($st->fetch(PDO::FETCH_ASSOC)['cnt'] ?? 0);
+}
 ?>
 
 <nav class="cb-nav">
+  
   <div class="cb-nav__container">
 
     <!-- Brand -->
@@ -50,7 +61,13 @@ $BASE = '/Team_Project_TP2_Games_Store';
             <?php endif; ?>
           </div>
 
-          <a href="<?= $BASE ?>/Pages/basket_Page.php" role="menuitem">Basket</a>
+          <a href="<?= $BASE ?>/Pages/basket_Page.php" role="menuitem">Basket </a>
+          <a href="<?= $BASE ?>/Pages/basket_Page.php" role="menuitem" class="basket-link">
+          Basket
+        <?php if ($cartCount > 0): ?>
+            <span class="basket-badge"><?= $cartCount ?></span>
+        <?php endif; ?>
+    </a>
           <a href="<?= $BASE ?>/Pages/registration_page.php" role="menuitem">Account</a>
           <a href="<?= $BASE ?>/Pages/settingsPage.php" role="menuitem">Settings</a>
           <a href="<?= $BASE ?>/Pages/contactUs_Page.php" role="menuitem">Support</a>

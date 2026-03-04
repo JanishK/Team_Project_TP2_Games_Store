@@ -37,7 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/contact_us.css">
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/style.css">
+
     <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
     <title>Contact Us</title>
 
