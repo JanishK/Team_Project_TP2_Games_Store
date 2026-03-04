@@ -280,6 +280,10 @@ body {
   align-items: right;
 }
 
+.admin-item {
+  background-color: rgba(255, 81, 81, 0.728);
+}
+
 /* ---- FIX GRID STRETCHING / STRIPES ---- */
 
 
@@ -333,13 +337,6 @@ body {
 }
 
 
-/* ============================
-   ABOUT PAGE (Premium styling)
-============================ */
-/* ==============================
-   MINIMAL COLORS — THEME OVERRIDES
-   (keeps your same classes)
-============================== */
 
 /* Background gets a soft brand glow */
 
@@ -740,13 +737,28 @@ footer {
   color: rgba(229, 234, 245, 0.65);
 }
 
-
-.contact-container {
-  gap: 12px;
-
+.basket-link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
 }
 
-.contact-us
+.basket-badge{
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(139, 92, 246, 0.25);
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  color: rgba(255,255,255,0.92);
+}
+
 
 /* ------------------------------
    Responsive
@@ -833,7 +845,6 @@ section{
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-.
 /* Section headings */
 .section-title{
   font-size: 22px;

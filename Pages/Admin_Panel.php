@@ -1,19 +1,18 @@
 <?php
-$error_message = '';
-// Start the session
+declare(strict_types=1);
 session_start();
-// Get is_admin from session
-$is_admin = $_SESSION['is_admin'] ?? false;
-// Check if user is admin
-if($is_admin !== 1){
-    // Redirect to home page if not admin
-    header("Location: Home_Page.html");
+
+$error_message = "";
+
+// Auth checks
+if (!isset($_SESSION['username'])) {
+    header("Location: Login_Page.php");
     exit();
 }
- // if not logged in, redirect to login page
-if(!isset($_SESSION['username'])){
-    // Redirect to login page
-    header("Location: Login_Page.php");
+
+$is_admin = (int)($_SESSION['is_admin'] ?? 0);
+if ($is_admin !== 1) {
+    header("Location: home_Page.html"); // make sure this exists
     exit();
 }
 if(isset($_POST['delete_id'])){
@@ -65,31 +64,14 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+
+    <!-- existing global styles if you want -->
     <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="icon" type="image/png" href="/Assets/Logo.png">
 
-    <!-- internal css for webpage layout -->
-    <style>
-        .table{ 
-            width: 95%; 
-            margin: auto; 
-        }
+    <!-- NEW: admin panel styles -->
+    <link rel="stylesheet" href="../CSS/admin_panel.css">
 
-        button { 
-            padding: 5px;
-            background-color: purple;
-        }
-
-        /* hide the previously resolved messages table by default */
-        #resolved-messages-table { display: none; }
-
-        #status       { background-color: lightgreen; }
-      #add-button   { margin: 0 0 20px 2.5%; }
-        #delete-button{ background-color: red; }
-        .section      { margin-top: 50px; }
-        h2            { margin: 20px 20px 20px 1%; }
-        th,td         { padding: 10px; }
-    </style>
+    <link rel="icon" type="image/png" href="../Assets/Logo.png">
 </head>
 <body class="<?php echo $themeClass; ?>">
 <?php
@@ -250,5 +232,130 @@ require_once('themes.php');
     </div>
     </div>
 
+<body class="<?php echo htmlspecialchars($themeClass); ?>">
+    <!-- nav -->
+    <?php require_once __DIR__ . '/components/navbar.php'; ?>
+
+
+    <main class="admin-wrap">
+        <header class="admin-header">
+            <h1 class="admin-title">Admin Panel</h1>
+            <p class="admin-subtitle">Manage users, games, and messages.</p>
+        </header>
+
+        <?php if (!empty($error_message)): ?>
+            <div class="alert alert-error">
+                <?php echo htmlspecialchars($error_message); ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- USERS -->
+        <section id="Users-table" class="panel">
+            <div class="panel-head">
+                <h2>Users</h2>
+            </div>
+
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-uid">UID</th>
+                            <th class="col-username">Username</th>
+                            <th class="col-email">Email</th>
+                            <th class="col-admin">Admin?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($users_list as $user): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars((string)$user['uid']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$user['username']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$user['email']); ?></td>
+                                <td>
+                                    <span class="badge <?php echo ((int)$user['is_admin'] === 1) ? 'badge-yes' : 'badge-no'; ?>">
+                                        <?php echo ((int)$user['is_admin'] === 1) ? 'Yes' : 'No'; ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- GAMES -->
+        <section id="Games-table" class="panel">
+            <div class="panel-head panel-head-row">
+                <h2>Games</h2>
+                <a class="btn btn-primary" href="Add_Game.php">Add New Game</a>
+            </div>
+
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-gid">GID</th>
+                            <th class="col-name">Name</th>
+                            <th class="col-platform">Platform</th>
+                            <th class="col-price">Price (£)</th>
+                            <th class="col-age">Age Rating</th>
+                            <th class="col-actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($games_list as $game): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars((string)$game['gid']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$game['name']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$game['platform']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$game['price']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$game['age_restriction']); ?></td>
+                                <td class="actions">
+                                    <a class="btn btn-secondary" href="edit_game.php?gid=<?php echo urlencode((string)$game['gid']); ?>">Edit</a>
+                                    <button class="btn btn-danger" type="button" data-gid="<?php echo htmlspecialchars((string)$game['gid']); ?>">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MESSAGES (placeholder) -->
+        <section id="messages-table" class="panel">
+            <div class="panel-head">
+                <h2>Messages</h2>
+            </div>
+
+            <div class="empty-state">
+                <p>This section is currently a placeholder. Connect it to your messages table when ready.</p>
+            </div>
+
+            <a class="btn btn-ghost" href="#">View Previously Resolved Messages</a>
+        </section>
+
+        <!-- RESOLVED (placeholder) -->
+        <section id="resolved-messages-table" class="panel">
+            <div class="panel-head">
+                <h2>Previously Resolved Messages</h2>
+            </div>
+
+            <div class="empty-state">
+                <p>This section is currently a placeholder.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+      // Optional: wire up delete buttons later (AJAX)
+      document.querySelectorAll('button.btn-danger[data-gid]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const gid = btn.getAttribute('data-gid');
+          alert("Hook delete logic for GID: " + gid);
+        });
+      });
+    </script>
 </body>
 </html>

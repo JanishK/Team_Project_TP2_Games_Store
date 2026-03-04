@@ -1,43 +1,40 @@
 <?php
 $error_message = '';
 $success_message = '';
-// Start the session
+
 session_start();
-// Get is_admin from session
+
 $is_admin = $_SESSION['is_admin'] ?? false;
-// Check if user is admin
+
 if($is_admin !== 1){
-    // Redirect to home page if not admin
     header("Location: Home_Page.html");
     exit();
 }
- // if not logged in, redirect to login page
+
 if(!isset($_SESSION['username'])){
-    // Redirect to login page
     header("Location: Login_Page.php");
     exit();
 }
 
+require_once('connectdb.php');
+require_once('themes.php');
 
-//if the form has been submitted
 if (isset($_POST['submitted'])){
-    // connect to the database
-    require_once('connectdb.php');
-    //prepare the form input
+
     $name = $_POST['name'] ?? false;
     $price = $_POST['price'] ?? false;
     $description = $_POST['description'] ?? false;
     $platform = $_POST['platform'] ?? false;
     $age_rating = $_POST['age_rating'] ?? false;
+
     $platforms = ['PC', 'Playstation', 'Xbox', 'Nintendo Switch'];
     $age_ratings = ['8', '13', '16', '18+'];
-    //validate platform
+
     if(!in_array($platform, $platforms)){ $platform = false; }
-    //validate age rating
     if(!in_array($age_rating, $age_ratings)){ $age_rating = false; }
 
-    $image = !empty($_FILES['image']['name'])?$_FILES['image']['name']: false;
-    //handle file upload
+    $image = !empty($_FILES['image']['name']) ? $_FILES['image']['name'] : false;
+
     if($image){
     // directory to save uploaded files
     $target_dir = __DIR__ . "/../Assets/Game_Images/";
@@ -93,6 +90,7 @@ try{
 }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,125 +98,68 @@ try{
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Game</title>
     <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="icon" type="image/png" href="/Assets/Logo.png">
-
-    <!-- internal css for webpage layout -->
-    <style>
-        #create-game{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 75vh;
-            padding: 20px;
-        }
-
-        #create-form{
-            background: white;
-            width: 100%;
-            max-width: 400px;
-            max-height: fit-content;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 15px;
-        }
-
-        .nav-button{
-            background: #2C2F3A;
-            height: 10px;
-        }
-
-        .nav-bar.bottom{
-            height: 20px;
-            bottom: 0;
-        }
-
-        .element{
-            color: black;
-            margin: 5px;
-            padding: 5px;
-        }
-
-        #description{
-            min-height: 50px;
-        }
-
-        select:has(option[value=""]:checked){
-            color: #757575;
-        }
-
-        form #add{
-            justify-self: left;
-            max-width: fit-content;
-        }
-
-        form #file{
-            background: white;
-        }
-
-    </style>
+    <link rel="stylesheet" href="../CSS/add_game.css">
+    <link rel="icon" type="image/png" href="../Assets/Logo.png">
 </head>
+
 <body class="<?php echo $themeClass; ?>">
+
+    <?php require_once __DIR__ . '/components/navbar.php'; ?>
+
+
+
 <?php
-require_once('connectdb.php');
-require_once('themes.php');
+if (!empty($error_message)){
+    echo '<div class="error-message">' . $error_message . '</div>';
+}
+
+if (!empty($success_message)){
+    echo '<div class="success-message">' . $success_message . '</div>';
+}
 ?>
-    <!-- navigation bar to return to admin panel or logout -->
-    <div class="nav-bar">
-        <ul class="nav-left"> 
-            <img class="page_logo" src="/Team_Project_TP2_Games_Store/Assets/Logo.png" alt="">
-            <b>Add Game - Admin</b>
-        </ul>
 
-        <ul class="nav-right">
-            <li><a href="Admin_Panel.php"><label class="nav-button">Back to Admin Panel</label></a></li>
-            <li><a href="logout.php"><label class="nav-button">Logout</label></a></li>
-        </ul>
-    </div>
-    <?php
-        if (!empty($error_message)){
-            echo '<div class="error-message">' . $error_message . '</div>';
-    }
-        if (!empty($success_message)){
-            echo '<div class="success-message">' . $success_message . '</div>';
-        }
-    ?>
-    <div id="create-game">
-        <form method = "post" action="Add_Game.php" id="create-form" enctype="multipart/form-data">
-            <!-- Game Name input -->
-            <input type="text" name="name" placeholder="Game Name" class="element" required>
-            <!-- Platform dropdown -->
-            <select name="platform" id="platform" class="element" required>
-                <option class="element" value="" disabled selected hidden>Select Platform</option>
-                <option class="element" value='PC'>PC</option>
-                <option class="element" value='Playstation'>Playstation</option>
-                <option class="element" value='Xbox'>Xbox</option>
-                <option class="element" value="Nintendo Switch">Nintendo Switch</option>
-            </select>
-            <!-- Price input -->
-            <input type= number step="0.01" name="price" id="price" placeholder="Price (£)" class="element" required>
-            <!-- Age Rating input -->
-             <select name="age_rating" id="age" class="element" required>
-            <option class="element" value="" disabled selected hidden>Select Age Rating</option>
-                <option class="element" value='8'>8</option>
-                <option class="element" value='13'>13</option>
-                <option class="element" value='16'>16</option>
-                <option class="element" value='18+'>18+</option>
-            </select>
-            <!-- File upload input -->
-            <input type="file" name="image" id="file" accept="image/*" class="element" required>
-            <!-- Description textarea -->
-            <textarea name="description" id="description" placeholder="Description" class="element" required></textarea>
-            <!-- Submit button -->
-            <input type="hidden" name="submitted" value="true"/>
-            <button type="submit" id="add" class="element">Add Game</button>
-        </form>
-    </div>
 
-      <!-- Bottom bar -->
-  <div class="nav-bar bottom"></div>
+<div id="create-game">
+
+<form method="post" action="Add_Game.php" id="create-form" enctype="multipart/form-data">
+
+<input type="text" name="name" placeholder="Game Name" class="element" required>
+
+<select name="platform" id="platform" class="element" required>
+
+<option value="" disabled selected hidden>Select Platform</option>
+<option value="PC">PC</option>
+<option value="Playstation">Playstation</option>
+<option value="Xbox">Xbox</option>
+<option value="Nintendo Switch">Nintendo Switch</option>
+
+</select>
+
+<input type="number" step="0.01" name="price" placeholder="Price (£)" class="element" required>
+
+<select name="age_rating" class="element" required>
+
+<option value="" disabled selected hidden>Select Age Rating</option>
+<option value="8">8</option>
+<option value="13">13</option>
+<option value="16">16</option>
+<option value="18+">18+</option>
+
+</select>
+
+<input type="file" name="image" accept="image/*" class="element file-upload-button" id="file-upload-button" required>
+
+<textarea name="description" placeholder="Description" class="element" required></textarea>
+
+<input type="hidden" name="submitted" value="true"/>
+
+<button type="submit" id="add" class="element">Add Game</button>
+
+</form>
+
+</div>
+
+<div class="nav-bar bottom"></div>
 
 </body>
-
-
 </html>
