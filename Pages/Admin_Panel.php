@@ -1,40 +1,40 @@
 <?php
-$error_message = '';
-// Start the session
+declare(strict_types=1);
 session_start();
-// Get is_admin from session
-$is_admin = $_SESSION['is_admin'] ?? false;
-// Check if user is admin
-if($is_admin !== 1){
-    // Redirect to home page if not admin
-    header("Location: Home_Page.html");
-    exit();
-}
- // if not logged in, redirect to login page
-if(!isset($_SESSION['username'])){
-    // Redirect to login page
+
+$error_message = "";
+
+// Auth checks
+if (!isset($_SESSION['username'])) {
     header("Location: Login_Page.php");
     exit();
 }
-// connect to the database
-require_once('connectdb.php');
-// Fetch all users from the database
+
+$is_admin = (int)($_SESSION['is_admin'] ?? 0);
+if ($is_admin !== 1) {
+    header("Location: home_Page.html"); // make sure this exists
+    exit();
+}
+
+// Includes (load theme before output)
+require_once __DIR__ . '/themes.php';
+require_once __DIR__ . '/connectdb.php';
+
+// Default theme if not set by themes.php
+$themeClass = $themeClass ?? "theme-dark";
+
 try {
-    $users = $db->prepare("SELECT uid, username, email, is_admin FROM users");
-    // Execute the query
-    $users ->execute();
-    // Fetch all users
-    $users_list = $users->fetchAll();
-    // Fetch all games from the database
-    $games = $db->prepare("SELECT gid, name, platform, price, age_restriction FROM games");
-    // Execute the query
-    $games ->execute();
-    // Fetch all games
-    $games_list = $games->fetchAll();
-}catch (PDOException $ex){
-	$error_message = "Sorry, a database error occurred! <br>";
-	$error_message = "Error details: <em>". $ex->getMessage()."</em>";
- }
+    $usersStmt = $db->prepare("SELECT uid, username, email, is_admin FROM users ORDER BY uid ASC");
+    $usersStmt->execute();
+    $users_list = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $gamesStmt = $db->prepare("SELECT gid, name, platform, price, age_restriction FROM games ORDER BY gid ASC");
+    $gamesStmt->execute();
+    $games_list = $gamesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $ex) {
+    $error_message = "Sorry, a database error occurred! Error details: " . $ex->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,188 +42,183 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+
+    <!-- existing global styles if you want -->
     <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="icon" type="image/png" href="/Assets/Logo.png">
 
-    <!-- internal css for webpage layout -->
-    <style>
-        .table{ 
-            width: 95%; 
-            margin: auto; 
-        }
+    <!-- NEW: admin panel styles -->
+    <link rel="stylesheet" href="../CSS/admin_panel.css">
 
-        button { 
-            padding: 5px;
-            background-color: purple;
-        }
-
-        /* hide the previously resolved messages table by default */
-        #resolved-messages-table { display: none; }
-
-        #status       { background-color: lightgreen; }
-      #add-button   { margin: 0 0 20px 2.5%; }
-        #delete-button{ background-color: red; }
-        .section      { margin-top: 50px; }
-        h2            { margin: 20px 20px 20px 1%; }
-        th,td         { padding: 10px; }
-    </style>
+    <link rel="icon" type="image/png" href="../Assets/Logo.png">
 </head>
-<body class="<?php echo $themeClass; ?>">
-<?php
-require_once('connectdb.php');
-require_once('themes.php');
-?>
-    <!-- navigation bar to link to other webpages -->
-    <div class="nav-bar">
-        <ul class="nav-left">
-            <img class="page_logo" src="../Assets/Logo.png" alt="">
-            <li><a href="./home_Page.html">Home</a></li>
-            <li><a href="./Products_Page.php">Products</a></li>
-            <li><a href="./aboutUs_Page.html">About</a></li>
-        </ul>
 
-        <ul class="nav-right">
-            <li><a href="./contactUs_Page.html"><img src="../Assets/Support.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./Login_Page.php"><img src="../Assets/Account.svg" class="basket-icon" alt=""></a></li>
-            <li><a href="./basket_Page.php">
-                <img src="../Assets/Basket.svg" class="basket-icon" />
-            </a></li>
-        </ul>
-    </div>
-     <?php
-		if (!empty($error_message)){
-			echo '<div class="error-message">' . $error_message . '</div>';
-		}
-		?>
+<body class="<?php echo htmlspecialchars($themeClass); ?>">
+    <!-- nav -->
+    <nav class="cb-nav">
+        <div class="cb-nav__container">
+            
+            <!-- Brand -->
+            <a class="cb-brand" href="./home_Page.php">
+            <img class="cb-brand__logo" src="/Team_Project_TP2_Games_Store/Assets/Logo.png" alt="CoreByte Logo" />
+            <span class="cb-brand__text">CoreByte</span>
+            </a>
 
-    <!-- div section displaying all the registered users -->
-    <div id="Users-table" class="section">
-        <h2>Users</h2>
+            <!-- Main links -->
+            <ul class="cb-links" id="cbNavLinks">
+                <li><a href="./home_Page.php" class="cb-link is-active">Home</a></li>
+                <li><a href="./Products_Page.php" class="cb-link">Products</a></li>
+                <li><a href="./aboutUs_Page.php" class="cb-link">About</a></li>
+            </ul>
 
-        <!-- users viewed in a table format -->
-        <table border="1" class="table">
-            <thead><tr class="row">
-                <th style="width:5%;">UID</th>
-                <th style="width:45%;">Username</th>
-                <th style="width:45%;">Email</th>
-                <th style="width:5%;">Admin?</th>
-            </tr></thead>
+            <!-- User avatar dropdown -->
+            <div class="cb-user">
+            <button class="cb-user__btn" type="button" id="cbUserBtn" aria-expanded="false" aria-controls="cbUserMenu">
+                <span class="sr-only">Open user menu</span>
+                <img
+                class="cb-user__avatar"
+                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                alt="User photo"
+                />
+            </button>
 
-            <!-- template row to be modified when displaying users from the DB -->
-            <tbody>
-                <?php foreach($users_list as $user): ?>
-                <tr id="user-template" class="row">
-                    <td><?php echo htmlspecialchars($user['uid']); ?></td>
-                    <td><?php echo htmlspecialchars($user['username']); ?></td>
-                    <td><?php echo htmlspecialchars($user['email']); ?></td>
-                    <td><?php echo $user['is_admin'] ? 'Yes' : 'No'; ?></td>
-                    
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-        </table>
-    </div>
 
-    <!-- div section displaying all the published games -->
-    <div id="Games-table" class="section">
-        <h2>Games</h2>
 
-        <!-- button to publish a game -->
-        <a href="Add_Game.php"><button id="add-button">Add New Game</button></a>
+            <div class="cb-user__menu hidden" id="cbUserMenu" role="menu">
+                <div class="cb-user__header">
+                <span class="cb-user__name">Janish Kandel</span>
+                <span class="cb-user__email">JanishK@corebyte.com</span>
+                </div>
 
-        <!-- games viewed in a table format -->
-        <table border="1" class="table">
-            <thead><tr class="row">
-                <th style="width:5%;">GID</th>
-                <th style="width:55%;">Name</th>
-                <th style="width:10%;">Platform</th>
-                <th style="width:10%;">Price(£)</th>
-                <th style="width:10%;">Age Rating</th>
-                <th style="width:10%;">Actions</th>
-            </tr></thead>
+                <a href="./basket_Page.php" role="menuitem">Basket <span class="notification">1</span></a>
+                <a href="./registration_page.php" role="menuitem">Account</a>
+                <a href="./settingsPage.php" role="menuitem">Settings</a>
+                <a href="./contactUs_Page.php" role="menuitem">Support</a>
+                <a href="#" role="menuitem">Sign out</a>
+            </div>
+            </div>
 
-            <!-- template row to be modified when displaying games from the DB -->
-            <tbody>
-                <?php foreach($games_list as $game): ?>
-                <tr class="row">
-                    <td><?php echo htmlspecialchars($game['gid']); ?></td>
-                    <td><?php echo htmlspecialchars($game['name']); ?></td>
-                    <td><?php echo htmlspecialchars($game['platform']); ?></td>
-                    <td><?php echo htmlspecialchars($game['price']); ?></td>
-                    <td><?php echo htmlspecialchars($game['age_restriction']); ?></td>
-                <td>
-                    <a href= "edit_game.php?gid=<?= $game['gid']?>">
-                        <button id="edit-button">Edit</button></a>
-                    <button id="delete-button">Delete</button>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-        </table>
-    </div>
+        </div>
+    </nav>
 
-    <!-- div section displaying messages from users -->
-    <div id="messages-table" class="section">
-        <h2>Messages</h2>
+    <main class="admin-wrap">
+        <header class="admin-header">
+            <h1 class="admin-title">Admin Panel</h1>
+            <p class="admin-subtitle">Manage users, games, and messages.</p>
+        </header>
 
-        <!-- user messages viewed in table format -->
-        <table border="1" class="table">
-            <thead><tr class="row">
-                <th style="width:10%;">Username</th>
-                <th style="width:10%;">Name</th>
-                <th style="width:20%;">Email</th>
-                <th style="width:50%;">Message</th>
-                <th style="width:10%;">Actions</th>
-            </tr></thead>
+        <?php if (!empty($error_message)): ?>
+            <div class="alert alert-error">
+                <?php echo htmlspecialchars($error_message); ?>
+            </div>
+        <?php endif; ?>
 
-            <!-- template row to be modified when displaying messages from the DB -->
-            <tbody>
-                <tr class="row">
-                    <td id="username">[username]</td>
-                    <td id="name">[name]</td>
-                    <td id="email">[email]</td>
-                    <td id="message">[message]</td>
-                    <td id=resolve>
-                        <button id="resolve-button">Resolve</button>
-                    </td>
-            </tbody>
-        </table>
+        <!-- USERS -->
+        <section id="Users-table" class="panel">
+            <div class="panel-head">
+                <h2>Users</h2>
+            </div>
 
-    </div>
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-uid">UID</th>
+                            <th class="col-username">Username</th>
+                            <th class="col-email">Email</th>
+                            <th class="col-admin">Admin?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($users_list as $user): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars((string)$user['uid']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$user['username']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$user['email']); ?></td>
+                                <td>
+                                    <span class="badge <?php echo ((int)$user['is_admin'] === 1) ? 'badge-yes' : 'badge-no'; ?>">
+                                        <?php echo ((int)$user['is_admin'] === 1) ? 'Yes' : 'No'; ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-    <!-- button to view resolved messages -->
-    <a href=""><button id="previously-resolved-button">View Previously Resolved Messages</button></a>
+        <!-- GAMES -->
+        <section id="Games-table" class="panel">
+            <div class="panel-head panel-head-row">
+                <h2>Games</h2>
+                <a class="btn btn-primary" href="Add_Game.php">Add New Game</a>
+            </div>
 
-    <!-- div section displaying previously resolved messages -->
-    <div id="resolved-messages-table" class="section">
-        <h2>Previously Resolved Messages</h2>
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-gid">GID</th>
+                            <th class="col-name">Name</th>
+                            <th class="col-platform">Platform</th>
+                            <th class="col-price">Price (£)</th>
+                            <th class="col-age">Age Rating</th>
+                            <th class="col-actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($games_list as $game): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars((string)$game['gid']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$game['name']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$game['platform']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$game['price']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$game['age_restriction']); ?></td>
+                                <td class="actions">
+                                    <a class="btn btn-secondary" href="edit_game.php?gid=<?php echo urlencode((string)$game['gid']); ?>">Edit</a>
+                                    <button class="btn btn-danger" type="button" data-gid="<?php echo htmlspecialchars((string)$game['gid']); ?>">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-        <!-- previously resolved messages viewed in table format -->
-        <table border="1" class="table">
-            <thead><tr class="row">
-                <th style="width:10%;">Username</th>
-                <th style="width:10%;">Name</th>
-                <th style="width:15%;">Email</th>
-                <th style="width:30%;">Message</th>
-                <th style="width:30%;">Response</th>
-                <th style="width:5%;">Status</th>
-            </tr></thead>
+        <!-- MESSAGES (placeholder) -->
+        <section id="messages-table" class="panel">
+            <div class="panel-head">
+                <h2>Messages</h2>
+            </div>
 
-            <!-- template row to be modified when displaying previous messages from the DB -->
-            <tbody>
-                <tr class="row">
-                    <td id="username">[username]</td>
-                    <td id="name">[name]</td>
-                    <td id="email">[email]</td>
-                    <td id="message">[message]</td>
-                    <td id="response">[response]</td>
+            <div class="empty-state">
+                <p>This section is currently a placeholder. Connect it to your messages table when ready.</p>
+            </div>
 
-                    <!-- note! resolved column cell remains unchanged -->
-                    <td id="status">Resolved</td>
-            </tbody>
-        </table>
-        
-    </div>
+            <a class="btn btn-ghost" href="#">View Previously Resolved Messages</a>
+        </section>
 
+        <!-- RESOLVED (placeholder) -->
+        <section id="resolved-messages-table" class="panel">
+            <div class="panel-head">
+                <h2>Previously Resolved Messages</h2>
+            </div>
+
+            <div class="empty-state">
+                <p>This section is currently a placeholder.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+      // Optional: wire up delete buttons later (AJAX)
+      document.querySelectorAll('button.btn-danger[data-gid]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const gid = btn.getAttribute('data-gid');
+          alert("Hook delete logic for GID: " + gid);
+        });
+      });
+    </script>
 </body>
 </html>

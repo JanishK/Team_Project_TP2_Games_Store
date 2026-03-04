@@ -11,7 +11,8 @@
     <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
     <link rel="icon" type="image/png" href="/Team_Project_TP2_Games_Store/Assets/Logo.png" />
 
-
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.css">
+    <script defer src="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.js"></script>
 </head>
 
 <body class="<?php echo $themeClass; ?>">
