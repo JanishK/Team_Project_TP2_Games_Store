@@ -1,24 +1,20 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 session_start();
 require_once("connectdb.php");
-require_once('themes.php');
+require_once("themes.php");
 
 
-// =======================================
-// USER MUST BE LOGGED IN
-// =======================================
-if (!isset($_SESSION['uid'])) {
-    header("Location: Login_Page.php");
-    exit();
-}
-
-$user_id = (int)$_SESSION['uid'];
+$isLoggedIn = isset($_SESSION['uid']);
+$user_id = $isLoggedIn ? (int)$_SESSION['uid'] : 0;
 
 // =======================================
-// HANDLE CART ACTIONS (increment, decrement, remove, clear)
+// HANDLE CART ACTIONS (only if logged in)
 // =======================================
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+if ($isLoggedIn && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
     $action  = $_POST['action'];
     $cart_id = isset($_POST['cart_id']) ? (int)$_POST['cart_id'] : 0;
@@ -28,8 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $stmt->execute([$user_id]);
 
     } else {
-
-        // Validate row belongs for logged-in user
         $check = $db->prepare("SELECT quantity FROM cart WHERE cart_id = ? AND user_id = ?");
         $check->execute([$cart_id, $user_id]);
         $row = $check->fetch(PDO::FETCH_ASSOC);
@@ -39,22 +33,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
             if ($action === "increment") {
                 $qty++;
-                $update = $db->prepare("UPDATE cart SET quantity = ? WHERE cart_id = ?");
-                $update->execute([$qty, $cart_id]);
+                $update = $db->prepare("UPDATE cart SET quantity = ? WHERE cart_id = ? AND user_id = ?");
+                $update->execute([$qty, $cart_id, $user_id]);
 
             } elseif ($action === "decrement") {
                 $qty--;
                 if ($qty <= 0) {
-                    $del = $db->prepare("DELETE FROM cart WHERE cart_id = ?");
-                    $del->execute([$cart_id]);
+                    $del = $db->prepare("DELETE FROM cart WHERE cart_id = ? AND user_id = ?");
+                    $del->execute([$cart_id, $user_id]);
                 } else {
-                    $update = $db->prepare("UPDATE cart SET quantity = ? WHERE cart_id = ?");
-                    $update->execute([$qty, $cart_id]);
+                    $update = $db->prepare("UPDATE cart SET quantity = ? WHERE cart_id = ? AND user_id = ?");
+                    $update->execute([$qty, $cart_id, $user_id]);
                 }
 
             } elseif ($action === "remove") {
-                $del = $db->prepare("DELETE FROM cart WHERE cart_id = ?");
-                $del->execute([$cart_id]);
+                $del = $db->prepare("DELETE FROM cart WHERE cart_id = ? AND user_id = ?");
+                $del->execute([$cart_id, $user_id]);
             }
         }
     }
@@ -64,160 +58,107 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 }
 
 // =======================================
-// FETCH CART ITEMS
+// FETCH CART ITEMS (only if logged in)
 // =======================================
-
-$sql = "
-    SELECT c.cart_id, c.quantity,
-           g.gid, g.name, g.platform, g.price, g.image
-    FROM cart c
-    JOIN games g ON c.game_id = g.gid
-    WHERE c.user_id = ?
-";
-$stmt = $db->prepare($sql);
-$stmt->execute([$user_id]);
-$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Totals
+$items = [];
 $total_items = 0;
 $total_cost  = 0.00;
 
-foreach ($items as $item) {
-    $total_items += $item['quantity'];
-    $total_cost  += $item['quantity'] * (float)$item['price'];
-}
+if ($isLoggedIn) {
+    $sql = "
+        SELECT c.cart_id, c.quantity,
+               g.gid, g.name, g.platform, g.price, g.image
+        FROM cart c
+        JOIN games g ON c.game_id = g.gid
+        WHERE c.user_id = ?
+    ";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$user_id]);
+    $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    foreach ($items as $item) {
+        $total_items += (int)$item['quantity'];
+        $total_cost  += (int)$item['quantity'] * (float)$item['price'];
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoreByte | Basket</title>
-    <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="icon" type="image/png" href="../Assets/Logo.png">
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/style.css">
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/basket.css">
+
+
     <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
+    <title>Contact Us</title>
+
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.css">
+    <script defer src="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.js"></script>
 </head>
+
 
 <body class="<?php echo $themeClass; ?>">
 
-
-        <!-- NAVIGATION BAR -->
-    <nav class="cb-nav">
-        <div class="cb-nav__container">
-            
-            <!-- Brand -->
-            <a class="cb-brand" href="./home_Page.html">
-            <img class="cb-brand__logo" src="/Assets/Logo.png" alt="CoreByte Logo" />
-            <span class="cb-brand__text">CoreByte</span>
-            </a>
-
-            <!-- Main links -->
-            <ul class="cb-links" id="cbNavLinks">
-                <li><a href="./home_Page.php" class="cb-link is-active">Home</a></li>
-                <li><a href="./Products_Page.php" class="cb-link">Products</a></li>
-                <li><a href="./aboutUs_Page.php" class="cb-link">About</a></li>
-            </ul>
-
-            <!-- User avatar dropdown -->
-            <div class="cb-user">
-            <button class="cb-user__btn" type="button" id="cbUserBtn" aria-expanded="false" aria-controls="cbUserMenu">
-                <span class="sr-only">Open user menu</span>
-                <img
-                class="cb-user__avatar"
-                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                alt="User photo"
-                />
-            </button>
-
-
-
-            <div class="cb-user__menu hidden" id="cbUserMenu" role="menu">
-                <div class="cb-user__header">
-                <span class="cb-user__name">Janish Kandel</span>
-                <span class="cb-user__email">JanishK@corebyte.com</span>
-                </div>
-
-                <a href="./basket_Page.php" role="menuitem">Basket <span class="notification">1</span></a>
-                <a href="./registration_page.php" role="menuitem">Account</a>
-                <a href="./settingsPage.php" role="menuitem">Settings</a>
-                <a href="./contactUs_Page.php" role="menuitem">Support</a>
-                <a href="#" role="menuitem">Sign out</a>
-            </div>
-            </div>
-
-        </div>
-    </nav>
+<?php require_once __DIR__ . '/components/navbar.php'; ?>
 
 <section class="basket-page-section">
-
     <h1>Your Basket</h1>
 
-    <?php if (empty($items)): ?>
+
+    <?php if (!$isLoggedIn): ?>
+        <p>You need to be signed in to view your basket.</p>
+        <a class="btn" href="./Login_Page.php">Sign in</a>
+
+    <?php elseif (empty($items)): ?>
         <p>Your basket is empty.</p>
 
     <?php else: ?>
 
-        <!-- CLEAR CART -->
         <form method="POST">
             <button type="submit" name="action" value="clear" class="clear-btn">Remove all</button>
         </form>
 
         <div id="shopping_list">
-
             <?php foreach ($items as $item): ?>
                 <div class="game_template">
-
-                    <!-- IMAGE -->
                     <div class="basket_left">
                         <img src="../Assets/Game_Images/<?= htmlspecialchars($item['image']) ?>"
                              alt="<?= htmlspecialchars($item['name']) ?>">
                     </div>
 
-                    <!-- NAME + PRICE -->
                     <div class="basket_middle">
                         <label class="game_name"><?= htmlspecialchars($item['name']) ?></label>
-                        <label class="game_price">£<?= number_format($item['price'], 2) ?></label>
+                        <label class="game_price">£<?= number_format((float)$item['price'], 2) ?></label>
                         <label>Platform: <?= htmlspecialchars($item['platform']) ?></label>
                     </div>
 
-                    <!-- QUANTITY + REMOVE -->
                     <div class="basket_right">
-
-                        <!-- REMOVE -->
                         <form method="POST">
-                            <input type="hidden" name="cart_id" value="<?= $item['cart_id'] ?>">
+                            <input type="hidden" name="cart_id" value="<?= (int)$item['cart_id'] ?>">
                             <button type="submit" name="action" value="remove" class="remove-btn">Remove</button>
                         </form>
 
-                        <!-- QUANTITY CONTROLS -->
                         <form method="POST" class="qty-controls">
-                            <input type="hidden" name="cart_id" value="<?= $item['cart_id'] ?>">
-
+                            <input type="hidden" name="cart_id" value="<?= (int)$item['cart_id'] ?>">
                             <button type="submit" name="action" value="decrement">-</button>
-
-                            <label class="qty-num"><?= $item['quantity'] ?></label>
-
+                            <label class="qty-num"><?= (int)$item['quantity'] ?></label>
                             <button type="submit" name="action" value="increment">+</button>
                         </form>
-
                     </div>
                 </div>
             <?php endforeach; ?>
-
         </div>
 
         <section class="order-summary">
             <h3>Order Summary</h3>
-            <p>Total items: <?= $total_items ?></p>
-            <p>Total cost: £<?= number_format($total_cost, 2) ?></p>
-
+            <p>Total items: <?= (int)$total_items ?></p>
+            <p>Total cost: £<?= number_format((float)$total_cost, 2) ?></p>
             <button class="checkout-btn">Proceed to checkout</button>
         </section>
 
     <?php endif; ?>
-
 </section>
-
 </body>
-</html>

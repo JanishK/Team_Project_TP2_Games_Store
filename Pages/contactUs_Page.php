@@ -37,59 +37,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/contact_us.css">
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/style.css">
+
     <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
     <title>Contact Us</title>
+
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.css">
+    <script defer src="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.js"></script>
 </head>
 
 <body class="<?php echo $themeClass; ?>">
     
             <!-- NAVIGATION BAR -->
-    <nav class="cb-nav">
-        <div class="cb-nav__container">
-            
-            <!-- Brand -->
-            <a class="cb-brand" href="./home_Page.html">
-            <img class="cb-brand__logo" src="/Team_Project_TP2_Games_Store/Assets/Logo.png" alt="CoreByte Logo" />
-            <span class="cb-brand__text">CoreByte</span>
-            </a>
+        <?php require_once __DIR__ . '/components/navbar.php'; ?>
 
-            <!-- Main links -->
-            <ul class="cb-links" id="cbNavLinks">
-                <li><a href="./home_Page.php" class="cb-link is-active">Home</a></li>
-                <li><a href="./Products_Page.php" class="cb-link">Products</a></li>
-                <li><a href="./aboutUs_Page.php" class="cb-link">About</a></li>
-            </ul>
-
-            <!-- User avatar dropdown -->
-            <div class="cb-user">
-            <button class="cb-user__btn" type="button" id="cbUserBtn" aria-expanded="false" aria-controls="cbUserMenu">
-                <span class="sr-only">Open user menu</span>
-                <img
-                class="cb-user__avatar"
-                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                alt="User photo"
-                />
-            </button>
-
-
-
-            <div class="cb-user__menu hidden" id="cbUserMenu" role="menu">
-                <div class="cb-user__header">
-                <span class="cb-user__name">Janish Kandel</span>
-                <span class="cb-user__email">JanishK@corebyte.com</span>
-                </div>
-
-                <a href="./basket_Page.php" role="menuitem">Basket <span class="notification">1</span></a>
-                <a href="./registration_page.php" role="menuitem">Account</a>
-                <a href="./settingsPage.php" role="menuitem">Settings</a>
-                <a href="./contactUs_Page.php" role="menuitem">Support</a>
-                <a href="#" role="menuitem">Sign out</a>
-            </div>
-            </div>
-
-        </div>
-    </nav>
     <main>
     <?php
     if (!empty($error_message)) {
