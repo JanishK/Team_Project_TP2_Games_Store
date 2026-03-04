@@ -280,6 +280,10 @@ body {
   align-items: right;
 }
 
+.admin-item {
+  background-color: rgba(255, 81, 81, 0.728);
+}
+
 /* ---- FIX GRID STRETCHING / STRIPES ---- */
 
 
