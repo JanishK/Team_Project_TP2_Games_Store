@@ -195,3 +195,13 @@
   color: var(--muted);
   font-size: 14px;
 }
+
+.section {
+  margin: 18px 0;
+
+}
+
+#resolve-butotn {
+  margin-top: 8px;
+  
+}
