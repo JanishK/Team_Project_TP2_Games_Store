@@ -5,11 +5,14 @@ require_once('connectdb.php');
 if (!isset($_GET['id'])) {
     die("No product selected.");
 }
-
+// Increment view count
+$viewStmt = $db->prepare("UPDATE games SET view = view + 1 WHERE gid = ?");
+// Execute the update statement with the game ID from the query parameter
+$viewStmt->execute([(int)$_GET['id']]);
 $gid = (int)$_GET['id'];
 
 $stmt = $db->prepare("
-  SELECT gid, name, description, platform, price, image, age_restriction
+  SELECT gid, name, description, platform, price, image, age_restriction, view
   FROM games
   WHERE gid = ?
 ");
@@ -51,6 +54,7 @@ $price = "£" . number_format($game['price'], 2);
   <h1><?= htmlspecialchars($game['name']); ?></h1>
 
   <p><?= htmlspecialchars($game['description']); ?></p>
+  <p><strong>Views:</strong> <?= htmlspecialchars((string)$game['view']); ?></p>
 
   <h2><?= $price ?></h2>
 
@@ -60,6 +64,7 @@ $price = "£" . number_format($game['price'], 2);
   <form method="post" action="add_to_cart.php">
       <input type="hidden" name="game_id" value="<?= $game['gid']; ?>">
       <button type="submit">Add To Cart</button>
+      <button type="submit">Buy Now</button>
   </form>
 
 </div>

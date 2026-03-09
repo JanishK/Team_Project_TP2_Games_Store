@@ -1,5 +1,18 @@
 
-
+<?php
+session_start();
+require_once('connectdb.php');
+/* Optional: simple “edition” label from age rating (just a display tag) */
+function editionTag($age) {
+  return ($age === '18+') ? 'ADULT EDITION' : 'STANDARD EDITION';
+}
+try{
+    $stmt = $db->query("SELECT gid, name, description, age_restriction, platform, price, image FROM games ORDER BY view DESC LIMIT 5");
+    $trendingGames = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $ex) {
+    die("Database error: " . $ex->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,6 +75,21 @@
         <!-- TRENDING GAMES -->
         <section class="trending-section">
             <h2 class="section-title">Games Trending</h2>
+            <?php foreach ($trendingGames as $game): ?>
+                <div class="trendingcontainer">
+                    <div class="product"
+                    data-name="<?= htmlspecialchars($game['name']); ?>"
+                    data-platform="<?= htmlspecialchars($game['platform']); ?>"
+                    data-genre="Trending">
+                    <p><?= editionTag($game['age_restriction']); ?></p>
+                    <img src="/Team_Project_TP2_Games_Store/Assets/Game_Images/<?= rawurlencode($game['image']); ?>" alt="<?= htmlspecialchars($game['name']); ?>">
+                    <h3><?= htmlspecialchars($game['name']); ?></h3>
+                    <p>£<?= number_format($game['price'], 2); ?></p>
+                    <button>Add to Basket</button>
+                </div>
+            </div>
+            <?php endforeach; ?>
+            
 
             <div class="trendingcontainer">
 
@@ -105,10 +133,10 @@
             <h2 class="section-title">Available On</h2>
 
             <div class="logo-row">
-                <img src="/Assets/ICONS/PlayStation_logo.png" alt="PlayStation">
-                <img src="/Assets/ICONS/Xbox_one_logo.png" alt="Xbox">
-                <img src="/Assets/ICONS/Nintendo_logo.png" alt="Nintendo">
-                <img src="/Assets/ICONS/PC_LOGO_2.png" alt="PC">
+                <img src="../Assets/ICONS/PlayStation_logo.png" alt="PlayStation">
+                <img src="../Assets/ICONS/Xbox_one_logo.png" alt="Xbox">
+                <img src="../Assets/ICONS/Nintendo_logo.png" alt="Nintendo">
+                <img src="../Assets/ICONS/PC_LOGO_2.png" alt="PC">
             </div>
         </section>
 
