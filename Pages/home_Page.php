@@ -7,10 +7,13 @@ function editionTag($age) {
   return ($age === '18+') ? 'ADULT EDITION' : 'STANDARD EDITION';
 }
 try{
-    $stmt = $db->query("SELECT gid, name, description, age_restriction, platform, price, image FROM games ORDER BY view DESC LIMIT 5");
+    $stmt = $db->query("SELECT gid, name, description, age_restriction, platform, price, image FROM games ORDER BY view DESC LIMIT 8");
     $trendingGames = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $ex) {
     die("Database error: " . $ex->getMessage());
+}
+function js($value) {
+  return json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 }
 ?>
 <!DOCTYPE html>
@@ -75,37 +78,60 @@ try{
         <!-- TRENDING GAMES -->
         <section class="trending-section">
             <h2 class="section-title">Games Trending</h2>
-            <?php foreach ($trendingGames as $game): ?>
-                <div class="trendingcontainer">
-                    <div class="product"
-                    data-name="<?= htmlspecialchars($game['name']); ?>"
-                    data-platform="<?= htmlspecialchars($game['platform']); ?>"
-                    data-genre="Trending">
-                    <p><?= editionTag($game['age_restriction']); ?></p>
-                    <img src="/Team_Project_TP2_Games_Store/Assets/Game_Images/<?= rawurlencode($game['image']); ?>" alt="<?= htmlspecialchars($game['name']); ?>">
-                    <h3><?= htmlspecialchars($game['name']); ?></h3>
-                    <p>£<?= number_format($game['price'], 2); ?></p>
-                    <button>Add to Basket</button>
-                </div>
-            </div>
-            <?php endforeach; ?>
-            
+            <!-- PRODUCT GRID -->
+      <section class="main-content-wrapper">
+        <?php foreach ($trendingGames as $game): ?>
+          <?php
+            // --- Image (exists -> use it, else placeholder) ---
+            $baseUrl = "/Team_Project_TP2_Games_Store/Assets/Game_Images/";
+            $placeholder = $baseUrl . "PlacerHolder.jpeg";
 
-            <div class="trendingcontainer">
+            $filename = trim((string)($game['image'] ?? ''));
 
-                <div class="product"
-                    data-name="Mario Kart 8 Deluxe"
-                    data-platform="Nintendo"
-                    data-genre="Racing">
-                    <p>STANDARD EDITION</p>
-                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
-                    <h3>MARIO KART 8 DELUXE</h3>
-                    <p>£39.99</p>
-                    <button>Add to Basket</button>
-                </div>
+            // Products_Page.php is in /Pages, so ../Assets points to /Assets
+            $fsPath = __DIR__ . "/../Assets/Game_Images/" . $filename;
 
-            </div>
-        </section>
+            $imgPath = (is_file($fsPath) && $filename !== "")
+              ? $baseUrl . rawurlencode($filename)
+              : $placeholder;
+
+            // --- Price ---
+            $priceLabel = "£" . number_format((float)$game['price'], 2);
+
+            // --- JS-safe values ---
+            $jsTitle = js($game['name']);
+            $jsDesc  = js($game['description']);
+            $jsRate  = js($game['age_restriction']);
+            $jsImg   = js($imgPath);
+            $jsPrice = js($priceLabel);
+          ?>
+
+          <div class="product"
+              data-name="<?= $dataName; ?>"
+              data-platform="<?= $dataPlatform; ?>"
+              data-age="<?= $dataAge; ?>">
+
+            <p><?= htmlspecialchars(editionTag($game['age_restriction']), ENT_QUOTES); ?></p>
+
+            <img
+              src="<?= htmlspecialchars($imgPath, ENT_QUOTES); ?>"
+              alt="<?= htmlspecialchars($game['name'], ENT_QUOTES); ?>"
+              onerror="this.onerror=null; this.src='<?= htmlspecialchars($placeholder, ENT_QUOTES); ?>';"
+            />
+
+            <h3><?= htmlspecialchars(strtoupper($game['name']), ENT_QUOTES); ?></h3>
+
+            <p><?= htmlspecialchars($priceLabel, ENT_QUOTES); ?></p>
+
+        <form method="post" action="add_to_cart.php">
+            <input type="hidden" name="game_id" value="<?= $game['gid']; ?>">
+            <button type="submit">Add To Cart</button>
+        </form>
+
+
+          </div>
+        <?php endforeach; ?>
+      </section>
 
         <!-- DEALS -->
         <section class="trending-section">
