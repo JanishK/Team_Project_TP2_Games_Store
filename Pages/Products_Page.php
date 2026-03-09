@@ -144,6 +144,10 @@ function js($value) {
           <a href="productDetails.php?id=<?= (int)$g['gid']; ?>" class="view-details-btn">
               View Details
           </a>
+          <form method="post" action="add_to_cart.php">
+            <input type="hidden" name="game_id" value="<?= $game['gid']; ?>">
+            <button type="submit">Add To Cart</button>
+          </form>
 
 
           </div>

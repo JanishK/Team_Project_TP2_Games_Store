@@ -14,18 +14,29 @@ if (!isset($_SESSION['username']) && !isset($_SESSION['uid'])) {
 $user_id = null;
 
 if (isset($_SESSION['uid'])) {
-    $user_id = (int)$_SESSION['uid'];
-} elseif (isset($_SESSION['username'])) {
+    $check = $db->prepare("SELECT uid FROM users WHERE uid = ?");
+    $check->execute([(int)$_SESSION['uid']]);
+    $row = $check->fetch(PDO::FETCH_ASSOC);
+
+    if ($row) {
+        $user_id = (int)$row['uid'];
+    }
+}
+
+if (!$user_id && isset($_SESSION['username'])) {
     $u = $db->prepare("SELECT uid FROM users WHERE username = ?");
     $u->execute([$_SESSION['username']]);
     $row = $u->fetch(PDO::FETCH_ASSOC);
+
     if ($row) {
         $user_id = (int)$row['uid'];
-        $_SESSION['uid'] = $user_id;   // cache for next time
+        $_SESSION['uid'] = $user_id;
     }
 }
 
 if (!$user_id) {
+    session_unset();
+    session_destroy();
     header("Location: Login_Page.php");
     exit();
 }
