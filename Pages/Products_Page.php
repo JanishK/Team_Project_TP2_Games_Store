@@ -6,7 +6,7 @@ $logged_in = isset($_SESSION['username']);
 
 /* Fetch all games */
 $stmt = $db->prepare("
-  SELECT gid, name, description, platform, price, image, age_restriction
+  SELECT gid, name, description, platform, price, image, age_restriction, discount
   FROM games
   ORDER BY gid DESC
 ");
@@ -92,8 +92,14 @@ function js($value) {
       <section class="main-content-wrapper">
         <?php foreach ($games as $g): ?>
           <?php
-            $platformForFilter = $platformMap[$g['platform']] ?? $g['platform'];
-
+            $platformForFilter = $platformMap[$g['platform']] ?? $g['platform'];  
+            $discount = $g['discount'];
+            if ($discount > 0) {
+              $discountedPrice = $g['price'] * (1 - $discount / 100);
+              $priceLabel = "£" . number_format($discountedPrice, 2) . " (was £" . number_format((float)$g['price'], 2) . ")";
+              } else {
+                $priceLabel = "£" . number_format((float)$g['price'], 2);
+              }
             // --- Image (exists -> use it, else placeholder) ---
             $baseUrl = "/Team_Project_TP2_Games_Store/Assets/Game_Images/";
             $placeholder = $baseUrl . "PlacerHolder.jpeg";
@@ -106,10 +112,6 @@ function js($value) {
             $imgPath = (is_file($fsPath) && $filename !== "")
               ? $baseUrl . rawurlencode($filename)
               : $placeholder;
-
-            // --- Price ---
-            $priceLabel = "£" . number_format((float)$g['price'], 2);
-
             // --- data attributes for filtering ---
             $dataName = htmlspecialchars($g['name'], ENT_QUOTES);
             $dataPlatform = htmlspecialchars($platformForFilter, ENT_QUOTES);
