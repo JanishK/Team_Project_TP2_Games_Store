@@ -12,8 +12,28 @@ try{
 } catch (PDOException $ex) {
     die("Database error: " . $ex->getMessage());
 }
+try {
+    $stmt = $db->query("SELECT gid, name, description, age_restriction, platform, price, image, discount
+FROM games
+WHERE discount > 0
+ORDER BY discount DESC
+LIMIT 8
+");
+    $deals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $ex) {
+    die("Database error: " . $ex->getMessage());
+}
 function js($value) {
   return json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+}
+$discount = $game['discount'] ?? 0;
+
+if ($discount > 0) {
+    $discountedPrice = $game['price'] * (1 - $discount / 100);
+    $priceLabel = "£" . number_format($discountedPrice, 2) .
+                  " (was £" . number_format($game['price'], 2) . ")";
+} else {
+    $priceLabel = "£" . number_format($game['price'], 2);
 }
 ?>
 <!DOCTYPE html>
@@ -136,21 +156,58 @@ function js($value) {
         <!-- DEALS -->
         <section class="trending-section">
             <h2 class="section-title">Deals of the Week</h2>
+            <!-- PRODUCT GRID -->
+        <section class="main-content-wrapper">
+            <?php foreach ($deals as $game): ?>
+          <?php
+            // --- Image (exists -> use it, else placeholder) ---
+            $baseUrl = "/Team_Project_TP2_Games_Store/Assets/Game_Images/";
+            $placeholder = $baseUrl . "PlacerHolder.jpeg";
 
-            <div class="trendingcontainer">
-                    <div class="product"
-                    data-name="Mario Kart 8 Deluxe"
-                    data-platform="Nintendo"
-                    data-genre="Racing">
-                    <p>STANDARD EDITION</p>
-                    <img src="../Assets/Game_Images/Mario_Cart_Deluxe_8.jpg" alt="Mario Kart 8 Deluxe">
-                    <h3>MARIO KART 8 DELUXE</h3>
-                    <p class="old-price">£59.99</p>
-                    <p class="new-price">£29.99</p>
-                    <button>Add to Basket</button>
-                </div>
+            $filename = trim((string)($game['image'] ?? ''));
 
+            // Products_Page.php is in /Pages, so ../Assets points to /Assets
+            $fsPath = __DIR__ . "/../Assets/Game_Images/" . $filename;
 
+            $imgPath = (is_file($fsPath) && $filename !== "")
+              ? $baseUrl . rawurlencode($filename)
+              : $placeholder;
+
+            // --- Price ---
+            $discount = (int)$game['discount'];
+            if ($discount > 0) {
+                $discountedPrice = $game['price'] * (1 - $discount / 100);
+                $priceLabel = "£" . number_format($discountedPrice, 2) . " (was £" . number_format((float)$game['price'], 2) . ")";
+            } else {
+                $priceLabel = "£" . number_format((float)$game['price'], 2);
+            }
+            
+            // --- JS-safe values ---
+            $jsTitle = js($game['name']);
+            $jsDesc  = js($game['description']);
+            $jsRate  = js($game['age_restriction']);
+            $jsImg   = js($imgPath);
+            $jsPrice = js($priceLabel);
+            ?>
+            <div class="product"
+                data-name="<?= $dataName; ?>"
+                data-platform="<?= $dataPlatform; ?>"
+                data-age="<?= $dataAge; ?>">
+                <p><?= htmlspecialchars(editionTag($game['age_restriction']), ENT_QUOTES); ?></p>
+                <img
+                src="<?= htmlspecialchars($imgPath, ENT_QUOTES); ?>"
+                alt="<?= htmlspecialchars($game['name'], ENT_QUOTES); ?>"
+                onerror="this.onerror=null; this.src='<?= htmlspecialchars($placeholder, ENT_QUOTES); ?>';"
+                />
+                <h3><?= htmlspecialchars(strtoupper($game['name']), ENT_QUOTES); ?></h3>
+                <p><?= htmlspecialchars($priceLabel, ENT_QUOTES); ?></p>
+                <form method="post" action="add_to_cart.php">
+                    <input type="hidden" name="game_id" value="<?= $game['gid']; ?>">
+                    <button type="submit">Add To Cart</button>
+                </form>
+            </div>
+        <?php endforeach; ?>
+        </section>
             </div>
         </section>
 

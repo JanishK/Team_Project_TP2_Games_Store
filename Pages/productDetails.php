@@ -12,7 +12,7 @@ $viewStmt->execute([(int)$_GET['id']]);
 $gid = (int)$_GET['id'];
 
 $stmt = $db->prepare("
-  SELECT gid, name, description, platform, price, image, age_restriction, view
+  SELECT gid, name, description, platform, price, image, age_restriction, view, discount
   FROM games
   WHERE gid = ?
 ");
@@ -55,8 +55,18 @@ $price = "£" . number_format($game['price'], 2);
 
   <p><?= htmlspecialchars($game['description']); ?></p>
   <p><strong>Views:</strong> <?= htmlspecialchars((string)$game['view']); ?></p>
+  <?php
+    $discount = $game['discount'];
 
-  <h2><?= $price ?></h2>
+    if ($discount > 0) {
+        $discountedPrice = $game['price'] * (1 - $discount / 100);
+        $priceLabel = "£" . number_format($discountedPrice, 2) .
+                      " (was £" . number_format((float)$game['price'], 2) . ")";
+    } else {
+        $priceLabel = "£" . number_format((float)$game['price'], 2);
+    }
+  ?>
+  <p><strong>Price:</strong> <?= htmlspecialchars($priceLabel); ?></p>
 
   <p><strong>Platform:</strong> <?= htmlspecialchars($game['platform']); ?></p>
   <p><strong>Age Rating:</strong> <?= htmlspecialchars($game['age_restriction']); ?></p>
