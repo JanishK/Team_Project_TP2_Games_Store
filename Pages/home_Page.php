@@ -6,7 +6,7 @@ function editionTag($age) {
   return ($age === '18+') ? 'ADULT EDITION' : 'STANDARD EDITION';
 }
 try{
-    $stmt = $db->query("SELECT gid, name, description, age_restriction, platform, price, image FROM games ORDER BY view DESC LIMIT 8");
+    $stmt = $db->query("SELECT gid, name, description, age_restriction, platform, price,discount, image FROM games ORDER BY view DESC LIMIT 8");
     $trendingGames = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $ex) {
     die("Database error: " . $ex->getMessage());
@@ -107,8 +107,13 @@ function js($value) {
               : $placeholder;
 
             // --- Price ---
-            $priceLabel = "£" . number_format((float)$game['price'], 2);
-
+            $discount = (int)$game['discount'];
+            if ($discount > 0) {
+                $discountedPrice = $game['price'] * (1 - $discount / 100);
+                $priceLabel = "£" . number_format($discountedPrice, 2) . " (was £" . number_format((float)$game['price'], 2) . ")";
+            } else {
+                $priceLabel = "£" . number_format((float)$game['price'], 2);
+            }
             // --- JS-safe values ---
             $jsTitle = js($game['name']);
             $jsDesc  = js($game['description']);

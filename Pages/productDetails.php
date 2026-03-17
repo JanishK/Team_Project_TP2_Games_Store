@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('connectdb.php');
-
+$logged_in = isset($_SESSION['username']);
 if (!isset($_GET['id'])) {
     die("No product selected.");
 }
@@ -41,9 +41,11 @@ $price = "£" . number_format($game['price'], 2);
 <head>
   <title><?= htmlspecialchars($game['name']); ?></title>
   <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/productPage.css">
+  <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
+<link rel="stylesheet" href="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.css">
+<script defer src="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.js"></script>
 </head>
 
-<body>
     <body class="<?php echo $themeClass; ?>">
         <!-- NAVIGATION BAR -->
         <?php require_once __DIR__ . '/components/navbar.php'; ?>
