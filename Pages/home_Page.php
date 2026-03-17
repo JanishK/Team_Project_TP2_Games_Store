@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 require_once('connectdb.php');
@@ -26,15 +25,7 @@ LIMIT 8
 function js($value) {
   return json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 }
-$discount = $game['discount'] ?? 0;
 
-if ($discount > 0) {
-    $discountedPrice = $game['price'] * (1 - $discount / 100);
-    $priceLabel = "£" . number_format($discountedPrice, 2) .
-                  " (was £" . number_format($game['price'], 2) . ")";
-} else {
-    $priceLabel = "£" . number_format($game['price'], 2);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
