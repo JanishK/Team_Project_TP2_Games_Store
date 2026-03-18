@@ -6,8 +6,9 @@ session_start();
 
 $is_admin = $_SESSION['is_admin'] ?? false;
 
-if($is_admin !== 1){
-    header("Location: Home_Page.html");
+$is_admin = (int)($_SESSION['is_admin'] ?? 0);
+if ($is_admin !== 1) {
+    header("Location: home_Page.html"); // make sure this exists
     exit();
 }
 
@@ -26,7 +27,7 @@ if (isset($_POST['submitted'])){
     $description = $_POST['description'] ?? false;
     $platform = $_POST['platform'] ?? false;
     $age_rating = $_POST['age_rating'] ?? false;
-
+    $discount = $_POST['discount'] ?? 0;
     $platforms = ['PC', 'Playstation', 'Xbox', 'Nintendo Switch'];
     $age_ratings = ['8', '13', '16', '18+'];
 
@@ -71,12 +72,18 @@ elseif(!($description)){
 elseif(!($image)){
     $error_message = "Please upload a valid Image!";
 }
+elseif ($price < 0){
+    $error_message = "Price cannot be negative!";
+}
+elseif ($discount < 0 || $discount > 100){
+    $error_message = "Invalid discount value. Please enter a value between 0 and 100.";
+}
 else{
 try{
     // all is well, proceed to add the game
-	$stat=$db->prepare("insert into games (name , description, platform, price, image,age_restriction) VALUES (?, ?, ?, ?, ?, ?)");
+	$stat=$db->prepare("insert into games (name , description, platform, price, image,age_restriction,discount) VALUES (?, ?, ?, ?, ?, ?, ? )");
     // execute the query
-	$stat->execute(array($name,$description,$platform,$price,$image,$age_rating));
+	$stat->execute(array($name,$description,$platform,$price,$image,$age_rating,$discount));
     // get the last inserted id
 	$id=$db->lastInsertId();
 	$success_message = "Game $name has been added successfully. ";  	
@@ -100,6 +107,9 @@ try{
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/add_game.css">
     <link rel="icon" type="image/png" href="../Assets/Logo.png">
+     <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
+     <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.css">
+     <script defer src="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.js"></script>
 </head>
 
 <body class="<?php echo $themeClass; ?>">
@@ -150,7 +160,7 @@ if (!empty($success_message)){
 <input type="file" name="image" accept="image/*" class="element file-upload-button" id="file-upload-button" required>
 
 <textarea name="description" placeholder="Description" class="element" required></textarea>
-
+<input type="number" name="discount" placeholder="Discount (%)" class="element" min="0" max="100">
 <input type="hidden" name="submitted" value="true"/>
 
 <button type="submit" id="add" class="element">Add Game</button>

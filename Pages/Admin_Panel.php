@@ -48,7 +48,7 @@ try {
     $users_list = $users->fetchAll();
 
     // Fetch all games from the database
-    $games = $db->prepare("SELECT gid, name, platform, price, age_restriction FROM games");
+    $games = $db->prepare("SELECT gid, name, platform, price, age_restriction, discount FROM games");
     // Execute the query
     $games ->execute();
     // Fetch all games
@@ -148,6 +148,7 @@ require_once('themes.php');
                             <th class="col-platform">Platform</th>
                             <th class="col-price">Price (£)</th>
                             <th class="col-age">Age Rating</th>
+                            <th class="col-discount">Discount</th>
                             <th class="col-actions">Actions</th>
                         </tr>
                     </thead>
@@ -159,6 +160,7 @@ require_once('themes.php');
                                 <td><?php echo htmlspecialchars((string)$game['platform']); ?></td>
                                 <td><?php echo htmlspecialchars((string)$game['price']); ?></td>
                                 <td><?php echo htmlspecialchars((string)$game['age_restriction']); ?></td>
+                                <td><?php echo htmlspecialchars((string)$game['discount']); ?>%</td>
                                 <td class="actions">
                                     <a class="btn btn-secondary" href="edit_game.php?gid=<?php echo urlencode((string)$game['gid']); ?>">Edit</a>
                                     <button class="btn btn-danger" type="button" data-gid="<?php echo htmlspecialchars((string)$game['gid']); ?>">

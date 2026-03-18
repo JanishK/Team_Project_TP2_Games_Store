@@ -1,15 +1,18 @@
 <?php
 session_start();
 require_once('connectdb.php');
-
+$logged_in = isset($_SESSION['username']);
 if (!isset($_GET['id'])) {
     die("No product selected.");
 }
-
+// Increment view count
+$viewStmt = $db->prepare("UPDATE games SET view = view + 1 WHERE gid = ?");
+// Execute the update statement with the game ID from the query parameter
+$viewStmt->execute([(int)$_GET['id']]);
 $gid = (int)$_GET['id'];
 
 $stmt = $db->prepare("
-  SELECT gid, name, description, platform, price, image, age_restriction
+  SELECT gid, name, description, platform, price, image, age_restriction, view, discount
   FROM games
   WHERE gid = ?
 ");
@@ -38,9 +41,11 @@ $price = "£" . number_format($game['price'], 2);
 <head>
   <title><?= htmlspecialchars($game['name']); ?></title>
   <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/productPage.css">
+  <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
+<link rel="stylesheet" href="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.css">
+<script defer src="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.js"></script>
 </head>
 
-<body>
     <body class="<?php echo $themeClass; ?>">
         <!-- NAVIGATION BAR -->
         <?php require_once __DIR__ . '/components/navbar.php'; ?>
@@ -51,8 +56,19 @@ $price = "£" . number_format($game['price'], 2);
   <h1><?= htmlspecialchars($game['name']); ?></h1>
 
   <p><?= htmlspecialchars($game['description']); ?></p>
+  <p><strong>Views:</strong> <?= htmlspecialchars((string)$game['view']); ?></p>
+  <?php
+    $discount = $game['discount'];
 
-  <h2><?= $price ?></h2>
+    if ($discount > 0) {
+        $discountedPrice = $game['price'] * (1 - $discount / 100);
+        $priceLabel = "£" . number_format($discountedPrice, 2) .
+                      " (was £" . number_format((float)$game['price'], 2) . ")";
+    } else {
+        $priceLabel = "£" . number_format((float)$game['price'], 2);
+    }
+  ?>
+  <p><strong>Price:</strong> <?= htmlspecialchars($priceLabel); ?></p>
 
   <p><strong>Platform:</strong> <?= htmlspecialchars($game['platform']); ?></p>
   <p><strong>Age Rating:</strong> <?= htmlspecialchars($game['age_restriction']); ?></p>
@@ -60,6 +76,7 @@ $price = "£" . number_format($game['price'], 2);
   <form method="post" action="add_to_cart.php">
       <input type="hidden" name="game_id" value="<?= $game['gid']; ?>">
       <button type="submit">Add To Cart</button>
+      <button type="submit">Buy Now</button>
   </form>
 
 </div>
