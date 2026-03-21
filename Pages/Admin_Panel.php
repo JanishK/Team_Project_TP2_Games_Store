@@ -212,18 +212,6 @@ require_once('themes.php');
             </div>
         </section>
 
-        <!-- RESOLVED (placeholder) -->
-        <section id="resolved-messages-table" class="panel">
-            <div class="panel-head">
-                <h2>Previously Resolved Messages</h2>
-            </div>
-
-            <div class="empty-state">
-                <p>This section is currently a placeholder.</p>
-            </div>
-        </section>
-    </main>
-
     <script>
       // Optional: wire up delete buttons later (AJAX)
       document.querySelectorAll('button.btn-danger[data-gid]').forEach(btn => {
