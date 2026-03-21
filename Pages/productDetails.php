@@ -1,15 +1,3 @@
-	#	Name	Type	Collation	Attributes	Null	Default	Comments	Extra	Action
-	1	rid Primary	int		UNSIGNED	No	None		AUTO_INCREMENT	Change Change	Drop Drop	
-More More
-	2	game_id Index	int		UNSIGNED	No	None			Change Change	Drop Drop	
-More More
-	3	user_id Index	int		UNSIGNED	No	None			Change Change	Drop Drop	
-More More
-	4	rating	tinyint		UNSIGNED	No	None			Change Change	Drop Drop	
-More More
-	5	comment	text	utf8mb4_general_ci		Yes	NULL			Change Change	Drop Drop	
-More More
-SELECT * FROM `reviews`
 <?php
 session_start();
 require_once('connectdb.php');
