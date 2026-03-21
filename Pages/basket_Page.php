@@ -156,7 +156,8 @@ if ($isLoggedIn) {
             <h3>Order Summary</h3>
             <p>Total items: <?= (int)$total_items ?></p>
             <p>Total cost: £<?= number_format((float)$total_cost, 2) ?></p>
-            <button class="checkout-btn">Proceed to checkout</button>
+            <button  class="checkout-btn">Proceed to checkout</button>
+            <a href="checkout_Page.php" class="checkout-btn">Proceed to Checkout</a>
         </section>
 
     <?php endif; ?>
