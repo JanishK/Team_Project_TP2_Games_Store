@@ -1,3 +1,15 @@
+	#	Name	Type	Collation	Attributes	Null	Default	Comments	Extra	Action
+	1	rid Primary	int		UNSIGNED	No	None		AUTO_INCREMENT	Change Change	Drop Drop	
+More More
+	2	game_id Index	int		UNSIGNED	No	None			Change Change	Drop Drop	
+More More
+	3	user_id Index	int		UNSIGNED	No	None			Change Change	Drop Drop	
+More More
+	4	rating	tinyint		UNSIGNED	No	None			Change Change	Drop Drop	
+More More
+	5	comment	text	utf8mb4_general_ci		Yes	NULL			Change Change	Drop Drop	
+More More
+SELECT * FROM `reviews`
 <?php
 session_start();
 require_once('connectdb.php');
@@ -22,8 +34,31 @@ $game = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$game) {
     die("Product not found.");
 }
+$reviewsStmt = $db->prepare("SELECT rating, comment FROM reviews WHERE game_id = ?");
+$reviewsStmt->execute([$gid]);
+$reviews = $reviewsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+if (isset($_POST['submitted'])){
+    if (!$logged_in) {
+        header("Location: Login_Page.php");
+        exit();
+    }
+    $rating = $_POST['rating'] ?? null;
+    $comment = $_POST['comment'] ?? '';
+    $user_id = $_SESSION['user_id'] ?? null;
+
+    if ($rating && $user_id) {
+        $insertStmt = $db->prepare("INSERT INTO reviews (game_id, user_id, rating, comment) VALUES (?, ?, ?, ?)");
+        $insertStmt->execute([$gid, $user_id, $rating, $comment]);
+        header("Location: productDetails.php?id=" . $gid);
+        exit();
+    } else {
+        echo "Please provide a rating.";
+    }
+}
 
 $baseUrl = "/Team_Project_TP2_Games_Store/Assets/Game_Images/";
+
 $placeholder = $baseUrl . "PlacerHolder.jpeg";
 
 $filename = trim((string)$game['image']);
@@ -78,8 +113,39 @@ $price = "£" . number_format($game['price'], 2);
       <button type="submit">Add To Cart</button>
       <button type="submit">Buy Now</button>
   </form>
-
+  <div id="reviews-section">
+  <h2>Reviews</h2>
+  <?php if (empty($reviews)): ?>
+    <p>No reviews yet.</p>
+  <?php else: ?>
+    <?php foreach ($reviews as $review): ?>
+      <div class="review">
+        <label>Rating:</label>
+<div class="star-rating">
+  <?php for ($i = 5; $i >= 1; $i--): ?>
+    <input type="radio" id="star<?= $i ?>" name="rating" value="<?= $i ?>" required>
+    <label for="star<?= $i ?>">★</label>
+  <?php endfor; ?>
 </div>
-
+        <p><?= nl2br(htmlspecialchars($review['comment'])); ?></p>
+      </div>
+    <?php endforeach; ?>
+  <?php endif; ?>
+  <div id = "review-form">
+  <form action="submit_review.php" method="post">
+      <input type="hidden" name="game_id" value="<?= $game['gid']; ?>">
+      <div class="star-rating">
+        <?php for ($i = 5; $i >= 1; $i--): ?>
+          <input type="radio" id="star<?= $i ?>" name="rating" value="<?= $i ?>" required>
+          <label for="star<?= $i ?>">★</label>
+          <?php endfor; ?>
+</div>
+      <label for="comment">Comment:</label>
+      <textarea id="comment" name="comment"></textarea>
+      <button type="submit" name="submitted">Submit Review</button>
+  </form>
+  </div>
+</div>
+</div>
 </body>
 </html>
