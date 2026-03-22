@@ -1,0 +1,52 @@
+
+/* === DASHBOARD STRUCTURE & LAYOUT === */
+
+/* Container spacing */
+#dashboard {
+    padding: 1.5rem 2rem;
+}
+
+/* Summary cards grid */
+#dashboard .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Individual card layout */
+#dashboard .card {
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+/* Toolbar layout (search + filters + buttons) */
+#dashboard .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Toolbar input/select spacing */
+#dashboard .toolbar input,
+#dashboard .toolbar select {
+    padding: 0.4rem 0.5rem;
+}
+
+/* Product table layout */
+#dashboard table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+#dashboard th,
+#dashboard td {
+    padding: 0.6rem 0.5rem;
+    text-align: left;
+}
+
+
