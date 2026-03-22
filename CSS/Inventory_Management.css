@@ -50,3 +50,33 @@
 }
 
 
+
+/* === INCOMING ORDERS STRUCTURE & LAYOUT === */
+
+#incoming-orders {
+    padding: 1.5rem 2rem;
+}
+
+/* Table layout */
+#incoming-orders table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+#incoming-orders th,
+#incoming-orders td {
+    padding: 0.7rem 0.6rem;
+    text-align: left;
+}
+
+/* Make long item lists wrap nicely */
+#incoming-orders td:nth-child(4) {
+    max-width: 350px;
+    word-wrap: break-word;
+}
+
+/* Action button cell alignment */
+#incoming-orders td:last-child {
+    white-space: nowrap;
+}
