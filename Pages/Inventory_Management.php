@@ -69,7 +69,7 @@ try {
     <link rel="stylesheet" href="../CSS/style.css">
 
     <!-- NEW: admin panel styles -->
-    <link rel="stylesheet" href="../CSS/admin_panel.css">
+    <link rel="stylesheet" href="../CSS/Inventory_Management.css">
 
     <link rel="icon" type="image/png" href="../Assets/Logo.png">
         <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
@@ -86,9 +86,85 @@ require_once('themes.php');
     <?php require_once __DIR__ . '/components/navbar.php'; ?>
 
     <!-- the code for the main webpage -->
+<div class="container">
     <main>
 
+    <!-- dashboard section -->
+        <section id="dashboard">
+            <h2>Inventory Dashboard</h2>
+
+            <!-- overview of current stock levels -->
+            <p><small>Overview of current stock levels and alerts.</small></p>            
+            <div class="cards">
+                <div class="card">
+                    <h3>Total Products</h3>
+                    <p>128</p>
+                </div>
+                <div class="card">
+                    <h3>Low Stock Items</h3>
+                    <p class="status-low">9</p>
+                </div>
+                <div class="card">
+                    <h3>Out of Stock Items</h3>
+                    <p class="status-out">3</p>
+                </div>
+                <div class="card">
+                    <h3>Incoming Orders</h3>
+                    <p>4</p>
+                </div>
+            </div>
+
+            <!-- stock reports and product filter -->
+            <div class="toolbar">
+                <div>
+                    <button class="stockReportButton">Generate Stock Report</button>
+                </div>
+                <div>
+                    <input type="text" placeholder="Search products...">
+                    <select>
+                        <option value="">Filter by status</option>
+                        <option>In Stock</option>
+                        <option>Low Stock</option>
+                        <option>Out of Stock</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- table to view products stock information -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price (£)</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- placeholder template row -->
+                     <!-- use id's to update cells from database -->
+                    <tr>
+                        <td id=product>[product name]</td>
+                        <td id="category">[category]</td>
+                        <td id="price">[price]</td>
+                        <td id="stock">[stock levels]</td>
+                        <td id="status">
+                            <span class="status-in">In Stock</span>
+                        </td>
+                        <td id="action" class="actions">
+                            <button class="btn-link">Adjust Stock</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+       
+
     </main>
+</div>
 
     <script>
       // Optional: wire up delete buttons later (AJAX)
