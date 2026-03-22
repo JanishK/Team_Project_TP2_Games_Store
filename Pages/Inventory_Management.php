@@ -161,7 +161,36 @@ require_once('themes.php');
             </table>
         </section>
 
-       
+        <!-- Incoming Orders -->
+        <section id="incoming-orders">
+            <h2>Incoming Orders</h2>
+            <p><small>Manage supplier deliveries and restocking.</small></p>
+            <table>
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Supplier</th>
+                    <th>Expected Date</th>
+                    <th>Items</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td id="orderid">[oder id]</td>
+                    <td id="supplier">[supplier]</td>
+                    <td id="date">[date]</td>
+                    <td id="product">[products]</td>
+                    <td id="status">[status]</td>
+                    <td id="action">
+                        <button class="btn-primary">Mark as Received</button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </section>
 
     </main>
 </div>
