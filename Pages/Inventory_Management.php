@@ -144,7 +144,7 @@ require_once('themes.php');
                 </thead>
                 <tbody>
                     <!-- placeholder template row -->
-                     <!-- use id's to update cells from database -->
+                    <!-- use id's to update cells from database -->
                     <tr>
                         <td id=product>[product name]</td>
                         <td id="category">[category]</td>
@@ -177,6 +177,8 @@ require_once('themes.php');
                 </tr>
                 </thead>
                 <tbody>
+                <!-- placeholder template row -->
+                <!-- use id's to update cells from database -->
                 <tr>
                     <td id="orderid">[oder id]</td>
                     <td id="supplier">[supplier]</td>
