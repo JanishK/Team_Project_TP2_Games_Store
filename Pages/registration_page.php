@@ -1,50 +1,43 @@
-<?php 
-  $error_message = '';
-  $success_message = '';
-//if the form has been submitted
-if (isset($_POST['submitted'])){
- #prepare the form input
+<?php
+declare(strict_types=1);
 
-  // connect to the database
-  require_once('connectdb.php');
- 
-  $username=isset($_POST['username'])? trim($_POST['username']):false;
-  $password=isset($_POST['password'])? trim($_POST['password']):false;
-  $password_confirm=isset($_POST['Confirm_password'])? trim($_POST['Confirm_password']):false;
-  $email=isset($_POST['email'])? trim($_POST['email']):false;
-  if (!($username)){
-	$error_message = "Please enter a valid Username!";
-	}
-    elseif(!($password)){
-        $error_message = "Please enter a valid Password!";
-    }
-    elseif(!($password_confirm)){
-        $error_message = "Please confirm your Password!";
-    }
-  elseif (($password !== $password_confirm)) {
-    $error_message = "passwords do not match!";
-  }
-	elseif (!($email)) {
-       $error_message = "Please enter a valid email!";
-    }
-    else{
-    // all is well, proceed to register the user
-    $password_hash = password_hash($password, PASSWORD_DEFAULT);
- try{
-	
-	#register user by inserting the user info 
-	$stat=$db->prepare("insert into users (username, password, email,is_admin) VALUES (?, ?, ?, ?)");
-	$stat->execute(array($username, $password_hash,$email,0));
-	
-	$id=$db->lastInsertId();
-	$success_message = "Congratulations $username! you are now registered. ";  	
-	
- }
- catch (PDOException $ex){
-	$error_message = "Sorry, a database error occurred! <br>";
-	$error_message = "Error details: <em>". $ex->getMessage()."</em>";
- }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+
+require_once('themes.php');
+
+$error_message   = '';
+$success_message = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submitted'])) {
+    require_once('connectdb.php');
+
+    $username         = trim($_POST['username'] ?? '');
+    $password         = trim($_POST['password'] ?? '');
+    $password_confirm = trim($_POST['Confirm_password'] ?? '');
+    $email            = trim($_POST['email'] ?? '');
+
+    if (!$username) {
+        $error_message = "Please enter a valid username.";
+    } elseif (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_message = "Please enter a valid email address.";
+    } elseif (!$password) {
+        $error_message = "Please enter a password.";
+    } elseif (!$password_confirm) {
+        $error_message = "Please confirm your password.";
+    } elseif ($password !== $password_confirm) {
+        $error_message = "Passwords do not match.";
+    } else {
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        try {
+            $stat = $db->prepare("INSERT INTO users (username, password, email, is_admin) VALUES (?, ?, ?, 0)");
+            $stat->execute([$username, $password_hash, $email]);
+            $success_message = "Welcome, $username! Your account has been created. You can now sign in.";
+        } catch (PDOException $ex) {
+            $error_message = "That username or email is already taken. Please try another.";
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -52,42 +45,41 @@ if (isset($_POST['submitted'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="../CSS/style.css">
+    <title>Register | CoreByte</title>
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/style.css">
     <link rel="icon" type="image/png" href="/Team_Project_TP2_Games_Store/Assets/Logo.png">
     <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
-
     <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.css">
     <script defer src="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.js"></script>
 </head>
-<body class="<?php echo $themeClass; ?>">
-     <!-- NAVIGATION BAR (your cb-nav) -->
-      <?php require_once __DIR__ . '/components/navbar.php'; ?>
+<body class="<?= htmlspecialchars($themeClass) ?>">
 
+    <?php require_once __DIR__ . '/components/navbar.php'; ?>
 
     <div class="register-container">
-        <h1>Register Page</h1>
-        <p>Please fill in the form below to create an account.</p>
-        <?php
-        if (!empty($error_message)){
-            echo '<div class="error-message">' . $error_message . '</div>';
-    }
-        if (!empty($success_message)){
-            echo '<div class="success-message">' . $success_message . '</div>';
-        }
-        ?>
+        <h1>Create Account</h1>
+        <p>Fill in the form below to get started.</p>
+
+        <?php if (!empty($error_message)): ?>
+            <div class="error-message"><?= htmlspecialchars($error_message) ?></div>
+        <?php endif; ?>
+        <?php if (!empty($success_message)): ?>
+            <div class="success-message"><?= htmlspecialchars($success_message) ?></div>
+        <?php endif; ?>
+
         <div class="registration-form">
-            <form method = "post" action="registration_page.php">
-	            Email:<input type="email" name="email" placeholder = "Enter Email" required /><br>
-	            Username: <input type="text" name="username" placeholder="Enter username" required /><br>
-	            Password: <input type="password" name="password" placeholder = "Enter password" required /><br>
-                Confirm Password: <input type="password" name="Confirm_password" placeholder="Confirm password" required /><br>
-	        <input type="submit" value="Register" /> 
-	        <input type="hidden" name="submitted" value="true"/> 
+            <form method="post" action="registration_page.php">
+                <input type="email"    name="email"            placeholder="Email address" required>
+                <input type="text"     name="username"         placeholder="Username" required>
+                <input type="password" name="password"         placeholder="Password" required>
+                <input type="password" name="Confirm_password" placeholder="Confirm password" required>
+                <input type="submit"   value="Create Account">
+                <input type="hidden"   name="submitted" value="true">
+            </form>
         </div>
 
-  </form>  
-  <p> Already a user? <a href="login_Page.php">Log in</a>  </p>
+        <p>Already have an account? <a href="Login_Page.php">Sign in</a></p>
     </div>
+
 </body>
 </html>

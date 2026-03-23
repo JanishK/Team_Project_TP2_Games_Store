@@ -1,0 +1,386 @@
+/* checkout.css — CoreByte Checkout & Order Success Pages */
+/* Follows settings.css conventions exactly. No :root re-declarations. */
+
+
+/* ---------------------------------------------------
+    CHECKOUT WRAPPER
+--------------------------------------------------- */
+.checkout-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px 72px;
+}
+
+.checkout-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: color var(--hover-transition);
+}
+
+.checkout-back-link:hover {
+  color: var(--color-primary);
+}
+
+.checkout-title {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  color: var(--color-primary);
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 18px rgba(160, 210, 235, 0.16);
+  margin-bottom: 24px;
+}
+
+
+/* ---------------------------------------------------
+    TWO-COLUMN LAYOUT
+--------------------------------------------------- */
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.85fr;
+  gap: 20px;
+  align-items: start;
+}
+
+
+/* ---------------------------------------------------
+    SHARED CARD  (both columns)
+--------------------------------------------------- */
+.checkout-card {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: rgba(229, 234, 245, 0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 22px 20px;
+  box-shadow: var(--shadow-subtle);
+}
+
+.checkout-section-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-primary);
+  letter-spacing: 0.2px;
+  margin-bottom: 18px;
+}
+
+
+/* ---------------------------------------------------
+    CART ITEMS LIST
+--------------------------------------------------- */
+.checkout-item {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(208, 189, 244, 0.10);
+}
+
+.checkout-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.checkout-item-image img {
+  width: 90px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(208, 189, 244, 0.18);
+  background: rgba(0, 0, 0, 0.20);
+  display: block;
+}
+
+.checkout-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkout-item-name {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--c-ice);
+  line-height: 1.25;
+}
+
+.checkout-item-meta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.checkout-item-price {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--color-primary);
+  white-space: nowrap;
+  text-align: right;
+  align-self: center;
+}
+
+
+/* ---------------------------------------------------
+    PAYMENT FORM  — mirrors .settings-form
+--------------------------------------------------- */
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkout-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  margin-top: 10px;
+}
+
+.checkout-form label:first-child {
+  margin-top: 0;
+}
+
+.checkout-form input[type="text"],
+.checkout-form input[type="email"],
+.checkout-form select {
+  width: 100%;
+  padding: 11px 13px;
+  border-radius: 12px;
+  border: 1px solid rgba(208, 189, 244, 0.22);
+  background: rgba(0, 0, 0, 0.20);
+  color: var(--c-ice);
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  transition:
+    border-color var(--hover-transition),
+    box-shadow   var(--hover-transition);
+}
+
+.checkout-form input::placeholder {
+  color: rgba(229, 234, 245, 0.38);
+}
+
+.checkout-form input:focus,
+.checkout-form select:focus {
+  border-color: rgba(160, 210, 235, 0.55);
+  box-shadow: 0 0 0 3px rgba(160, 210, 235, 0.14);
+}
+
+.checkout-form select {
+  appearance: none;
+  cursor: pointer;
+}
+
+
+/* ---------------------------------------------------
+    ORDER SUMMARY BOX
+--------------------------------------------------- */
+.checkout-summary {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(208, 189, 244, 0.14);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkout-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.checkout-summary-total {
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--color-primary);
+  padding-top: 10px;
+  border-top: 1px solid rgba(208, 189, 244, 0.14);
+  margin-top: 4px;
+}
+
+.checkout-note {
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.5;
+  text-align: center;
+}
+
+
+/* ---------------------------------------------------
+    ORDER SUCCESS / HISTORY CARDS
+    (used in order_success.php and older orders views)
+--------------------------------------------------- */
+.orders-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 72px;
+}
+
+.order-card {
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(229, 234, 245, 0.04);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-subtle);
+  margin-bottom: 16px;
+  transition:
+    border-color var(--hover-transition),
+    box-shadow   var(--hover-transition);
+}
+
+.order-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-strong);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.order-header h3 {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--color-primary);
+}
+
+.order-items {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(208, 189, 244, 0.12);
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(208, 189, 244, 0.08);
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+/* Success banner */
+.success-banner {
+  padding: 14px 16px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid rgba(80, 200, 120, 0.40);
+  background: rgba(80, 200, 120, 0.12);
+  color: #7de87a;
+}
+
+/* Standalone success card (order_success.php) */
+.success-card {
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 32px;
+  border-radius: 22px;
+  background: rgba(229, 234, 245, 0.04);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-strong);
+  text-align: center;
+}
+
+.success-card h1 {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.success-card p {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 8px;
+}
+
+.success-card a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 13px 24px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 900;
+  text-decoration: none;
+  background: var(--color-highlight);
+  color: var(--c-ice);
+  box-shadow: 0 14px 32px rgba(132, 88, 179, 0.35);
+  transition:
+    transform          var(--hover-transition),
+    background-color   var(--hover-transition),
+    box-shadow         var(--hover-transition);
+}
+
+.success-card a:hover {
+  transform: translateY(-2px);
+  background: #9158d6;
+  box-shadow: var(--shadow-strong);
+}
+
+
+/* ---------------------------------------------------
+    RESPONSIVE
+--------------------------------------------------- */
+@media (max-width: 900px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .checkout-wrapper {
+    padding: 20px 14px 56px;
+  }
+
+  .checkout-item {
+    grid-template-columns: 70px 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .checkout-item-image img {
+    width: 70px;
+    height: 88px;
+  }
+
+  .checkout-item-price {
+    grid-column: 2 / 3;
+    text-align: left;
+  }
+
+  .success-card {
+    padding: 28px 20px;
+  }
+}

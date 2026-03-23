@@ -1,82 +1,617 @@
+/* admin-dashboard.css — IMPROVED BUILD */
+/* Styled to match settings.css conventions. All IDs and class names unchanged. */
 
-/* === DASHBOARD STRUCTURE & LAYOUT === */
+@import url(./style.css);
 
-/* Container spacing */
+
+/* ---------------------------------------------------
+    RESET + BASE
+--------------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(1100px 650px at 18% 0%,  rgba(132, 88, 179, 0.22), transparent 60%),
+    radial-gradient(900px  520px at 88% 12%, rgba(160, 210, 235, 0.16), transparent 55%),
+    var(--color-background);
+  color: var(--color-secondary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+
+/* ===================================================
+   DASHBOARD
+=================================================== */
+
 #dashboard {
-    padding: 1.5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 20px 72px;
 }
 
-/* Summary cards grid */
+
+/* ---------------------------------------------------
+    HEADINGS
+--------------------------------------------------- */
+#dashboard h1 {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  margin: 0 0 6px;
+  color: var(--color-primary);
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 18px rgba(160, 210, 235, 0.16);
+}
+
+#dashboard h2 {
+  font-size: 18px;
+  font-weight: 900;
+  margin: 0 0 14px;
+  color: var(--color-primary);
+  letter-spacing: 0.2px;
+}
+
+
+/* ---------------------------------------------------
+    ALERTS  (mirrors .settings-alert)
+--------------------------------------------------- */
+#dashboard .alert {
+  padding: 13px 16px;
+  border-radius: 14px;
+  margin: 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  color: var(--text-muted);
+}
+
+#dashboard .alert.success {
+  border-color: rgba(80, 200, 120, 0.40);
+  background: rgba(80, 200, 120, 0.10);
+  color: #7de87a;
+}
+
+#dashboard .alert.error {
+  border-color: rgba(255, 80, 80, 0.40);
+  background: rgba(255, 80, 80, 0.10);
+  color: #ff8080;
+}
+
+
+/* ---------------------------------------------------
+    SUMMARY CARDS
+--------------------------------------------------- */
 #dashboard .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
 }
 
-/* Individual card layout */
 #dashboard .card {
-    padding: 1rem;
-    border-radius: 8px;
+  padding: 20px 18px;
+  border-radius: 18px;
+  background: rgba(229, 234, 245, 0.04);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition:
+    transform      var(--hover-transition),
+    border-color   var(--hover-transition),
+    box-shadow     var(--hover-transition);
 }
 
-/* Toolbar layout (search + filters + buttons) */
+#dashboard .card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-strong);
+}
+
+#dashboard .card::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c-purple), var(--c-sky));
+  margin-bottom: 6px;
+}
+
+#dashboard .card p,
+#dashboard .card span,
+#dashboard .card small {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+#dashboard .card h3,
+#dashboard .card strong {
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+
+/* ---------------------------------------------------
+    TOOLBAR
+--------------------------------------------------- */
 #dashboard .toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(229, 234, 245, 0.04);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-subtle);
 }
 
-/* Toolbar input/select spacing */
+/* Mirrors .settings-form input */
 #dashboard .toolbar input,
 #dashboard .toolbar select {
-    padding: 0.4rem 0.5rem;
+  padding: 11px 13px;
+  border-radius: 12px;
+  border: 1px solid rgba(208, 189, 244, 0.22);
+  background: rgba(0, 0, 0, 0.20);
+  color: var(--c-ice);
+  font-size: 13px;
+  font-weight: 600;
+  outline: none;
+  transition:
+    border-color var(--hover-transition),
+    box-shadow   var(--hover-transition);
 }
 
-/* Product table layout */
+#dashboard .toolbar input::placeholder {
+  color: rgba(229, 234, 245, 0.38);
+}
+
+#dashboard .toolbar input:focus,
+#dashboard .toolbar select:focus {
+  border-color: rgba(160, 210, 235, 0.55);
+  box-shadow: 0 0 0 3px rgba(160, 210, 235, 0.14);
+}
+
+#dashboard .toolbar select {
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Mirrors .settings-btn.primary */
+#dashboard .toolbar button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(132, 88, 179, 0.45);
+  background: rgba(132, 88, 179, 0.25);
+  color: var(--c-ice);
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    transform          var(--hover-transition),
+    background-color   var(--hover-transition),
+    border-color       var(--hover-transition),
+    box-shadow         var(--hover-transition);
+}
+
+#dashboard .toolbar button:hover {
+  transform: translateY(-2px);
+  background: rgba(132, 88, 179, 0.40);
+  border-color: rgba(132, 88, 179, 0.65);
+  box-shadow: 0 10px 24px rgba(132, 88, 179, 0.28);
+}
+
+#dashboard .toolbar button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+#dashboard .toolbar button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+
+/* ---------------------------------------------------
+    TABLE  (mirrors .orders-table)
+--------------------------------------------------- */
+
+/* Wrap your <table> in a <div class="table-wrapper"> in HTML */
+#dashboard .table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-subtle);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(208, 189, 244, 0.25) transparent;
+}
+
+#dashboard .table-wrapper::-webkit-scrollbar { height: 4px; }
+#dashboard .table-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(208, 189, 244, 0.28);
+  border-radius: 99px;
+}
+
 #dashboard table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+  min-width: 580px;
 }
 
 #dashboard th,
 #dashboard td {
-    padding: 0.6rem 0.5rem;
-    text-align: left;
+  padding: 12px 14px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(208, 189, 244, 0.10);
+}
+
+#dashboard th {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.16);
+}
+
+#dashboard td {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-secondary);
+  vertical-align: middle;
+}
+
+#dashboard tbody tr {
+  transition: background-color var(--hover-transition);
+}
+
+#dashboard tbody tr:hover {
+  background: rgba(229, 234, 245, 0.04);
+}
+
+#dashboard tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Table action buttons — mirrors .settings-btn */
+#dashboard td button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(208, 189, 244, 0.22);
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--c-ice);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform          var(--hover-transition),
+    background-color   var(--hover-transition),
+    border-color       var(--hover-transition),
+    box-shadow         var(--hover-transition);
+}
+
+#dashboard td button:hover {
+  transform: translateY(-1px);
+  background: rgba(229, 234, 245, 0.08);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-subtle);
+}
+
+#dashboard td button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+/* Mirrors .settings-btn.danger */
+#dashboard td button.danger {
+  background: rgba(255, 80, 80, 0.12);
+  border-color: rgba(255, 80, 80, 0.30);
+  color: #ff8080;
+}
+
+#dashboard td button.danger:hover {
+  background: rgba(255, 80, 80, 0.22);
+  border-color: rgba(255, 80, 80, 0.50);
+  box-shadow: 0 10px 24px rgba(255, 80, 80, 0.20);
 }
 
 
+/* ---------------------------------------------------
+    BADGE  (identical to settings.css .badge)
+--------------------------------------------------- */
+#dashboard .badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(208, 189, 244, 0.20);
+  background: rgba(229, 234, 245, 0.06);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
 
-/* === INCOMING ORDERS STRUCTURE & LAYOUT === */
+#dashboard .badge.success {
+  border-color: rgba(80, 200, 120, 0.35);
+  background: rgba(80, 200, 120, 0.10);
+  color: #7de87a;
+}
+
+#dashboard .badge.pending {
+  border-color: rgba(255, 190, 80, 0.35);
+  background: rgba(255, 190, 80, 0.10);
+  color: #ffc94d;
+}
+
+#dashboard .badge.danger {
+  border-color: rgba(255, 80, 80, 0.35);
+  background: rgba(255, 80, 80, 0.10);
+  color: #ff8080;
+}
+
+
+/* ===================================================
+   INCOMING ORDERS
+=================================================== */
 
 #incoming-orders {
-    padding: 1.5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 20px 72px;
 }
 
-/* Table layout */
+#incoming-orders h1 {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  margin: 0 0 6px;
+  color: var(--color-primary);
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 18px rgba(160, 210, 235, 0.16);
+}
+
+#incoming-orders h2 {
+  font-size: 18px;
+  font-weight: 900;
+  margin: 0 0 14px;
+  color: var(--color-primary);
+  letter-spacing: 0.2px;
+}
+
+
+/* ---------------------------------------------------
+    ORDERS TABLE  (mirrors .orders-table exactly)
+--------------------------------------------------- */
+#incoming-orders .table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-subtle);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(208, 189, 244, 0.25) transparent;
+}
+
+#incoming-orders .table-wrapper::-webkit-scrollbar { height: 4px; }
+#incoming-orders .table-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(208, 189, 244, 0.28);
+  border-radius: 99px;
+}
+
 #incoming-orders table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;
+  min-width: 640px;
 }
 
 #incoming-orders th,
 #incoming-orders td {
-    padding: 0.7rem 0.6rem;
-    text-align: left;
+  padding: 12px 14px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(208, 189, 244, 0.10);
 }
 
-/* Make long item lists wrap nicely */
+#incoming-orders th {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.16);
+}
+
+#incoming-orders td {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-secondary);
+  vertical-align: middle;
+}
+
+#incoming-orders tbody tr {
+  transition: background-color var(--hover-transition);
+}
+
+#incoming-orders tbody tr:hover {
+  background: rgba(229, 234, 245, 0.04);
+}
+
+#incoming-orders tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Items list column — allow wrapping */
 #incoming-orders td:nth-child(4) {
-    max-width: 350px;
-    word-wrap: break-word;
+  max-width: 320px;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.55;
 }
 
-/* Action button cell alignment */
+/* Action cell — keep buttons inline */
 #incoming-orders td:last-child {
-    white-space: nowrap;
+  white-space: nowrap;
+}
+
+/* Action buttons — mirrors .settings-btn */
+#incoming-orders td button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(208, 189, 244, 0.22);
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--c-ice);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform          var(--hover-transition),
+    background-color   var(--hover-transition),
+    border-color       var(--hover-transition),
+    box-shadow         var(--hover-transition);
+}
+
+#incoming-orders td button:hover {
+  transform: translateY(-1px);
+  background: rgba(229, 234, 245, 0.08);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-subtle);
+}
+
+#incoming-orders td button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+/* Mirrors .settings-btn with green tint */
+#incoming-orders td button.approve {
+  background: rgba(80, 200, 120, 0.14);
+  border-color: rgba(80, 200, 120, 0.35);
+  color: #7de87a;
+}
+
+#incoming-orders td button.approve:hover {
+  background: rgba(80, 200, 120, 0.24);
+  border-color: rgba(80, 200, 120, 0.55);
+  box-shadow: 0 10px 24px rgba(80, 200, 120, 0.18);
+}
+
+/* Mirrors .settings-btn.danger */
+#incoming-orders td button.reject {
+  background: rgba(255, 80, 80, 0.12);
+  border-color: rgba(255, 80, 80, 0.30);
+  color: #ff8080;
+}
+
+#incoming-orders td button.reject:hover {
+  background: rgba(255, 80, 80, 0.22);
+  border-color: rgba(255, 80, 80, 0.50);
+  box-shadow: 0 10px 24px rgba(255, 80, 80, 0.20);
+}
+
+/* Badge — identical to settings.css */
+#incoming-orders .badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(208, 189, 244, 0.20);
+  background: rgba(229, 234, 245, 0.06);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+#incoming-orders .badge.success {
+  border-color: rgba(80, 200, 120, 0.35);
+  background: rgba(80, 200, 120, 0.10);
+  color: #7de87a;
+}
+
+#incoming-orders .badge.pending {
+  border-color: rgba(255, 190, 80, 0.35);
+  background: rgba(255, 190, 80, 0.10);
+  color: #ffc94d;
+}
+
+#incoming-orders .badge.danger {
+  border-color: rgba(255, 80, 80, 0.35);
+  background: rgba(255, 80, 80, 0.10);
+  color: #ff8080;
+}
+
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media (max-width: 900px) {
+  #dashboard,
+  #incoming-orders {
+    padding: 24px 16px 56px;
+  }
+
+  /* Mirrors settings-actions stacking on mobile */
+  #dashboard .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #dashboard .toolbar input,
+  #dashboard .toolbar select,
+  #dashboard .toolbar button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  #dashboard,
+  #incoming-orders {
+    padding: 20px 14px 48px;
+  }
+
+  #dashboard .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  #dashboard .cards {
+    grid-template-columns: 1fr;
+  }
 }

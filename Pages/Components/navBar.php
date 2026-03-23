@@ -85,7 +85,6 @@ if (isset($_SESSION['username'])) {
             <?php endif; ?>
           </div>
 
-          <a href="<?= $BASE ?>/Pages/basket_Page.php" role="menuitem">Basket </a>
           <a href="<?= $BASE ?>/Pages/basket_Page.php" role="menuitem" class="basket-link">
           Basket
         <?php if ($cartCount > 0): ?>
@@ -98,6 +97,8 @@ if (isset($_SESSION['username'])) {
 
           <?php if ($isAdmin): ?>
             <a href="<?= $BASE ?>/Pages/Admin_Panel.php" role="menuitem" class="admin-item">Admin Panel</a>
+            <a href="<?= $BASE ?>/Pages/Inventory_Management.php" role="menuitem" class="admin-item">Inventory Management</a>
+
           <?php endif; ?>
 
           <a href="<?= $BASE ?>/Pages/logout.php" role="menuitem">Sign out</a>

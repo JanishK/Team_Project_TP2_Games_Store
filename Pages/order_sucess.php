@@ -1,10 +1,16 @@
 <?php
-session_start();
+declare(strict_types=1);
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (empty($_SESSION['order_success'])) {
-    header("Location: basket_Page.php");
+    header("Location: home_Page.php");
     exit();
 }
+
+require_once('themes.php');
 
 $message = $_SESSION['order_success'];
 $orderId = $_SESSION['last_order_id'] ?? null;
@@ -17,65 +23,38 @@ unset($_SESSION['order_success'], $_SESSION['last_order_id']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Successful | CoreByte</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f1117;
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .success-card {
-            width: 90%;
-            max-width: 520px;
-            background: #181c25;
-            border: 1px solid #2b3140;
-            border-radius: 18px;
-            padding: 32px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .success-card h1 {
-            margin-top: 0;
-            margin-bottom: 12px;
-        }
-
-        .success-card p {
-            color: #cfd6e6;
-            line-height: 1.6;
-        }
-
-        .success-card a {
-            display: inline-block;
-            margin-top: 18px;
-            padding: 12px 18px;
-            border-radius: 12px;
-            background: #7c5cff;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .success-card a:hover {
-            background: #6949f0;
-        }
-    </style>
+    <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/CSS/style.css">
+    <link rel="icon" type="image/png" href="/Team_Project_TP2_Games_Store/Assets/Logo.png">
 </head>
-<body>
-    <div class="success-card">
-        <h1>Order Successful</h1>
-        <p><?= htmlspecialchars($message) ?></p>
+<body class="<?= htmlspecialchars($themeClass) ?>">
+
+<?php require_once __DIR__ . '/components/navbar.php'; ?>
+
+<div style="display:flex;align-items:center;justify-content:center;min-height:70vh;padding:20px;">
+    <div class="settings-card" style="max-width:520px;width:100%;text-align:center;padding:40px 32px;">
+        <div style="font-size:56px;margin-bottom:16px;">✅</div>
+
+        <h1 style="color:var(--color-primary);font-size:clamp(22px,3vw,30px);margin-bottom:12px;">
+            Order Placed!
+        </h1>
+
+        <p style="color:var(--text-muted);line-height:1.65;margin-bottom:8px;">
+            <?= htmlspecialchars($message) ?>
+        </p>
 
         <?php if ($orderId): ?>
-            <p>Your order number is <strong>#<?= (int)$orderId ?></strong></p>
+            <p style="color:var(--text-muted);margin-bottom:24px;">
+                Your order number is <strong style="color:var(--color-primary);">#<?= (int)$orderId ?></strong>
+            </p>
         <?php endif; ?>
 
-        <a href="index.php">Continue Shopping</a>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+            <a href="Products_Page.php" class="cta-button">Continue Shopping</a>
+            <a href="settingsPage.php?tab=orders" class="cta-button secondary-cta">View Orders</a>
+            <a href="settingsPage.php?tab=transactions" class="cta-button secondary-cta">View Transactions</a>
+        </div>
     </div>
+</div>
+
 </body>
 </html>

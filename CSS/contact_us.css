@@ -1,186 +1,171 @@
-/* Contact Us page — CoreByte theme matching */
+/* contact_us.css — CoreByte Contact Us Page */
+/* Follows settings.css conventions exactly. No :root re-declarations. */
 
-:root{
-  /* Uses your global theme vars if they exist, otherwise fallbacks */
-  --cb-bg: var(--color-bg, #0b0f19);
-  --cb-surface: var(--color-surface, #0f1626);
-  --cb-surface-2: var(--color-card, #101b2d);
-  --cb-border: var(--color-border, rgba(255,255,255,0.10));
-  --cb-text: var(--color-text, rgba(255,255,255,0.92));
-  --cb-muted: var(--color-muted, rgba(255,255,255,0.65));
-  --cb-primary: var(--color-primary, #8b5cf6);
-  --cb-danger: var(--color-danger, #ef4444);
-  --cb-success: var(--color-success, #22c55e);
 
-  --cb-radius: 16px;
-  --cb-radius-sm: 12px;
+/* ---------------------------------------------------
+    PAGE LAYOUT
+--------------------------------------------------- */
+.contact-container {
+  max-width: 800px;
+  margin: 32px auto 0;
+  padding: 22px 24px;
+  border-radius: 18px;
+  background: rgba(229, 234, 245, 0.04);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-subtle);
 }
 
-/* Page layout */
-main{
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 26px 16px 70px;
+.page-title {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 900;
+  color: var(--color-primary);
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 18px rgba(160, 210, 235, 0.16);
+  margin-bottom: 10px;
 }
 
-/* Head / info section */
-.contact-container{
-  background: rgba(255,255,255,0.02);
-  border: 1px solid var(--cb-border);
-  border-radius: var(--cb-radius);
-  padding: 18px 18px 14px;
-  box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+.upper-section {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 12px;
 }
 
-.page-title{
-  margin: 0 0 10px;
-  font-size: 32px;
-  letter-spacing: 0.2px;
-  color: var(--cb-text);
-}
-
-.upper-section,
-.downer-section{
-  margin: 10px 0 0;
-  color: var(--cb-muted);
-  line-height: 1.6;
+.downer-section {
   font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  line-height: 1.75;
+  padding-top: 14px;
+  border-top: 1px solid rgba(208, 189, 244, 0.14);
 }
 
-.downer-section{
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--cb-border);
+.downer-section strong {
+  color: var(--color-secondary);
 }
 
-/* Form section wrapper */
-.contact-us-section{
-  margin-top: 16px;
-  background: var(--cb-surface);
-  border: 1px solid var(--cb-border);
-  border-radius: var(--cb-radius);
-  padding: 18px;
-  box-shadow: 0 18px 55px rgba(0,0,0,0.35);
+
+/* ---------------------------------------------------
+    FORM SECTION
+--------------------------------------------------- */
+.contact-us-section {
+  max-width: 800px;
+  margin: 16px auto 0;
+  padding: 24px;
+  border-radius: 18px;
+  background: rgba(229, 234, 245, 0.04);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-subtle);
 }
 
-/* Form itself */
-.contact-us-section form{
+/* Form grid — mirrors .settings-form */
+.contact-us-section form {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px 14px;
+  gap: 14px;
 }
 
-/* Labels */
-.contact-us-section label{
+/* Labels — mirrors .settings-form label */
+.contact-us-section label {
   display: block;
-  margin-bottom: 6px;
-  color: var(--cb-text);
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.2px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  line-height: 1.4;
 }
 
-/* Put each field in its own grid cell */
-.contact-us-section form > label,
-.contact-us-section form > input,
-.contact-us-section form > textarea{
-  grid-column: 1 / -1;
-}
-
-/* Make name+email appear side-by-side on desktop */
-@media (min-width: 860px){
-  .contact-us-section form .field-half{
-    grid-column: span 1;
-  }
-}
-
-/* Inputs & textarea */
-.contact-us-section input,
-.contact-us-section textarea{
+/* Inputs — mirrors .settings-form input */
+.contact-us-section input[type="text"],
+.contact-us-section input[type="email"] {
   width: 100%;
-  border-radius: var(--cb-radius-sm);
-  border: 1px solid var(--cb-border);
-  background: rgba(0,0,0,0.20);
-  color: var(--cb-text);
-  padding: 12px 12px;
-  outline: none;
+  padding: 11px 13px;
+  border-radius: 12px;
+  border: 1px solid rgba(208, 189, 244, 0.22);
+  background: rgba(0, 0, 0, 0.20);
+  color: var(--c-ice);
   font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  transition:
+    border-color var(--hover-transition),
+    box-shadow   var(--hover-transition);
+}
+
+.contact-us-section textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border-radius: 12px;
+  border: 1px solid rgba(208, 189, 244, 0.22);
+  background: rgba(0, 0, 0, 0.20);
+  color: var(--c-ice);
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  min-height: 160px;
+  resize: vertical;
+  transition:
+    border-color var(--hover-transition),
+    box-shadow   var(--hover-transition);
 }
 
 .contact-us-section input::placeholder,
-.contact-us-section textarea::placeholder{
-  color: var(--cb-muted);
+.contact-us-section textarea::placeholder {
+  color: rgba(229, 234, 245, 0.38);
 }
 
-.contact-us-section textarea{
-  min-height: 160px;
-  resize: vertical;
-}
-
-/* Focus state */
 .contact-us-section input:focus,
-.contact-us-section textarea:focus{
-  border-color: color-mix(in srgb, var(--cb-primary) 55%, transparent);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--cb-primary) 18%, transparent);
+.contact-us-section textarea:focus {
+  border-color: rgba(160, 210, 235, 0.55);
+  box-shadow: 0 0 0 3px rgba(160, 210, 235, 0.14);
 }
 
-/* Submit button */
-.contact-us-section button[type="submit"]{
-  grid-column: 1 / -1;
+/* Submit button — mirrors .settings-btn.primary */
+.contact-us-section button[type="submit"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-
-  border-radius: 999px;
-  padding: 12px 16px;
+  gap: 7px;
+  padding: 12px 24px;
+  border-radius: 14px;
+  border: 1px solid rgba(132, 88, 179, 0.45);
+  background: rgba(132, 88, 179, 0.25);
+  color: var(--c-ice);
+  font-size: 15px;
+  font-weight: 900;
   cursor: pointer;
-
-  border: 1px solid color-mix(in srgb, var(--cb-primary) 45%, transparent);
-  background: color-mix(in srgb, var(--cb-primary) 22%, transparent);
-  color: var(--cb-text);
-  font-weight: 800;
-  letter-spacing: 0.2px;
-
-  transition: transform 120ms ease, background 120ms ease;
+  transition:
+    transform          var(--hover-transition),
+    background-color   var(--hover-transition),
+    border-color       var(--hover-transition),
+    box-shadow         var(--hover-transition);
 }
 
-.contact-us-section button[type="submit"]:hover{
-  background: color-mix(in srgb, var(--cb-primary) 30%, transparent);
-  transform: translateY(-1px);
+.contact-us-section button[type="submit"]:hover {
+  transform: translateY(-2px);
+  background: rgba(132, 88, 179, 0.40);
+  border-color: rgba(132, 88, 179, 0.65);
+  box-shadow: 0 10px 24px rgba(132, 88, 179, 0.28);
 }
 
-/* Messages (match site) */
-.error-message,
-.success-message{
-  max-width: 1100px;
-  margin: 14px auto;
-  padding: 12px 14px;
-  border-radius: var(--cb-radius-sm);
-  border: 1px solid var(--cb-border);
-  background: rgba(255,255,255,0.03);
-  color: var(--cb-text);
+.contact-us-section button[type="submit"]:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
 }
 
-.error-message{
-  border-color: color-mix(in srgb, var(--cb-danger) 40%, transparent);
-  background: color-mix(in srgb, var(--cb-danger) 14%, transparent);
+.contact-us-section button[type="submit"]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-.success-message{
-  border-color: color-mix(in srgb, var(--cb-success) 40%, transparent);
-  background: color-mix(in srgb, var(--cb-success) 14%, transparent);
-}
 
-/* Footer (light touch; your style.css likely handles it) */
-footer{
-  border-top: 1px solid var(--cb-border);
-  margin-top: 36px;
-}
-
-/* Mobile: single column */
-@media (max-width: 859px){
-  .contact-us-section form{
-    grid-template-columns: 1fr;
+/* ---------------------------------------------------
+    RESPONSIVE
+--------------------------------------------------- */
+@media (max-width: 600px) {
+  .contact-container,
+  .contact-us-section {
+    margin: 16px 14px 0;
+    padding: 18px 16px;
   }
 }

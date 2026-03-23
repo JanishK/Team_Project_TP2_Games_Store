@@ -1,207 +1,401 @@
-:root{
-  --bg: #0b0f19;
-  --card: #0f1626;
-  --border: rgba(255,255,255,0.10);
-  --text: rgba(255,255,255,0.92);
-  --muted: rgba(255,255,255,0.65);
-  --accent: #8b5cf6;
-  --danger: #ef4444;
-  --ok: #22c55e;
+/* admin_panel.css — CoreByte Admin Panel */
+/* Follows settings.css conventions exactly. All class names unchanged. */
+
+
+/* ---------------------------------------------------
+    PAGE WRAPPER
+--------------------------------------------------- */
+.admin-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 36px 20px 72px;
 }
 
-.admin-wrap{
-  max-width: 1100px;
-  margin: 24px auto 60px;
-  padding: 0 16px;
+.admin-header {
+  margin-bottom: 28px;
 }
 
-.admin-header{
-  margin: 10px 0 18px;
+.admin-title {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 900;
+  margin: 0 0 6px;
+  color: var(--color-primary);
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 18px rgba(160, 210, 235, 0.16);
 }
 
-.admin-title{
-  margin: 0;
-  font-size: 28px;
-  color: var(--text);
-}
-
-.admin-subtitle{
-  margin: 6px 0 0;
-  color: var(--muted);
+.admin-subtitle {
   font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
 }
 
-.panel{
-  background: var(--card);
+
+/* ---------------------------------------------------
+    ALERTS  — mirrors .settings-alert
+--------------------------------------------------- */
+.settings-alert {
+  padding: 13px 16px;
+  border-radius: 14px;
+  margin: 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 14px;
-  margin: 14px 0;
+  background: var(--surface-1);
+  color: var(--text-muted);
 }
 
-.panel-head{
-  display:flex;
-  align-items:center;
+.settings-alert.error {
+  border-color: rgba(255, 80, 80, 0.40);
+  background: rgba(255, 80, 80, 0.10);
+  color: #ff8080;
+}
+
+.settings-alert.success {
+  border-color: rgba(80, 200, 120, 0.40);
+  background: rgba(80, 200, 120, 0.10);
+  color: #7de87a;
+}
+
+.alert-error {
+  padding: 13px 16px;
+  border-radius: 14px;
+  margin: 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 80, 80, 0.40);
+  background: rgba(255, 80, 80, 0.10);
+  color: #ff8080;
+}
+
+
+/* ---------------------------------------------------
+    PANEL  (section card)
+--------------------------------------------------- */
+.panel {
+  background: rgba(229, 234, 245, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-subtle);
+  transition: border-color var(--hover-transition);
+}
+
+.panel:hover {
+  border-color: var(--border-strong);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 6px 6px 12px;
+  padding-bottom: 16px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid rgba(208, 189, 244, 0.10);
+  flex-wrap: wrap;
 }
 
-.panel-head h2{
+.panel-head h2 {
+  font-size: 17px;
+  font-weight: 900;
+  color: var(--color-primary);
+  letter-spacing: 0.2px;
   margin: 0;
-  font-size: 18px;
-  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.panel-head-row{
+.panel-head-row {
   align-items: center;
 }
 
-.table-wrap{
+
+/* ---------------------------------------------------
+    TABLE WRAPPER
+--------------------------------------------------- */
+.table-wrap {
+  width: 100%;
   overflow-x: auto;
-  border-radius: 12px;
-  border: 1px solid var(--border);
+  -webkit-overflow-scrolling: touch;
+  border-radius: 14px;
+  border: 1px solid rgba(208, 189, 244, 0.12);
+  margin-top: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(208, 189, 244, 0.20) transparent;
 }
 
-.table{
+.table-wrap::-webkit-scrollbar { height: 4px; }
+.table-wrap::-webkit-scrollbar-thumb {
+  background: rgba(208, 189, 244, 0.22);
+  border-radius: 99px;
+}
+
+
+/* ---------------------------------------------------
+    TABLE
+--------------------------------------------------- */
+.table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 760px;
+  min-width: 640px;
 }
 
-.table thead th{
+.table thead th {
+  padding: 12px 16px;
   text-align: left;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
   text-transform: uppercase;
-  color: var(--muted);
-  padding: 12px 12px;
-  background: rgba(255,255,255,0.03);
-  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(208, 189, 244, 0.10);
 }
 
-.table tbody td{
-  padding: 12px;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-  font-size: 14px;
+.table tbody td {
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-secondary);
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(208, 189, 244, 0.07);
 }
 
-.table tbody tr:hover{
-  background: rgba(255,255,255,0.03);
+.table tbody tr {
+  transition: background-color var(--hover-transition);
 }
 
-/* column sizing (replaces inline styles) */
-.col-uid{ width: 80px; }
-.col-admin{ width: 110px; }
-.col-gid{ width: 80px; }
-.col-platform{ width: 120px; }
-.col-price{ width: 120px; }
-.col-age{ width: 120px; }
-.col-actions{ width: 180px; }
+.table tbody tr:hover {
+  background: rgba(208, 189, 244, 0.04);
+}
 
-.actions{
-  display:flex;
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Column sizing */
+.col-uid      { width: 70px; }
+.col-gid      { width: 70px; }
+.col-admin    { width: 100px; }
+.col-platform { width: 130px; }
+.col-price    { width: 110px; }
+.col-age      { width: 110px; }
+.col-discount { width: 100px; }
+.col-actions  { width: 160px; }
+
+.actions {
+  display: flex;
   gap: 8px;
-  align-items:center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-/* buttons */
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 9px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.03);
-  color: var(--text);
+
+/* ---------------------------------------------------
+    BUTTONS  — mirrors .settings-btn
+--------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(208, 189, 244, 0.22);
+  background: rgba(229, 234, 245, 0.05);
+  color: var(--color-secondary);
+  font-size: 12px;
+  font-weight: 700;
   text-decoration: none;
-  font-size: 14px;
   cursor: pointer;
+  white-space: nowrap;
+  transition:
+    transform          var(--hover-transition),
+    background-color   var(--hover-transition),
+    border-color       var(--hover-transition),
+    box-shadow         var(--hover-transition);
 }
 
-.btn:hover{
-  background: rgba(255,255,255,0.06);
+.btn:hover {
+  transform: translateY(-1px);
+  background: rgba(229, 234, 245, 0.09);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-subtle);
 }
 
-.btn-primary{
-  border-color: rgba(139,92,246,0.45);
-  background: rgba(139,92,246,0.20);
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
 }
 
-.btn-secondary{
-  border-color: rgba(255,255,255,0.14);
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-.btn-danger{
-  border-color: rgba(239,68,68,0.45);
-  background: rgba(239,68,68,0.12);
+/* Primary — mirrors .settings-btn.primary */
+.btn-primary {
+  background: rgba(132, 88, 179, 0.20);
+  border-color: rgba(132, 88, 179, 0.40);
+  color: var(--c-lav);
 }
 
-.btn-ghost{
-  border-color: transparent;
+.btn-primary:hover {
+  background: rgba(132, 88, 179, 0.32);
+  border-color: rgba(132, 88, 179, 0.60);
+  box-shadow: 0 8px 20px rgba(132, 88, 179, 0.22);
+}
+
+/* Secondary (Edit button) */
+.btn-secondary {
+  background: rgba(160, 210, 235, 0.08);
+  border-color: rgba(160, 210, 235, 0.28);
+  color: var(--c-sky);
+}
+
+.btn-secondary:hover {
+  background: rgba(160, 210, 235, 0.16);
+  border-color: rgba(160, 210, 235, 0.45);
+  box-shadow: 0 8px 20px rgba(160, 210, 235, 0.14);
+}
+
+/* Danger (Delete button) — mirrors .settings-btn.danger */
+.btn-danger {
+  background: rgba(255, 80, 80, 0.10);
+  border-color: rgba(255, 80, 80, 0.28);
+  color: #ff8080;
+}
+
+.btn-danger:hover {
+  background: rgba(255, 80, 80, 0.20);
+  border-color: rgba(255, 80, 80, 0.48);
+  box-shadow: 0 8px 20px rgba(255, 80, 80, 0.18);
+}
+
+.btn-ghost {
   background: transparent;
-  color: var(--muted);
-  padding-left: 0;
+  border-color: transparent;
+  color: var(--text-muted);
 }
 
-/* badges */
-.badge{
-  display:inline-flex;
+.btn-ghost:hover {
+  background: rgba(229, 234, 245, 0.06);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+
+/* ---------------------------------------------------
+    BADGES  — mirrors .badge from settings.css
+--------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
   padding: 4px 10px;
   border-radius: 999px;
-  font-size: 12px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.03);
-  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  border: 1px solid rgba(208, 189, 244, 0.20);
+  background: rgba(229, 234, 245, 0.06);
+  color: var(--text-muted);
 }
 
-.badge-yes{
-  border-color: rgba(34,197,94,0.45);
-  background: rgba(34,197,94,0.14);
-  color: rgba(255,255,255,0.92);
+/* Admin = Yes (green) */
+.badge-yes {
+  border-color: rgba(80, 200, 120, 0.38);
+  background: rgba(80, 200, 120, 0.10);
+  color: #7de87a;
 }
 
-.badge-no{
-  border-color: rgba(239,68,68,0.35);
-  background: rgba(239,68,68,0.10);
-  color: rgba(255,255,255,0.92);
+/* Admin = No (subtle) */
+.badge-no {
+  border-color: rgba(208, 189, 244, 0.18);
+  background: rgba(208, 189, 244, 0.05);
+  color: var(--text-muted);
 }
 
-/* alerts */
-.alert{
-  border-radius: 14px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  margin: 12px 0;
-  color: var(--text);
-  background: rgba(255,255,255,0.03);
+/* Count badge next to section heading */
+.panel-head h2 .badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  background: rgba(208, 189, 244, 0.10);
+  border-color: rgba(208, 189, 244, 0.22);
+  color: var(--color-accent);
 }
 
-.alert-error{
-  border-color: rgba(239,68,68,0.35);
-  background: rgba(239,68,68,0.10);
+
+/* ---------------------------------------------------
+    MESSAGES TABLE  — wrapping text cells
+--------------------------------------------------- */
+#resolved-messages-table .table td {
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.55;
 }
 
-.nav-icon{
-  width: 22px;
-  height: 22px;
+#resolved-messages-table form {
+  margin: 0;
 }
 
-/* empty sections */
-.empty-state{
-  padding: 10px 6px 6px;
-  color: var(--muted);
+
+/* ---------------------------------------------------
+    EMPTY STATE
+--------------------------------------------------- */
+.empty-state {
+  padding: 24px 16px;
+  color: var(--text-muted);
   font-size: 14px;
+  font-weight: 600;
+  text-align: center;
 }
 
-.section {
-  margin: 18px 0;
 
+/* ---------------------------------------------------
+    RESPONSIVE
+--------------------------------------------------- */
+@media (max-width: 900px) {
+  .admin-wrap {
+    padding: 24px 16px 56px;
+  }
+
+  .panel-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .panel-head .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
-#resolve-butotn {
-  margin-top: 8px;
-  
+@media (max-width: 600px) {
+  .admin-wrap {
+    padding: 18px 12px 48px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
