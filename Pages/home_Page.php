@@ -70,48 +70,6 @@ $imgDir = __DIR__ . "/../Assets/Game_Images/";
     <script src="/Team_Project_TP2_Games_Store/JS/app.js" defer></script>
     <link rel="stylesheet" href="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.css">
     <script defer src="/Team_Project_TP2_Games_Store/Assets/ChatBot/chatbot.js"></script>
-    <style>
-        /* ---- Order success toast ---- */
-        .toast-success {
-            position: fixed;
-            bottom: 28px;
-            right: 24px;
-            z-index: 999999;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 20px;
-            border-radius: 16px;
-            background: rgba(80, 200, 120, 0.18);
-            border: 1px solid rgba(80, 200, 120, 0.45);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.45);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            max-width: 380px;
-            animation: toastIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
-        }
-        .toast-success__icon { font-size: 22px; flex-shrink: 0; }
-        .toast-success__text { font-size: 14px; font-weight: 700; color: #7de87a; line-height: 1.45; }
-        .toast-success__close {
-            margin-left: auto;
-            background: none;
-            border: none;
-            color: rgba(125,232,122,0.65);
-            font-size: 18px;
-            cursor: pointer;
-            padding: 2px 6px;
-            border-radius: 6px;
-            flex-shrink: 0;
-        }
-        @keyframes toastIn {
-            from { opacity:0; transform: translateY(20px) scale(0.95); }
-            to   { opacity:1; transform: translateY(0)    scale(1); }
-        }
-        @keyframes toastOut {
-            to { opacity:0; transform: translateY(20px) scale(0.95); }
-        }
-        .toast-success.hiding { animation: toastOut 0.25s ease forwards; }
-    </style>
 </head>
 <body class="<?= htmlspecialchars($themeClass) ?>">
 
@@ -253,39 +211,8 @@ $imgDir = __DIR__ . "/../Assets/Game_Images/";
 </section>
 
 <!-- FOOTER -->
-<footer>
-    <div class="footer-box">
-        <div class="footer-header">
-            <h3>CoreByte</h3>
-            <p>Your go-to store for digital games and instant downloads.</p>
-        </div>
-        <div class="footer-columns">
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="home_Page.php">Home</a></li>
-                    <li><a href="Products_Page.php">Products</a></li>
-                    <li><a href="aboutUs_Page.php">About</a></li>
-                    <li><a href="contactUs_Page.php">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Support</h3>
-                <ul>
-                    <li><a href="contactUs_Page.php">FAQ</a></li>
-                    <li><a href="contactUs_Page.php">Customer Service</a></li>
-                    <li><a href="contactUs_Page.php">Refund Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Follow Us</h3>
-                <p>Instagram / TikTok / YouTube</p>
-                <p style="font-size:13px;opacity:.7;">@CoreByteStore</p>
-            </div>
-        </div>
-        <p class="copyright">© 2025 CoreByte. All rights reserved.</p>
-    </div>
-</footer>
+<?php require_once __DIR__ . '/components/footer.php'; ?>
+
 
 </body>
 </html>

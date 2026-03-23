@@ -193,6 +193,9 @@ function js($v): string {
     </div>
 </div>
 
+<!-- FOOTER -->
+<?php require_once __DIR__ . '/components/footer.php'; ?>
+
 <script>
 function applyFilters() {
     const search   = document.getElementById('searchInput').value.toLowerCase();
