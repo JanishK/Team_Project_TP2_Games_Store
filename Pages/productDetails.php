@@ -48,7 +48,7 @@ $reviewsStmt = $db->prepare("
     FROM reviews r
     LEFT JOIN users u ON r.user_id = u.uid
     WHERE r.game_id = ?
-    ORDER BY r.review_id DESC
+    ORDER BY r.rid DESC
 ");
 $reviewsStmt->execute([$gid]);
 $reviews = $reviewsStmt->fetchAll(PDO::FETCH_ASSOC);

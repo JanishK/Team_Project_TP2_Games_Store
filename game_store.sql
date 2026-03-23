@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2026 at 11:17 PM
+-- Generation Time: Mar 23, 2026 at 02:45 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -88,7 +88,7 @@ INSERT INTO `games` (`gid`, `name`, `description`, `platform`, `price`, `image`,
 (9, 'Spider-Man 2 Standard PlayStation 5', 'Swing into action with Spider-Man 2 on PlayStation 5! Join Peter Parker and Miles Morales as they face new villains, navigate the streets of New York City, and protect the city in an all-new, action-packed adventure.\r\n\r\nExperience thrilling web-slinging, fast-paced combat, and breathtaking visuals powered by the PS5. With a dynamic open-world, intuitive controls, and immersive storytelling, Spider-Man 2 delivers a superhero experience like no other.\r\n\r\nKey Features:\r\n\r\nPlay as both Peter Parker and Miles Morales\r\n\r\nDynamic open-world exploration of New York City\r\n\r\nIntense combat, acrobatic moves, and web-based traversal\r\n\r\nStunning PS5 graphics with fast loading times\r\n\r\nEngaging story with new villains and epic missions', 'Playstation', 29.99, 'spiderman.jpeg', '16', 0, 0, 8),
 (10, 'God of War Ragnarök [PlayStation 5]', 'Step into the epic conclusion of Kratos and Atreus’ journey in God of War Ragnarök for PlayStation 5. Explore the realms of Norse mythology, battle formidable gods and monsters, and experience an emotionally charged story that pushes the boundaries of action-adventure gaming.\r\n\r\nWith stunning next-gen visuals, fast loading times, and fluid combat mechanics, Ragnarök delivers a cinematic experience full of strategic battles, exploration, and deep narrative choices. Whether wielding the Leviathan Axe, Blades of Chaos, or magical abilities, every fight is visceral and satisfying.\r\n\r\nKey Features:\r\n\r\nEpic story continuing the journey of Kratos and Atreus\r\n\r\nStunning PS5 graphics with enhanced performance\r\n\r\nIntense combat with multiple weapons, abilities, and upgrades\r\n\r\nExploration across the realms of Norse mythology\r\n\r\nDeep narrative, cinematic storytelling, and side quests', 'Playstation', 39.72, 'God_of_War_Ragnarök_cover.jpg', '18+', 0, 70, 20),
 (11, 'The Last Of Us Part II (Remastered) PS5', 'Experience the critically acclaimed, emotionally powerful story of The Last of Us Part II, now fully remastered for PlayStation 5. Join Ellie as she navigates a post-apocalyptic world filled with danger, tough choices, and hauntingly beautiful environments.\r\n\r\nThe PS5 remaster enhances visuals, improves performance, and reduces loading times, delivering a more immersive experience than ever. Engage in tense stealth gameplay, intense combat, and explore a world that is as captivating as it is brutal.\r\n\r\nKey Features:\r\n\r\nFully remastered for PS5 with enhanced graphics and performance\r\n\r\nImmersive storytelling with rich, emotionally driven characters\r\n\r\nIntense stealth and combat mechanics\r\n\r\nExplore a detailed, post-apocalyptic world\r\n\r\nFast loading times and optimized gameplay for next-gen consoles', 'Playstation', 21.49, 'The Last Of Us Part II (Remastered) PS5.jpg', '18+', 2, 35, 18),
-(13, 'Gran Turismo 7 (PS5)', 'Experience the pinnacle of racing simulation with Gran Turismo 7 on PlayStation 5. Featuring stunning next-gen graphics, realistic physics, and a massive collection of cars and tracks, GT7 delivers the ultimate driving experience for casual players and racing enthusiasts alike.\r\n\r\nRace across iconic locations around the world, customize and tune your vehicles, and take part in a variety of modes, from high-speed single-player campaigns to competitive online racing. The PS5 edition also benefits from fast loading times, immersive 3D audio, and enhanced haptic feedback for unparalleled realism.\r\n\r\nKey Features:\r\n\r\nRealistic driving physics and stunning PS5 visuals\r\n\r\nExtensive car collection with detailed customization options\r\n\r\nIconic tracks and dynamic weather conditions\r\n\r\nSingle-player campaigns, multiplayer, and online competitions\r\n\r\nEnhanced performance with fast loading times and immersive feedback', 'Playstation', 29.99, 'Gran turismo.jpeg', '8', 9, 0, 0),
+(13, 'Gran Turismo 7 (PS5)', 'Experience the pinnacle of racing simulation with Gran Turismo 7 on PlayStation 5. Featuring stunning next-gen graphics, realistic physics, and a massive collection of cars and tracks, GT7 delivers the ultimate driving experience for casual players and racing enthusiasts alike.\r\n\r\nRace across iconic locations around the world, customize and tune your vehicles, and take part in a variety of modes, from high-speed single-player campaigns to competitive online racing. The PS5 edition also benefits from fast loading times, immersive 3D audio, and enhanced haptic feedback for unparalleled realism.\r\n\r\nKey Features:\r\n\r\nRealistic driving physics and stunning PS5 visuals\r\n\r\nExtensive car collection with detailed customization options\r\n\r\nIconic tracks and dynamic weather conditions\r\n\r\nSingle-player campaigns, multiplayer, and online competitions\r\n\r\nEnhanced performance with fast loading times and immersive feedback', 'Playstation', 29.99, 'Gran turismo.jpeg', '8', 11, 0, 0),
 (14, 'Elden Ring Xbox One & Xbox Series X', 'Step into a vast, dark fantasy world with Elden Ring, the critically acclaimed action RPG from FromSoftware. Explore an open-world filled with breathtaking landscapes, dangerous dungeons, and formidable enemies as you uncover the secrets of the Lands Between.\r\n\r\nMaster challenging combat, customize your character, and choose your path in a world that rewards exploration, strategy, and skill. Whether playing solo or online with others, Elden Ring delivers a deeply immersive experience with endless challenges and discovery.\r\n\r\nKey Features:\r\n\r\nOpen-world action RPG with rich lore and exploration\r\n\r\nChallenging combat and deep customization options\r\n\r\nPlay on Xbox One or take advantage of Xbox Series X enhancements\r\n\r\nExplore dungeons, defeat bosses, and uncover hidden secrets\r\n\r\nSolo or online multiplayer modes for cooperative or competitive play', 'Xbox', 21.99, 'Elden_Ring.jpg', '16', 122, 25, 22);
 
 -- --------------------------------------------------------
@@ -166,6 +166,54 @@ INSERT INTO `genres` (`genre_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'Completed',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `user_id`, `username`, `full_name`, `email`, `payment_method`, `total_amount`, `status`, `created_at`) VALUES
+(1, 19, 'JanishK', 'JanishK', 'janishkuk@gmail.com', 'Card', 42.98, 'Completed', '2026-03-23 01:12:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `order_item_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `game_id` int(11) NOT NULL,
+  `game_name` varchar(255) NOT NULL,
+  `unit_price` decimal(10,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `line_total` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`order_item_id`, `order_id`, `game_id`, `game_name`, `unit_price`, `quantity`, `line_total`) VALUES
+(1, 1, 11, 'The Last Of Us Part II (Remastered) PS5', 21.49, 2, 42.98);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `reviews`
 --
 
@@ -187,6 +235,29 @@ INSERT INTO `reviews` (`rid`, `game_id`, `user_id`, `rating`, `comment`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `transaction_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `transaction_status` varchar(50) NOT NULL DEFAULT 'Successful',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`transaction_id`, `order_id`, `user_id`, `payment_method`, `amount`, `transaction_status`, `created_at`) VALUES
+(1, 1, 19, 'Card', 42.98, 'Successful', '2026-03-23 01:12:40');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -204,7 +275,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`uid`, `username`, `password`, `email`, `is_admin`) VALUES
 (1, 'Abdirahman', '$2y$10$djQcGlK671HiEpEImC7HhO0E5LbqJ8Ut0l0g452OSvTvYlHNXvBRK', 'tahlilabdurahman@gmail.com', 1),
-(18, 'JanishK', '$2y$10$vakmrRxQb5VCKGGIddn7weTvX/uvrU7IBvWIBspLQ2nJk8UuXIPz2', 'janishkuk@gmail.com', 0);
+(19, 'JanishK', '$2y$10$NMJ1N6s7IWDF5AbIEXxboOviF/R2s3fwxrXCgITmAkk5qtV27xliK', 'janishkuk@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -229,7 +300,7 @@ CREATE TABLE `user_settings` (
 --
 
 INSERT INTO `user_settings` (`username`, `display_name`, `theme`, `email_notifications`, `marketing_emails`, `currency`, `language`, `updated_at`, `profile_image`) VALUES
-('JanishK', NULL, 'light', 1, 0, 'GBP', 'en', '2026-02-02 16:11:36', NULL);
+('JanishK', NULL, 'dark', 1, 0, 'GBP', 'en', '2026-03-22 23:54:51', NULL);
 
 --
 -- Indexes for dumped tables
@@ -271,12 +342,30 @@ ALTER TABLE `genres`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`order_item_id`);
+
+--
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`rid`),
   ADD KEY `game_id` (`game_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`transaction_id`);
 
 --
 -- Indexes for table `users`
@@ -300,7 +389,7 @@ ALTER TABLE `user_settings`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cart_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `contact_us`
@@ -321,16 +410,34 @@ ALTER TABLE `genres`
   MODIFY `genre_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
   MODIFY `rid` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables

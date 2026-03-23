@@ -143,7 +143,7 @@ try {
                         <td>
                             <a class="settings-btn primary"
                                href="edit_game.php?gid=<?= urlencode((string)$game['gid']) ?>">Edit</a>
-                            <button class="settings-btn danger"
+                            <button class="settings-btn-danger"
                                     data-gid="<?= htmlspecialchars((string)$game['gid']) ?>">
                                 Delete
                             </button>
@@ -183,7 +183,7 @@ try {
                         <td>
                             <form method="post">
                                 <input type="hidden" name="delete_id" value="<?= (int)$msg['cid'] ?>">
-                                <button type="submit" class="settings-btn primary">Resolve</button>
+                                <button type="submit" class=" resolve-btn">Resolve</button>
                             </form>
                         </td>
                     </tr>

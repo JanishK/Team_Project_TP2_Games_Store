@@ -351,13 +351,13 @@
   box-shadow: 0 10px 24px rgba(132, 88, 179, 0.28);
 }
 
-.settings-btn.danger {
+.settings-btn .danger {
   background: rgba(255, 80, 80, 0.12);
   border-color: rgba(255, 80, 80, 0.30);
   color: #ff8080;
 }
 
-.settings-btn.danger:hover {
+.settings-btn .danger:hover {
   background: rgba(255, 80, 80, 0.22);
   border-color: rgba(255, 80, 80, 0.50);
   box-shadow: 0 10px 24px rgba(255, 80, 80, 0.20);

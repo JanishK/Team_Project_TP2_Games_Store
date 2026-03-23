@@ -270,13 +270,13 @@
 }
 
 /* Danger (Delete button) — mirrors .settings-btn.danger */
-.btn-danger {
+.settings-btn-danger{
   background: rgba(255, 80, 80, 0.10);
   border-color: rgba(255, 80, 80, 0.28);
   color: #ff8080;
 }
 
-.btn-danger:hover {
+.settings-btn-danger:hover {
   background: rgba(255, 80, 80, 0.20);
   border-color: rgba(255, 80, 80, 0.48);
   box-shadow: 0 8px 20px rgba(255, 80, 80, 0.18);
@@ -363,6 +363,11 @@
 }
 
 
+.resolve-btn {
+  background: rgba(132, 88, 179, 0.20);
+  border-color: rgba(132, 88, 179, 0.40);
+  color: var(--c-lav);
+}
 /* ---------------------------------------------------
     RESPONSIVE
 --------------------------------------------------- */
