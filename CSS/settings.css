@@ -9,6 +9,7 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 32px 20px 72px;
+  box-sizing: border-box;
 }
 
 .settings-header {
@@ -71,7 +72,7 @@
 --------------------------------------------------- */
 .settings-grid {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 260px minmax(0, 1fr);
   gap: 18px;
   align-items: start;
 }
@@ -111,8 +112,8 @@
   border: 1px solid transparent;
   transition:
     background-color var(--hover-transition),
-    border-color     var(--hover-transition),
-    color            var(--hover-transition);
+    border-color var(--hover-transition),
+    color var(--hover-transition);
 }
 
 .settings-nav a:hover {
@@ -133,7 +134,9 @@
     CARDS
 --------------------------------------------------- */
 .settings-card {
-  width: 100%;                   /* FIX: was hardcoded 800px — breaks mobile */
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   height: fit-content;
   border: 1px solid var(--border);
   background: rgba(229, 234, 245, 0.04);
@@ -143,6 +146,8 @@
   padding: 22px 20px;
   box-shadow: var(--shadow-subtle);
   transition: border-color var(--hover-transition);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .settings-card + .settings-card {
@@ -176,7 +181,7 @@
 
 .settings-row {
   display: grid;
-  grid-template-columns: 110px 1fr;
+  grid-template-columns: 110px minmax(0, 1fr);
   gap: 8px;
   align-items: center;
 }
@@ -189,10 +194,12 @@
 }
 
 .settings-form input[type="text"],
+.settings-form input[type="email"],
 .settings-form input[type="password"],
 .settings-form input[type="file"],
 .settings-form select {
-  width: 100%;                   /* FIX: was 80% — looked misaligned */
+  width: 100%;
+  min-width: 0;
   border-radius: 12px;
   padding: 11px 13px;
   border: 1px solid rgba(208, 189, 244, 0.22);
@@ -201,9 +208,10 @@
   font-size: 14px;
   font-weight: 600;
   outline: none;
+  box-sizing: border-box;
   transition:
     border-color var(--hover-transition),
-    box-shadow   var(--hover-transition);
+    box-shadow var(--hover-transition);
 }
 
 .settings-form input[type="file"] {
@@ -250,8 +258,8 @@
   cursor: pointer;
   transition:
     background-color var(--hover-transition),
-    border-color     var(--hover-transition),
-    color            var(--hover-transition);
+    border-color var(--hover-transition),
+    color var(--hover-transition);
 }
 
 .settings-toggles label:hover {
@@ -296,6 +304,7 @@
 .settings-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
   border: 1px solid rgba(208, 189, 244, 0.22);
   background: rgba(0, 0, 0, 0.18);
@@ -305,11 +314,12 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 700;
+  text-decoration: none;
   transition:
-    transform          var(--hover-transition),
-    background-color   var(--hover-transition),
-    border-color       var(--hover-transition),
-    box-shadow         var(--hover-transition);
+    transform var(--hover-transition),
+    background-color var(--hover-transition),
+    border-color var(--hover-transition),
+    box-shadow var(--hover-transition);
 }
 
 .settings-btn:hover {
@@ -355,26 +365,37 @@
 
 
 /* ---------------------------------------------------
+    TABLE WRAPPER
+--------------------------------------------------- */
+.table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+
+/* ---------------------------------------------------
     ORDERS TABLE
 --------------------------------------------------- */
 .orders-table {
   width: 100%;
+  min-width: 720px;
   border-collapse: collapse;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid var(--border);
   font-size: 13px;
-  /* Allow horizontal scroll on small screens */
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .orders-table th,
 .orders-table td {
-  padding: 12px 14px;
+  padding: 14px 16px;
   text-align: left;
-  white-space: nowrap;          /* prevents ugly wrapping in narrow cells */
+  white-space: nowrap;
   border-bottom: 1px solid rgba(208, 189, 244, 0.10);
 }
 
@@ -411,7 +432,8 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  justify-content: center;
+  padding: 6px 12px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
@@ -421,7 +443,6 @@
   white-space: nowrap;
 }
 
-/* Common badge colour variants */
 .badge.success {
   border-color: rgba(80, 200, 120, 0.35);
   background: rgba(80, 200, 120, 0.10);
@@ -454,7 +475,6 @@
     top: 0;
   }
 
-  /* Sidebar nav becomes horizontal scrolling pills on tablet */
   .settings-nav {
     flex-direction: row;
     flex-wrap: nowrap;
@@ -476,11 +496,12 @@
   }
 
   .settings-row {
-    grid-template-columns: 1fr;  /* label above input on small screens */
+    grid-template-columns: 1fr;
   }
 
   .settings-card {
     padding: 18px 14px;
+    border-radius: 16px;
   }
 
   .settings-actions {
@@ -489,12 +510,20 @@
 
   .settings-btn {
     width: 100%;
-    justify-content: center;
   }
 
   .profile-row {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .orders-table {
+    min-width: 640px;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    padding: 12px 14px;
   }
 }
 
@@ -502,5 +531,37 @@
   .settings-header {
     flex-direction: column;
     gap: 6px;
+  }
+
+  .settings-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .settings-card {
+    padding: 16px 12px;
+  }
+
+  .settings-title {
+    font-size: 34px;
+  }
+
+  .settings-subtitle {
+    font-size: 13px;
+  }
+
+  .orders-table {
+    min-width: 600px;
+    font-size: 12px;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    padding: 11px 12px;
+  }
+
+  .badge {
+    padding: 5px 10px;
+    font-size: 11px;
   }
 }
